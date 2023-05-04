@@ -5,6 +5,7 @@ import Category from "./components/Category";
 import Product from "./components/Products/Products";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import DetaiProduct from "./components/DetaiProduct/DetaiProduct";
 import AppContext from "./utils/context";
 
 function App() {
@@ -15,7 +16,8 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/category/:id" element={<Category />} />
-                    <Route path="/product/:id" element={<Product />} />
+                    <Route path="/product/" element={<Product />} />
+                    <Route path="/product/:id" element={<DetaiProduct />} />
                 </Routes>
                 <Footer />
             </AppContext>

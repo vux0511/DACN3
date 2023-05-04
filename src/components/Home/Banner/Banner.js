@@ -7,7 +7,9 @@ function Bannner() {
             <div className="content">
                 <div className="text-content">
                     <h1>JORDAN DIOR</h1>
-                    <div className="shopnow-btn">Shop Now</div>
+                    <div className="shopnow-btn">
+                        <a href="/product">Shop Now</a>
+                    </div>
                 </div>
                 <img
                     className="bannner-img"

@@ -1,5 +1,25 @@
 @import "../../scss/styles.scss";
 
-.container-home {
-    min-height: 2000px;
+.sec-heading {
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding-left: 170px;
+    padding-top: 50px;
+    @include md {
+        margin-bottom: 35px;
+        font-size: 24px;
+    }
+    &:after {
+        content: "";
+        display: block;
+        margin-top: 5px;
+        width: 100px;
+        height: 3px;
+        background-color: #8e2de2;
+        @include md {
+            margin-top: 10px;
+        }
+    }
 }

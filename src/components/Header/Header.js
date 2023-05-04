@@ -25,18 +25,25 @@ function Header() {
     }, [totalCart]);
 
     useEffect(() => {
-        console.log("Giỏ hàng có : ", totalCart);
+        // console.log("Giỏ hàng có : ", totalCart);
     }, [totalCart]);
 
     return (
         <header className={`main-header ${scrolled ? "sticky-header" : ""}`}>
             <div className="header-content">
-                <div className="left">VUXSTORE.</div>
+                <div className="left">
+                    <a href="/">VUXSTORE.</a>
+                </div>
                 <ul className="center">
-                    <li>Home</li>
-                    <li>Product</li>
-                    <li>Contact</li>
-                    <li>About</li>
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    <li>
+                        <a href="/product">Product</a>
+                    </li>
+                    <li>
+                        <a href="/about">About</a>
+                    </li>
                 </ul>
                 <div className="right">
                     <div className="search">

@@ -1,10 +1,13 @@
 import "./Product.scss";
 // import "./test.scss";
-import ProductImg from "../../../assets/product/earbuds-prod-1.webp";
 import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
-import { CgHello } from "react-icons/cg";
 
 function Product() {
+    // const [cart, setCart] = useState(0);
+    // const handlerAddCart = () => {
+    //     setCart((prew) => prew + 1);
+    // };
+
     return (
         <div className="product">
             <div className="thumbnail">

@@ -10,6 +10,7 @@
     min-height: 60px;
     text-align: center;
     padding-top: 15px;
+    text-decoration: none;
 
     @include md {
         padding: 0 40px;
@@ -32,6 +33,9 @@
             cursor: pointer;
             font-style: 34px;
             left: 50%;
+            a {
+                color: #333;
+            }
         }
 
         .center {
@@ -46,6 +50,9 @@
                 font-weight: 600;
                 text-transform: uppercase;
                 cursor: pointer;
+                a {
+                    color: #333;
+                }
             }
         }
 
