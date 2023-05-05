@@ -3,7 +3,7 @@
 .category-main-content {
     margin: 30px 0;
     @include md {
-        margin: 75px 0;
+        // margin: 75px 0;
     }
     .layout {
         max-width: calc(100% - 20px);
@@ -12,4 +12,110 @@
             // max-width: 1200px;
         }
     }
+}
+
+.category {
+    padding-left: 170px;
+    // padding-bottom: 20px;
+
+    button {
+        font-size: 16px;
+        background-color: rgb(234, 237, 236);
+        color: #333;
+        border-radius: 60px;
+        outline: none;
+        padding: 6px 12px;
+        margin-right: 7px;
+        min-width: 70px;
+        cursor: pointer;
+        border: 1.5px solid rgb(234, 237, 236);
+
+        &:hover {
+            background-color: rgb(207, 208, 208);
+            border: 1.5px solid rgb(163, 164, 164);
+        }
+    }
+    .all-prod {
+        font-weight: 600;
+    }
+    .sort {
+        float: right;
+        margin-right: 170px;
+    }
+}
+
+button.active {
+    border: 1.5px solid rgb(163, 164, 164);
+    font-weight: 600;
+}
+
+.nav {
+    display: block;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.nav li {
+    display: inline-block;
+    list-style: none;
+}
+
+.nav .button-dropdown {
+    position: relative;
+}
+
+.nav li a {
+    display: block;
+    color: #333;
+    background-color: #fff;
+    padding: 6px 12px;
+    text-decoration: none;
+}
+
+.nav li a span {
+    display: inline-block;
+    margin-left: 5px;
+    color: #999;
+}
+
+.nav li a:hover,
+.nav li a.dropdown-toggle.active {
+    background-color: rgb(227, 227, 227);
+}
+
+.nav li a:hover span,
+.nav li a.dropdown-toggle.active span {
+    color: #fff;
+}
+
+.nav li .dropdown-menu {
+    display: none;
+    position: absolute;
+    left: 0;
+    padding: 0;
+    margin: 0;
+    margin-top: 3px;
+    text-align: left;
+}
+
+.nav li .dropdown-menu.active {
+    display: block;
+}
+
+.nav li .dropdown-menu a {
+    min-width: 280px;
+}
+
+a.dropdown-toggle.sort-by {
+    // border: 1px solid red;
+    cursor: pointer;
+    border: 1.5px solid rgb(234, 237, 236);
+    font-size: 16px;
+    background-color: rgb(234, 237, 236);
+    color: #333;
+    border-radius: 60px;
+    min-width: 70px;
+    padding: 6px 12px;
 }

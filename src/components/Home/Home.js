@@ -6,7 +6,7 @@ function Home() {
         <div className="container-home">
             <div className="layout">
                 <Bannner />
-                <Products tittle_header={"SẢN PHẨM NỔI BẬT"} />
+                <Products tittle_header={"SẢN PHẨM NỔI BẬT"} category={false} />
             </div>
         </div>
     );

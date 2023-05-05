@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
 // import Footer from "~/components/Layout/DefaultLayout/Footer";
-import Category from "./components/Category";
+import Category from "./components/Category/Category";
 import Product from "./components/Products/Products";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
@@ -15,7 +15,7 @@ function App() {
                 <Header />
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/category/:id" element={<Category />} />
+                    {/* <Route path="/category/:id" element={<Category />} /> */}
                     <Route path="/product/" element={<Product />} />
                     <Route path="/product/:id" element={<DetaiProduct />} />
                 </Routes>
