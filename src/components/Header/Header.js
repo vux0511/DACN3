@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 function Header() {
     const [scrolled, setScrolled] = useState(false);
     const [totalCart, setTotalCart] = useState(1);
+    const [user, setUser] = useState(false);
+
     const handleScroll = () => {
         const offset = window.scrollY;
         if (offset > 200) {
@@ -19,14 +21,13 @@ function Header() {
         }
     };
 
-    // Cart
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
     }, [totalCart]);
 
-    useEffect(() => {
-        // console.log("Giỏ hàng có : ", totalCart);
-    }, [totalCart]);
+    // useEffect(() => {
+
+    // }, []);
 
     return (
         <header className={`main-header ${scrolled ? "sticky-header" : ""}`}>
@@ -59,7 +60,10 @@ function Header() {
                         <CgShoppingCart />
                         <span>{totalCart}</span>
                     </span>
-                    <FiUser />
+                    <span className="account">
+                        <FiUser className="icon-account" />{" "}
+                        {user ? "Hi Vux." : "Account"}
+                    </span>
                 </div>
             </div>
         </header>

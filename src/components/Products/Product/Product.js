@@ -1,5 +1,4 @@
 import "./Product.scss";
-// import "./test.scss";
 import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
 
 function Product() {

@@ -1,5 +1,4 @@
 import "./Category.scss";
-import Products from "../Products/Products";
 import { useState } from "react";
 
 import $ from "jquery";
