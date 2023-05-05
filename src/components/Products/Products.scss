@@ -22,3 +22,39 @@
         }
     }
 }
+
+.category {
+    padding-left: 170px;
+    padding-bottom: 20px;
+
+    button {
+        font-size: 16px;
+        background-color: rgb(234, 237, 236);
+        color: #333;
+        border-radius: 60px;
+        border: none;
+        outline: none;
+        padding: 6px 12px;
+        margin-right: 7px;
+        min-width: 70px;
+        cursor: pointer;
+        border: 1.5px solid rgb(234, 237, 236);
+
+        &:hover {
+            background-color: rgb(207, 208, 208);
+            border: 1.5px solid rgb(163, 164, 164);
+        }
+    }
+    .all-prod {
+        font-weight: 600;
+    }
+    .sort {
+        float: right;
+        margin-right: 170px;
+    }
+}
+
+button.unclicked.clicked {
+    border: 1.5px solid rgb(163, 164, 164);
+    font-weight: 600;
+}
