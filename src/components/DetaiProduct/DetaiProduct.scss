@@ -75,11 +75,12 @@ img {
     background-color: #f6f6f6;
     cursor: pointer;
     border-radius: 30px;
-    width: 120px;
+    width: 140px;
     font-weight: 600;
-    &:focus {
-        border: 1.3px solid #a6a6a6;
-    }
+}
+
+select:focus-visible {
+    outline: none;
 }
 
 .single-product h4 {
@@ -88,18 +89,6 @@ img {
     font-size: 22px;
     font-weight: bold;
 }
-
-// .single-product input {
-//     width: 50px;
-//     height: 40px;
-//     padding-left: 10px;
-//     font-size: 20px;
-//     margin-right: 10px;
-//     border: 1px solid #333;
-//     &:focus {
-//         outline: none;
-//     }
-// }
 
 a,
 p {
@@ -110,14 +99,14 @@ p {
 .btn {
     height: 42px;
     display: inline-block;
-    background-color: #023d28;
+    background-color: rgb(246, 95, 1);
     color: #fff;
     padding: 8px 30px;
     margin: 20px 0;
     border-radius: 30px;
     transition: background 0.5;
     margin-right: 20px;
-    width: 170px;
+    width: 190px;
     text-align: center;
     font-weight: 600;
     &:hover {
@@ -126,9 +115,9 @@ p {
 }
 
 .buy-now {
-    color: #023d28;
-    background: transparent;
-    border: 1.7px solid #023d28;
+    color: #fff;
+    background-color: rgb(246, 95, 1);
+    border: 1.7px solid rgb(246, 95, 1);
 }
 
 .margin_top {
@@ -198,11 +187,12 @@ p {
 
 .size-quantity {
     display: flex;
+    font-size: 13px;
 }
 
 .style-about-quantity {
     font-weight: 700;
-    color: #ed8d45;
+    color: rgb(246, 95, 1);
 }
 
 .delivery {
@@ -213,6 +203,15 @@ p {
     color: #333;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    h3 {
+        font-size: 15px;
+        color: #333;
+        // font-weight: normal;
+    }
+    p {
+        font-size: 15px;
+        color: #333;
+    }
 }
 
 .d1 {
@@ -224,5 +223,14 @@ p {
 }
 
 .icon-ship {
-    color: #ed8d45;
+    color: rgb(246, 95, 1);
+    font-size: 18px;
+    font-weight: 600;
+    margin-right: 7px;
+}
+
+.add-to-cart {
+    color: rgb(246, 95, 1);
+    border: 1.7px solid rgb(246, 95, 1);
+    background-color: transparent;
 }

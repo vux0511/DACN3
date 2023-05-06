@@ -4,6 +4,8 @@
     width: calc(50% - 5px);
     margin-bottom: 20px;
     // margin-top: 20px;
+    border-radius: 10px;
+
     @include md {
         padding: 5px;
         width: calc(25% - 15px);
@@ -36,21 +38,24 @@
             white-space: nowrap;
             overflow: hidden;
             overflow: hidden;
+
             @include md {
-                font-size: 18px;
+                font-size: 16px;
                 margin-bottom: 2px;
             }
         }
+
         .product-bottom {
             .price-star {
                 .star {
                     color: rgb(246, 95, 1);
-                    font-size: 16px;
+                    font-size: 15px;
                 }
                 .price {
-                    font-size: 8px;
+                    font-size: 9px;
+                    font-weight: 700;
                     @include md {
-                        font-size: 16px;
+                        font-size: 13px;
                         margin-bottom: 2px;
                         float: right;
                     }
@@ -63,12 +68,15 @@
                     border-radius: 50px;
                     width: 120px;
                     height: 35px;
-                    border: 1.5px solid #333;
-                    font-size: 15px;
+                    border: 1.5px solid rgb(246, 95, 1);
+                    color: #555;
+                    font-size: 13px;
+                    font-weight: 600;
                     &:hover {
                         color: #fff;
                         cursor: pointer;
-                        background-color: rgb(2, 61, 40);
+                        background-color: rgb(246, 95, 1);
+                        transition: all ease 0.3s;
                     }
                 }
             }

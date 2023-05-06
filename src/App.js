@@ -9,6 +9,7 @@ import DetaiProduct from "./components/DetaiProduct/DetaiProduct";
 import AppContext from "./utils/context";
 import Cart from "./components/Cart/Cart";
 import Payment from "./components/Payment/Payment";
+import Login from "./components/Login/Login";
 
 import { useState } from "react";
 
@@ -34,6 +35,7 @@ function App() {
                     <Route path="/product/:id" element={<DetaiProduct />} />
                     <Route path="/cart/" element={<Cart />} />
                     <Route path="/payment/" element={<Payment />} />
+                    <Route path="/login/" element={<Login />} />
                 </Routes>
                 <Footer />
             </AppContext>

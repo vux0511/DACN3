@@ -140,10 +140,10 @@ function DetaiProduct() {
                             trong kho hàng!
                         </p>
                         <hr className="tag-hr hr1" />
-                        <a href="" className="btn">
+                        <a href="/payment" className="btn buy-now">
                             Mua Ngay
                         </a>
-                        <a href="" className="btn buy-now">
+                        <a href="" className="btn buy-now add-to-cart">
                             Thêm Giỏ Hàng
                         </a>
                         <div className="delivery">

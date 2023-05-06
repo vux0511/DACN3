@@ -13,9 +13,6 @@ function Newsletter() {
                     <input type="text" placeholder="Nhập Email của bạn ..." />
                     <button>Đăng Ký</button>
                 </div>
-                <div className="text">
-                    Đồng ý với tất cả các điều khoản của chúng tôi!
-                </div>
                 <div className="social-icon">
                     <div className="icon">
                         <BsFacebook />
