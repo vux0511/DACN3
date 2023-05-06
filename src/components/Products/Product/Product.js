@@ -1,11 +1,15 @@
 import "./Product.scss";
 import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
 
-function Product() {
+function Product({ setCartCount, cartCount }) {
     // const [cart, setCart] = useState(0);
     // const handlerAddCart = () => {
     //     setCart((prew) => prew + 1);
     // };
+    console.log(cartCount);
+    const setCount = () => {
+        setCartCount((prew) => cartCount + 1);
+    };
 
     return (
         <div className="product">
@@ -30,7 +34,7 @@ function Product() {
                             <span className="price">2,069,000₫</span>
                         </div>
                         <div className="add-cart-btn">
-                            <button>Thêm giỏ hàng</button>
+                            <button onClick={setCount}>Thêm giỏ hàng</button>
                         </div>
                     </div>
                 </div>

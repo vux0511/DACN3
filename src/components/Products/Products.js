@@ -3,15 +3,18 @@ import Product from "./Product/Product";
 import Category from "../Category/Category";
 import { useState, useRef, useEffect } from "react";
 
-function Products({ tittle_header, category }) {
-    console.log(category);
+function Products({ tittle_header, category, setCartCount, cartCount }) {
+    // console.log(setCartCount);
     return (
         <>
             <h3 className="sec-heading">{tittle_header}</h3>
             <Category />
             <div className="products-container">
                 <div className="card-products">
-                    <Product />
+                    <Product
+                        setCartCount={setCartCount}
+                        cartCount={cartCount}
+                    />
                     <Product />
                     <Product />
                     <Product />

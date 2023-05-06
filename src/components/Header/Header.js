@@ -7,10 +7,10 @@ import Cart from "~/components/Cart/Cart";
 import "./Header.scss";
 import { useEffect, useState } from "react";
 
-function Header() {
+function Header({ cartCount }) {
     const [scrolled, setScrolled] = useState(false);
-    const [totalCart, setTotalCart] = useState(1);
-    const [user, setUser] = useState(false);
+    // const [totalCart, setTotalCart] = useState(1);
+    const [user, setUser] = useState(true);
 
     const handleScroll = () => {
         const offset = window.scrollY;
@@ -23,7 +23,7 @@ function Header() {
 
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
-    }, [totalCart]);
+    }, []);
 
     // useEffect(() => {
 
@@ -56,14 +56,28 @@ function Header() {
                             <TbSearch />
                         </button>
                     </div>
-                    <span className="cart-icon">
-                        <CgShoppingCart />
-                        <span>{totalCart}</span>
-                    </span>
-                    <span className="account">
-                        <FiUser className="icon-account" />{" "}
-                        {user ? "Hi Vux." : "Account"}
-                    </span>
+                    {user ? (
+                        <a href="/cart">
+                            <span className="cart-icon">
+                                <CgShoppingCart />
+                                <span>{cartCount}</span>
+                            </span>
+                        </a>
+                    ) : (
+                        <a href="/login">
+                            <span className="cart-icon">
+                                <CgShoppingCart />
+                                <span>{cartCount}</span>
+                            </span>
+                        </a>
+                    )}
+
+                    <a href="/login">
+                        <span className="account">
+                            <FiUser className="icon-account" />{" "}
+                            {user ? "Hi Vux." : "Account"}
+                        </span>
+                    </a>
                 </div>
             </div>
         </header>
