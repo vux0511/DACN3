@@ -8,11 +8,12 @@ import Footer from "./components/Footer/Footer";
 import DetaiProduct from "./components/DetaiProduct/DetaiProduct";
 import AppContext from "./utils/context";
 import Cart from "./components/Cart/Cart";
+import Payment from "./components/Payment/Payment";
 
 import { useState } from "react";
 
 function App() {
-    const [cartCount, setCartCount] = useState(0);
+    const [cartCount, setCartCount] = useState(1);
 
     return (
         <BrowserRouter>
@@ -32,6 +33,7 @@ function App() {
                     <Route path="/product/" element={<Product />} />
                     <Route path="/product/:id" element={<DetaiProduct />} />
                     <Route path="/cart/" element={<Cart />} />
+                    <Route path="/payment/" element={<Payment />} />
                 </Routes>
                 <Footer />
             </AppContext>

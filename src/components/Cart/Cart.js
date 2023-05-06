@@ -1,7 +1,23 @@
 import "./Cart.scss";
-// import '../../assets/product/'
+import { useState } from "react";
+import { MdOutlineClear } from "react-icons/md";
 
 function Cart() {
+    const [quantityCart, setQuantityCart] = useState(1);
+    const [isDisable, setDisable] = useState(true);
+
+    const handleTru = () => {
+        setQuantityCart((prew) => quantityCart - 1);
+        if (quantityCart === 2) {
+            setQuantityCart(1);
+            setDisable(true);
+        }
+    };
+
+    const handleCong = () => {
+        setQuantityCart((prew) => quantityCart + 1);
+        setDisable(false);
+    };
     return (
         <div>
             <div className="small-container cart-page">
@@ -10,8 +26,10 @@ function Cart() {
                     <tr>
                         <th>Sản Phẩm</th>
                         <th>Số Lượng</th>
-                        <th>Giá</th>
+                        <th className="th_price">Giá</th>
+                        <th className="delete">Xoá</th>
                     </tr>
+                    {/* Product */}
                     <tr>
                         <td>
                             <div className="cart-info">
@@ -20,17 +38,114 @@ function Cart() {
                                     alt=""
                                 />
                                 <div>
-                                    <p>Nike Court Vision Low</p>
-                                    <div className="small">2.000.000đ</div>
-                                    <a href="">Xoá</a>
+                                    <p>Nike Air Force 1 React</p>
+                                    <div className="small">2,981,299₫</div>
                                 </div>
                             </div>
                         </td>
-
-                        <td>
-                            <input type="number" value={1} />
+                        <td className="css__input">
+                            <span>
+                                <button
+                                    className="tru"
+                                    onClick={handleTru}
+                                    disabled={isDisable}
+                                >
+                                    -
+                                </button>
+                                <input
+                                    type="text"
+                                    value={quantityCart}
+                                    className="input__cart"
+                                />
+                                <button className="cong" onClick={handleCong}>
+                                    +
+                                </button>
+                            </span>
                         </td>
-                        <td>2.000.000đ</td>
+                        <td className="price">2.000.000đ</td>
+                        <td>
+                            <a href="">
+                                <MdOutlineClear />
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div className="cart-info">
+                                <img
+                                    src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/d5410b82-214b-4628-a06f-e0753795782f/air-huarache-craft-shoes-Xf0QhN.png"
+                                    alt=""
+                                />
+                                <div>
+                                    <p>Nike Air Huarache Craft</p>
+                                    <div className="small">2,680,299₫</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td className="css__input">
+                            <span>
+                                <button
+                                    className="tru"
+                                    onClick={handleTru}
+                                    disabled={isDisable}
+                                >
+                                    -
+                                </button>
+                                <input
+                                    type="text"
+                                    value={quantityCart}
+                                    className="input__cart"
+                                />
+                                <button className="cong" onClick={handleCong}>
+                                    +
+                                </button>
+                            </span>
+                        </td>
+                        <td className="price">2.000.000đ</td>
+                        <td>
+                            <a href="">
+                                <MdOutlineClear />
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div className="cart-info">
+                                <img
+                                    src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/34daf410-4fec-46c4-8ce4-47721a8b66f9/af-1-shadow-shoes-MjtPWr.png"
+                                    alt=""
+                                />
+                                <div>
+                                    <p>Nike AF-1 Shadow</p>
+                                    <div className="small">3,254,649₫</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td className="css__input">
+                            <span>
+                                <button
+                                    className="tru"
+                                    onClick={handleTru}
+                                    disabled={isDisable}
+                                >
+                                    -
+                                </button>
+                                <input
+                                    type="text"
+                                    value={quantityCart}
+                                    className="input__cart"
+                                />
+                                <button className="cong" onClick={handleCong}>
+                                    +
+                                </button>
+                            </span>
+                        </td>
+                        <td className="price">2.000.000đ</td>
+                        <td>
+                            <a href="">
+                                <MdOutlineClear />
+                            </a>
+                        </td>
                     </tr>
                 </table>
                 <div className="total-price">
@@ -42,7 +157,9 @@ function Cart() {
                         <tr>
                             <td></td>
                             <td>
-                                <button>Đặt Hàng</button>
+                                <a href="/payment">
+                                    <button>Đặt Hàng</button>
+                                </a>
                             </td>
                         </tr>
                     </table>
