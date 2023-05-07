@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
-// import Footer from "~/components/Layout/DefaultLayout/Footer";
 import Category from "./components/Category/Category";
 import Product from "./components/Products/Products";
 import Header from "./components/Header/Header";
@@ -10,6 +9,8 @@ import AppContext from "./utils/context";
 import Cart from "./components/Cart/Cart";
 import Payment from "./components/Payment/Payment";
 import Login from "./components/Login/Login";
+import Register from "./components/Register/Register";
+import About from "./components/About/About";
 
 import { useState } from "react";
 
@@ -36,6 +37,8 @@ function App() {
                     <Route path="/cart/" element={<Cart />} />
                     <Route path="/payment/" element={<Payment />} />
                     <Route path="/login/" element={<Login />} />
+                    <Route path="/register/" element={<Register />} />
+                    <Route path="/about/" element={<About />} />
                 </Routes>
                 <Footer />
             </AppContext>

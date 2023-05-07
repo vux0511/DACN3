@@ -9,7 +9,7 @@ function Login() {
                 <button className="login-social">
                     <FcGoogle className="login-social-icon" />
                     <span className="login-social-text">
-                        Đăng Nhập Với Google
+                        Đăng Nhập Với Tài Khoản Google
                     </span>
                 </button>
                 <div className="login-or">
@@ -23,7 +23,7 @@ function Login() {
                         type="text"
                         id="username"
                         className="login-input"
-                        placeholder="Tài khoản của bạn"
+                        placeholder="Nhập tài khoản..."
                     />
 
                     <label htmlFor="password" className="login-label">
@@ -33,15 +33,15 @@ function Login() {
                         type="text"
                         id="password"
                         className="login-input"
-                        placeholder="Tài khoản của bạn"
+                        placeholder="Nhập mật khẩu..."
                     />
                     <button className="login-submit">Đăng Nhập</button>
                 </form>
                 <p className="login-resetpass">
-                    <span>Đăng ký tài khoản ? </span>
-                    <a href="register" className="register-link">
+                    <span>Bạn chưa có tài khoản ? </span>
+                    <a href="/register" className="register-link">
                         {" "}
-                        Tại đây
+                        Đăng ký
                     </a>
                 </p>
             </div>

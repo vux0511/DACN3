@@ -1,11 +1,11 @@
-.login-container {
+.register-container {
     background-color: #f2f3f5;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 
-    .login {
+    .register {
         margin-top: 40px;
         margin-bottom: 50px;
         padding: 27px 32px;
@@ -14,7 +14,7 @@
         max-width: 470px;
         border-radius: 20px;
 
-        .login-heading {
+        .register-heading {
             font-size: 25px;
             font-weight: bold;
             color: #373941;
@@ -23,7 +23,7 @@
             margin-top: 15px;
         }
 
-        .login-social {
+        .register-social {
             // font-family: "Poppins", sans-serif;
             padding: 10px;
             border-radius: 10px;
@@ -42,7 +42,7 @@
             outline: none;
             box-shadow: 0 5px 10px 0 rgba(76, 111, 244, 0.5);
 
-            .login-social-icon {
+            .register-social-icon {
                 width: 40px;
                 height: 40px;
                 border-radius: 10px;
@@ -54,20 +54,20 @@
                 background-color: #fff;
             }
 
-            .login-social-text {
+            .register-social-text {
                 display: block;
                 margin: 0 auto;
             }
         }
 
-        .login-or {
+        .register-or {
             text-align: center;
             font-size: 16px;
             color: #666;
             margin: 15px auto;
         }
 
-        .login-label {
+        .register-label {
             font-size: 16px;
             color: #373941;
             display: inline-block;
@@ -75,7 +75,7 @@
             cursor: pointer;
         }
 
-        .login-input {
+        .register-input {
             display: block;
             width: 100%;
             height: 55px;
@@ -88,11 +88,11 @@
             margin-bottom: 15px;
         }
 
-        .login-input::-webkit-input-placeholder {
+        .register-input::-webkit-input-placeholder {
             color: #b4bac0;
         }
 
-        .login-submit {
+        .register-submit {
             font-weight: 600;
             cursor: pointer;
             box-shadow: 0 5px 10px 0 rgba(130, 201, 30, 0.5);
@@ -109,7 +109,7 @@
             margin-top: 25px;
             margin-bottom: 20px;
         }
-        .login-resetpass {
+        .register-resetpass {
             text-align: center;
             font-size: 16px;
             color: #666;
