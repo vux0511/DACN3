@@ -68,42 +68,44 @@ function Category() {
                     >
                         Converse
                     </button>
-                    <div className="sort">
-                        <ul className="nav">
-                            <li className="button-dropdown">
-                                <a
-                                    href="javascript:void(0)"
-                                    className="dropdown-toggle sort-by"
-                                >
-                                    Sắp Xếp <FiChevronDown />
-                                </a>
-                                <ul className="dropdown-menu">
-                                    <li>
-                                        <a href="">Giá thấp đến cao</a>
-                                    </li>
-                                    <li>
-                                        <a href="">Giá cao đến thấp</a>
-                                    </li>
-                                    <li>
-                                        <a href="">Dưới 500.000đ</a>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            Khoảng 500.000đ - 1.000.000đ
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            Khoảng 1.000.000đ - 2.000.000đ
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="">Trên 2.000.000đ</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
+                    <button className="btn-sort">
+                        <div className="sort">
+                            <ul className="nav">
+                                <li className="button-dropdown">
+                                    <a
+                                        href="javascript:void(0)"
+                                        className="dropdown-toggle sort-by"
+                                    >
+                                        Sắp Xếp <FiChevronDown />
+                                    </a>
+                                    <ul className="dropdown-menu">
+                                        <li>
+                                            <a href="">Giá thấp đến cao</a>
+                                        </li>
+                                        <li>
+                                            <a href="">Giá cao đến thấp</a>
+                                        </li>
+                                        <li>
+                                            <a href="">Dưới 500.000đ</a>
+                                        </li>
+                                        <li>
+                                            <a href="">
+                                                Khoảng 500.000đ - 1.000.000đ
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="">
+                                                Khoảng 1.000.000đ - 2.000.000đ
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="">Trên 2.000.000đ</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </button>
                 </div>
             </div>
         </div>

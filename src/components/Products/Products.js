@@ -3,18 +3,14 @@ import Product from "./Product/Product";
 import Category from "../Category/Category";
 import { useState, useRef, useEffect } from "react";
 
-function Products({ tittle_header, category, setCartCount, cartCount }) {
-    // console.log(setCartCount);
+function Products({ headingText }) {
     return (
-        <>
-            <h3 className="sec-heading">{tittle_header}</h3>
-            <Category />
-            <div className="products-container">
-                <div className="card-products">
-                    <Product
-                        setCartCount={setCartCount}
-                        cartCount={cartCount}
-                    />
+        <div className="products-container">
+            <div className="layout">
+                <div className="sec-heading">{headingText}</div>
+                <Category />
+                <div className="products">
+                    <Product />
                     <Product />
                     <Product />
                     <Product />
@@ -24,7 +20,7 @@ function Products({ tittle_header, category, setCartCount, cartCount }) {
                     <Product />
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 

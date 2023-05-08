@@ -25,10 +25,6 @@ function Header({ cartCount }) {
         window.addEventListener("scroll", handleScroll);
     }, []);
 
-    // useEffect(() => {
-
-    // }, []);
-
     return (
         <header className={`main-header ${scrolled ? "sticky-header" : ""}`}>
             <div className="header-content">
