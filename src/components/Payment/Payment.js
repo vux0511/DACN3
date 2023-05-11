@@ -1,8 +1,11 @@
 import { MdOutlinePayment } from "react-icons/md";
 
+import Popup from "../Popup/Popup";
+import { useState } from "react";
 import "./Payment.scss";
 
 function Payment() {
+    const [buttonPopup, setButtonPopup] = useState(false);
     return (
         <div>
             <div className="main-content">
@@ -16,7 +19,9 @@ function Payment() {
                     <div className="row-payment">
                         <div className="col-2 col-left">
                             <div className="payment-title">
-                                <h3>Thông tin khách hàng</h3>
+                                <h3>
+                                    <u>Thông tin khách hàng</u>
+                                </h3>
                             </div>
                             <form action="#" className="payment-form">
                                 <label
@@ -88,9 +93,24 @@ function Payment() {
                                     />
                                     <label for="shipCod"> Ship COD</label>
                                 </div>
-                                <button className="payment-submit">
+                                <button
+                                    onClick={() => setButtonPopup(true)}
+                                    className="payment-submit"
+                                >
                                     Đặt Hàng
                                 </button>
+                                <Popup
+                                    trigger={buttonPopup}
+                                    setTrigger={setButtonPopup}
+                                >
+                                    <h3 className="title-thanks">
+                                        Thành Công!
+                                    </h3>
+                                    <p className="decs-thanks">
+                                        Đặt hàng thành công!
+                                    </p>
+                                    <p>Cảm ơn bạn đã đặt hàng!</p>
+                                </Popup>
                             </form>
                         </div>
                         <div className="col-2 col-right">
