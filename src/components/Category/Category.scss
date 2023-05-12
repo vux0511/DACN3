@@ -107,23 +107,24 @@
         margin: 0;
     }
 
-    .active,
-    .button1,
-    .button2,
-    .button3,
-    .button4,
-    .button5,
-    .button6 {
-        margin: 0px 0;
-        margin-right: 0px;
-        @include md {
-            margin: 0px 0;
-            margin-right: 0px;
-        }
-    }
+    // .active,
+    // .button1,
+    // .button2,
+    // .button3,
+    // .button4,
+    // .button5,
+    // .button6 {
+    //     margin: 0px 0;
+    //     margin-right: 0px;
+    //     @include md {
+    //         margin: 0px 0;
+    //         margin-right: 0px;
+    //     }
+    // }
 }
 
-button#allCategory {
-    margin-bottom: 10px;
-    margin-right: 10px;
+.category {
+    button + button {
+        margin-bottom: 10px;
+    }
 }

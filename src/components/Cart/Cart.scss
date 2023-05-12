@@ -93,6 +93,7 @@ td {
             color: #fff;
             width: 120px;
             border: none;
+            margin-bottom: 40px;
             &:hover {
                 opacity: 0.8;
                 transition: all ease 0.3;
@@ -133,7 +134,7 @@ tr:last-child {
     width: 10%;
 }
 .th_product {
-    width: 50%;
+    width: 40%;
 }
 .th_quantity {
     width: 30%;
@@ -141,8 +142,8 @@ tr:last-child {
 .tru {
     background-color: transparent;
     font-size: 16px;
-    width: 28px;
-    height: 33px;
+    width: 20px;
+    height: 30px;
     border: none;
     border-top: 0.5px solid #969696;
     border-left: 0.5px solid #969696;
@@ -157,8 +158,8 @@ tr:last-child {
 .input__cart {
     background-color: transparent;
     font-size: 16px;
-    width: 28px;
-    height: 33px;
+    width: 20px;
+    height: 30px;
     border: none;
     border-top: 0.5px solid #969696;
     border-bottom: 0.5px solid #969696;
@@ -176,8 +177,8 @@ tr:last-child {
 .cong {
     background-color: transparent;
     font-size: 16px;
-    width: 28px;
-    height: 33px;
+    width: 20px;
+    height: 30px;
     border: none;
     border-top: 0.5px solid #969696;
     border-right: 0.5px solid #969696;
@@ -199,4 +200,8 @@ p {
     @include md {
         font-size: 16px;
     }
+}
+
+.name-product-cart {
+    text-align: left;
 }

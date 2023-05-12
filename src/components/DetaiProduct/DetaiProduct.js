@@ -94,12 +94,10 @@ function DetaiProduct() {
                             doubling the branding and exaggerating the midsole,
                             it highlights AF-1 DNA with a bold, new look.
                         </p>
-                        <hr className="tag-hr hr1" />
                         <h4 className="price">2,069,000₫</h4>
                         <p className="about-product about1">
                             Sản phẩm ở VuxStore có giá tốt nhất thị trường
                         </p>
-                        <hr className="tag-hr hr1" />
                         <div className="size-quantity">
                             <span>
                                 <select name="" id="" className="select">
@@ -139,13 +137,14 @@ function DetaiProduct() {
                             </span>{" "}
                             trong kho hàng!
                         </p>
-                        <hr className="tag-hr hr1" />
-                        <a href="/payment" className="btn buy-now">
-                            Mua Ngay
-                        </a>
-                        <a href="" className="btn buy-now add-to-cart">
-                            Thêm Giỏ Hàng
-                        </a>
+                        <div className="buy-btn">
+                            <a href="/payment" className="btn buy-now">
+                                Mua Ngay
+                            </a>
+                            <a href="" className="btn buy-now add-to-cart">
+                                Thêm Giỏ Hàng
+                            </a>
+                        </div>
                         <div className="delivery">
                             <h3>
                                 <FaShippingFast className="icon-ship" /> Free

@@ -38,7 +38,9 @@ function Cart() {
                                     alt=""
                                 />
                                 <div>
-                                    <p>Nike Air Force 1</p>
+                                    <p className="name-product-cart">
+                                        Nike Air Force 1
+                                    </p>
                                     <div className="small">2,981,299₫</div>
                                 </div>
                             </div>
@@ -77,7 +79,9 @@ function Cart() {
                                     alt=""
                                 />
                                 <div>
-                                    <p>Nike Air Huarache Craft</p>
+                                    <p className="name-product-cart">
+                                        Nike Air Huarache Craft
+                                    </p>
                                     <div className="small">2,680,299₫</div>
                                 </div>
                             </div>
@@ -112,12 +116,14 @@ function Cart() {
                         <td>
                             <div className="cart-info">
                                 <img
-                                    src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/34daf410-4fec-46c4-8ce4-47721a8b66f9/af-1-shadow-shoes-MjtPWr.png"
+                                    src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/d5410b82-214b-4628-a06f-e0753795782f/air-huarache-craft-shoes-Xf0QhN.png"
                                     alt=""
                                 />
                                 <div>
-                                    <p>Nike AF-1 Shadow</p>
-                                    <div className="small">3,254,649₫</div>
+                                    <p className="name-product-cart">
+                                        Nike Air Huarache Craft
+                                    </p>
+                                    <div className="small">2,680,299₫</div>
                                 </div>
                             </div>
                         </td>
@@ -158,7 +164,7 @@ function Cart() {
                             <td></td>
                             <td>
                                 <a href="/payment">
-                                    <button>Đặt Hàng</button>
+                                    <button className="">Đặt Hàng</button>
                                 </a>
                             </td>
                         </tr>

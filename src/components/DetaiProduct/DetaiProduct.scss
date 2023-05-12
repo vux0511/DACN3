@@ -101,16 +101,20 @@ p {
     display: inline-block;
     background-color: rgb(246, 95, 1);
     color: #fff;
-    padding: 8px 30px;
+    padding: 8px 5px;
     margin: 20px 0;
     border-radius: 30px;
     transition: background 0.5;
-    margin-right: 20px;
-    width: 190px;
+    margin-right: 10px;
+    min-width: 140px;
     text-align: center;
     font-weight: 600;
     &:hover {
         opacity: 0.7;
+    }
+    @include md {
+        padding: 8px 30px;
+        min-width: 190px;
     }
 }
 
@@ -175,6 +179,8 @@ p {
 .about-product {
     font-size: 15px;
     color: #333;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .tag-hr {
