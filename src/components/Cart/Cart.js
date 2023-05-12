@@ -24,8 +24,8 @@ function Cart() {
                 <h3 className="sec-cart">Giỏ hàng của bạn</h3>
                 <table>
                     <tr>
-                        <th>Sản Phẩm</th>
-                        <th>Số Lượng</th>
+                        <th className="th_product">Sản Phẩm</th>
+                        <th className="th_quantity">Số Lượng</th>
                         <th className="th_price">Giá</th>
                         <th className="delete">Xoá</th>
                     </tr>
@@ -38,7 +38,7 @@ function Cart() {
                                     alt=""
                                 />
                                 <div>
-                                    <p>Nike Air Force 1 React</p>
+                                    <p>Nike Air Force 1</p>
                                     <div className="small">2,981,299₫</div>
                                 </div>
                             </div>

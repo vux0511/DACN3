@@ -40,11 +40,14 @@
 
         .close-search-btn {
             position: absolute;
-            font-size: 30px;
+            font-size: 25px;
             right: 20px;
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
+            @include md {
+                font-size: 30px;
+            }
         }
     }
 }
@@ -90,6 +93,7 @@
             .prod-details {
                 overflow: hidden;
                 position: relative;
+                transition: all ease 0.3;
 
                 .name {
                     text-overflow: ellipsis;
@@ -110,6 +114,9 @@
                     overflow: hidden;
                     color: rgba(0, 0, 0, 0.5);
                 }
+            }
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.02);
             }
         }
     }

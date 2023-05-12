@@ -119,6 +119,10 @@ tr:last-child {
 
 .price {
     text-align: left;
+    font-size: 14px;
+    @include md {
+        font-size: 16px;
+    }
 }
 
 .delete {
@@ -126,26 +130,35 @@ tr:last-child {
 }
 
 .th_price {
-    width: 15%;
+    width: 10%;
 }
-
+.th_product {
+    width: 50%;
+}
+.th_quantity {
+    width: 30%;
+}
 .tru {
     background-color: transparent;
     font-size: 16px;
-    width: 35px;
-    height: 40px;
+    width: 28px;
+    height: 33px;
     border: none;
     border-top: 0.5px solid #969696;
     border-left: 0.5px solid #969696;
     border-bottom: 0.5px solid #969696;
     cursor: pointer;
+    @include md {
+        width: 35px;
+        height: 40px;
+    }
 }
 
 .input__cart {
     background-color: transparent;
     font-size: 16px;
-    width: 35px;
-    height: 40px;
+    width: 28px;
+    height: 33px;
     border: none;
     border-top: 0.5px solid #969696;
     border-bottom: 0.5px solid #969696;
@@ -154,18 +167,26 @@ tr:last-child {
     &:focus-visible {
         outline: none;
     }
+    @include md {
+        width: 35px;
+        height: 40px;
+    }
 }
 
 .cong {
     background-color: transparent;
     font-size: 16px;
-    width: 35px;
-    height: 40px;
+    width: 28px;
+    height: 33px;
     border: none;
     border-top: 0.5px solid #969696;
     border-right: 0.5px solid #969696;
     border-bottom: 0.5px solid #969696;
     cursor: pointer;
+    @include md {
+        width: 35px;
+        height: 40px;
+    }
 }
 
 .css__input {
@@ -174,4 +195,8 @@ tr:last-child {
 
 p {
     color: black !important;
+    font-size: 15px;
+    @include md {
+        font-size: 16px;
+    }
 }
