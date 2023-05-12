@@ -1,19 +1,30 @@
 import "./Category.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 import $ from "jquery";
 import { FiChevronDown } from "react-icons/fi";
+import CALL_URL from "../../api/CALL_URL";
 
 function Category() {
     const [activeCategoryId, setActiveCategoryId] = useState("allCategory");
+    const [category, setCategory] = useState([]);
 
     const handleClick = (id) => {
         setActiveCategoryId(id);
     };
+
+    useEffect(() => {
+        axios.get(CALL_URL.URL_getCategory).then((res) => {
+            setCategory(res.data);
+        });
+    }, []);
+
     return (
         <div className="category-main-content">
             <div className="layout">
                 <div className="category">
+                    {/* Button All Category */}
                     <button
                         id="allCategory"
                         className={
@@ -23,51 +34,25 @@ function Category() {
                     >
                         Tất Cả Sản Phẩm
                     </button>
-                    <button
-                        id="button1"
-                        className={
-                            activeCategoryId === "button1" ? "active" : ""
-                        }
-                        onClick={() => handleClick("button1")}
-                    >
-                        Nike
-                    </button>
-                    <button
-                        id="button2"
-                        className={
-                            activeCategoryId === "button2" ? "active" : ""
-                        }
-                        onClick={() => handleClick("button2")}
-                    >
-                        Adidas
-                    </button>
-                    <button
-                        id="button3"
-                        className={
-                            activeCategoryId === "button3" ? "active" : ""
-                        }
-                        onClick={() => handleClick("button3")}
-                    >
-                        MLB
-                    </button>
-                    <button
-                        id="button4"
-                        className={
-                            activeCategoryId === "button4" ? "active" : ""
-                        }
-                        onClick={() => handleClick("button4")}
-                    >
-                        Balenciaga
-                    </button>
-                    <button
-                        id="button5"
-                        className={
-                            activeCategoryId === "button5" ? "active" : ""
-                        }
-                        onClick={() => handleClick("button5")}
-                    >
-                        Converse
-                    </button>
+
+                    {category.map((cate) => (
+                        <button
+                            key={cate.idCategory}
+                            id={`button${cate.idCategory}`}
+                            className={
+                                activeCategoryId === `button${cate.idCategory}`
+                                    ? "active"
+                                    : ""
+                            }
+                            onClick={() =>
+                                handleClick(`button${cate.idCategory}`)
+                            }
+                        >
+                            {cate.nameCategory}
+                        </button>
+                    ))}
+
+                    {/* Button Sort */}
                     <button className="btn-sort">
                         <div className="sort">
                             <ul className="nav">

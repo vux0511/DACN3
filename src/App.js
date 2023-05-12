@@ -4,13 +4,14 @@ import Category from "./components/Category/Category";
 import Product from "./components/Products/Products";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
-import DetaiProduct from "./components/DetaiProduct/DetaiProduct";
+import DetailProduct from "./components/DetailProduct/DetailProduct";
 import AppContext from "./utils/context";
 import Cart from "./components/Cart/Cart";
 import Payment from "./components/Payment/Payment";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import About from "./components/About/About";
+import Products from "./components/Products/Products";
 
 import { useState } from "react";
 
@@ -32,8 +33,8 @@ function App() {
                         }
                     />
                     <Route path="/category/:id" element={<Category />} />
-                    <Route path="/product/" element={<Product />} />
-                    <Route path="/product/:id" element={<DetaiProduct />} />
+                    <Route path="/product/" element={<Products />} />
+                    <Route path="/product/:id" element={<DetailProduct />} />
                     <Route path="/cart/" element={<Cart />} />
                     <Route path="/payment/" element={<Payment />} />
                     <Route path="/login/" element={<Login />} />

@@ -1,29 +1,25 @@
 import "./Product.scss";
 import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
 
-function Product({ setCartCount, cartCount }) {
+function Product({ setCartCount, cartCount, key, idProduct, data }) {
     // const [cart, setCart] = useState(0);
     // const handlerAddCart = () => {
     //     setCart((prew) => prew + 1);
     // };
-    console.log(cartCount);
     const setCount = () => {
         setCartCount((prew) => cartCount + 1);
     };
 
     return (
         <div className="product-card">
-            <a href="/product/1" className="clear">
+            <a href={`/product/${data.idProduct}`} className="clear">
                 <div className="thumbnail">
-                    <img
-                        src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/2a5710b8-70b8-4316-8078-4311dd01d025/court-vision-low-shoes-5RDlNK.png"
-                        alt=""
-                    />
+                    <img src={data.imageProduct_1} alt="" />
                 </div>
             </a>
             <div className="product-detail">
                 <a href="/product/1" className="clear">
-                    <div className="name">Nike Court Vision Low</div>
+                    <div className="name">{data.nameProduct}</div>
                 </a>
                 <div className="product-bottom">
                     <a href="/product/1" className="clear">
@@ -35,7 +31,7 @@ function Product({ setCartCount, cartCount }) {
                                 <BsStarFill />
                                 <BsStarHalf />
                             </span>
-                            <span className="price">2,069,000₫</span>
+                            <span className="price">{data.priceProduct}đ</span>
                         </div>
                     </a>
                     <div className="add-cart-btn">

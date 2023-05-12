@@ -1,13 +1,25 @@
 import { FaShippingFast } from "react-icons/fa";
 import { TbTruckReturn } from "react-icons/tb";
 
-import "./DetaiProduct.scss";
+import "./DetailProduct.scss";
 import { useRef, useEffect, useState } from "react";
 import Products from "../Products/Products";
+import axios from "axios";
 
 function DetaiProduct() {
     const [quantity, setQuantity] = useState(1);
     const [isDisable, setDisable] = useState(true);
+
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        // Gửi yêu cầu lấy danh sách sản phẩm từ backend
+        axios
+            .get("http://localhost/DACN1_API/api/getProduct.php")
+            .then((response) => {
+                setProducts(response.data);
+            });
+    }, []);
 
     const handleTru = () => {
         setQuantity((prew) => quantity - 1);
@@ -165,7 +177,10 @@ function DetaiProduct() {
                     </div>
                 </div>
             </div>
-            <Products tittle_header={"SẢN PHẨM LIÊN QUAN"} />
+            <Products
+                products={products}
+                tittle_header={"SẢN PHẨM LIÊN QUAN"}
+            />
         </>
     );
 }
