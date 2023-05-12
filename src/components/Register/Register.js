@@ -1,7 +1,11 @@
+import Popup from "../Popup/Popup";
 import "./Register.scss";
 import { FcGoogle } from "react-icons/fc";
+import { useState } from "react";
 
 function Register() {
+    const [buttonPopup, setButtonPopup] = useState(false);
+
     return (
         <div className="register-container">
             <div className="register">
@@ -15,40 +19,50 @@ function Register() {
                 <div className="register-or">
                     <span>hoặc</span>
                 </div>
-                <form action="#" className="register-form">
-                    <label htmlFor="username" className="register-label">
-                        User name
-                    </label>
-                    <input
-                        type="text"
-                        id="username"
-                        className="register-input"
-                        placeholder="Nhập tài khoản của bạn..."
-                        autoComplete="off"
-                    />
+                {/* <form action="#" className="register-form"> */}
+                <label htmlFor="username" className="register-label">
+                    User name
+                </label>
+                <input
+                    type="text"
+                    id="username"
+                    className="register-input"
+                    placeholder="Nhập tài khoản của bạn..."
+                    autoComplete="off"
+                />
 
-                    <label htmlFor="password" className="register-label">
-                        Password
-                    </label>
-                    <input
-                        type="password"
-                        id="password"
-                        className="register-input"
-                        placeholder="Nhập mật khẩu của bạn..."
-                        autoComplete="off"
-                    />
-                    <label htmlFor="password" className="register-label">
-                        Password
-                    </label>
-                    <input
-                        type="password"
-                        id="password"
-                        className="register-input"
-                        placeholder="Nhập lại mật khẩu của bạn..."
-                        autoComplete="off"
-                    />
-                    <button className="register-submit">Đăng Ký</button>
-                </form>
+                <label htmlFor="password" className="register-label">
+                    Password
+                </label>
+                <input
+                    type="password"
+                    id="password"
+                    className="register-input"
+                    placeholder="Nhập mật khẩu của bạn..."
+                    autoComplete="off"
+                />
+                <label htmlFor="password" className="register-label">
+                    Password
+                </label>
+                <input
+                    type="password"
+                    id="password"
+                    className="register-input"
+                    placeholder="Nhập lại mật khẩu của bạn..."
+                    autoComplete="off"
+                />
+                <button
+                    className="register-submit"
+                    onClick={() => setButtonPopup(true)}
+                >
+                    Đăng Ký
+                </button>
+                <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+                    <h3 className="title-thanks">Thành Công!</h3>
+                    <p className="decs-thanks">Đăng ký tài khoản thành công!</p>
+                    <p>Vui lòng đăng nhập để sử dụng dịch vụ!</p>
+                </Popup>
+                {/* </form> */}
                 <p className="register-resetpass">
                     <span>Bạn đã có tài khoản ? </span>
                     <a href="/login" className="register-link">

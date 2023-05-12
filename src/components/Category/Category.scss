@@ -113,9 +113,17 @@
     .button3,
     .button4,
     .button5,
-    .button6,
-    .btn-sort {
-        margin: 20px 0;
-        margin-right: 10px;
+    .button6 {
+        margin: 0px 0;
+        margin-right: 0px;
+        @include md {
+            margin: 0px 0;
+            margin-right: 0px;
+        }
     }
+}
+
+button#allCategory {
+    margin-bottom: 10px;
+    margin-right: 10px;
 }

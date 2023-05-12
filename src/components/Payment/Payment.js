@@ -23,95 +23,81 @@ function Payment() {
                                     <u>Thông tin khách hàng</u>
                                 </h3>
                             </div>
-                            <form action="#" className="payment-form">
-                                <label
-                                    htmlFor="fullname"
-                                    className="payment-label"
-                                >
-                                    Họ tên
-                                </label>
-                                <input
-                                    type="text"
-                                    id="fullname"
-                                    className="payment-input"
-                                    placeholder="Nhập tên của bạn..."
-                                    autoComplete="off"
-                                />
+                            {/* <form action="#" className="payment-form"> */}
+                            <label htmlFor="fullname" className="payment-label">
+                                Họ tên
+                            </label>
+                            <input
+                                type="text"
+                                id="fullname"
+                                className="payment-input"
+                                placeholder="Nhập tên của bạn..."
+                                autoComplete="off"
+                            />
 
-                                <label
-                                    htmlFor="phone"
-                                    className="payment-label"
-                                >
-                                    Số điện thoại
-                                </label>
-                                <input
-                                    type="number"
-                                    id="phone"
-                                    className="payment-input"
-                                    placeholder="Nhập số điện thoại của bạn..."
-                                    autoComplete="off"
-                                />
+                            <label htmlFor="phone" className="payment-label">
+                                Số điện thoại
+                            </label>
+                            <input
+                                type="number"
+                                id="phone"
+                                className="payment-input"
+                                placeholder="Nhập số điện thoại của bạn..."
+                                autoComplete="off"
+                            />
 
-                                <label
-                                    htmlFor="address"
-                                    className="payment-label"
-                                >
-                                    Địa chỉ
-                                </label>
-                                <input
-                                    type="text"
-                                    id="address"
-                                    className="payment-input"
-                                    placeholder="Nhập địa chỉ của bạn..."
-                                    autoComplete="off"
-                                />
+                            <label htmlFor="address" className="payment-label">
+                                Địa chỉ
+                            </label>
+                            <input
+                                type="text"
+                                id="address"
+                                className="payment-input"
+                                placeholder="Nhập địa chỉ của bạn..."
+                                autoComplete="off"
+                            />
 
-                                <label
-                                    htmlFor="email"
-                                    className="payment-label"
-                                >
-                                    Email
-                                </label>
-                                <input
-                                    type="text"
-                                    id="email"
-                                    className="payment-input"
-                                    placeholder="Nhập email của bạn..."
-                                    autoComplete="off"
-                                />
+                            <label htmlFor="email" className="payment-label">
+                                Email
+                            </label>
+                            <input
+                                type="text"
+                                id="email"
+                                className="payment-input"
+                                placeholder="Nhập email của bạn..."
+                                autoComplete="off"
+                            />
 
-                                <div className="type-payment">
-                                    <p className="title-type-payment">
-                                        Hình thức thanh toán
-                                    </p>
-                                    <input
-                                        checked
-                                        type="radio"
-                                        id="shipCod"
-                                        name="shipCod"
-                                        value="shipCod"
-                                    />
-                                    <label for="shipCod"> Ship COD</label>
-                                </div>
-                                <button
-                                    onClick={() => setButtonPopup(true)}
-                                    className="payment-submit"
-                                >
-                                    Đặt Hàng
-                                </button>
-                                <Popup
-                                    trigger={buttonPopup}
-                                    setTrigger={setButtonPopup}
-                                >
-                                    <h3 className="title-thanks">
-                                        Thành Công!
-                                    </h3>
-                                    <p className="decs-thanks">
-                                        Đặt hàng thành công!
-                                    </p>
-                                    <p>Cảm ơn bạn đã đặt hàng!</p>
-                                </Popup>
-                            </form>
+                            <div className="type-payment">
+                                <p className="title-type-payment">
+                                    Hình thức thanh toán
+                                </p>
+                                <input
+                                    checked
+                                    type="radio"
+                                    id="shipCod"
+                                    name="shipCod"
+                                    value="shipCod"
+                                />
+                                <label for="shipCod"> Ship COD</label>
+                            </div>
+                            <button
+                                onClick={() => setButtonPopup(true)}
+                                className="payment-submit"
+                            >
+                                Đặt Hàng
+                            </button>
+                            <Popup
+                                trigger={buttonPopup}
+                                setTrigger={setButtonPopup}
+                            >
+                                <h3 className="title-thanks">Thành Công!</h3>
+                                <p className="decs-thanks">
+                                    Đặt hàng thành công!
+                                </p>
+                                <p>Cảm ơn bạn đã đặt hàng!</p>
+                            </Popup>
+                            {/* </form> */}
                         </div>
                         <div className="col-2 col-right">
                             <div className="payment-title-cart">
