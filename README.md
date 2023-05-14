@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Đồ Án Chuyên Ngành 1 - Shoes Store - ReactJS and PHP
 
 ### First run `npm install`
 
