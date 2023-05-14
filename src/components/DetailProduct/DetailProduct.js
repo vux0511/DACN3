@@ -4,22 +4,36 @@ import { TbTruckReturn } from "react-icons/tb";
 import "./DetailProduct.scss";
 import { useRef, useEffect, useState } from "react";
 import Products from "../Products/Products";
+import Product from "../Products/Product/Product";
 import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 
-function DetaiProduct() {
+function DetaiProduct(data) {
     const [quantity, setQuantity] = useState(1);
     const [isDisable, setDisable] = useState(true);
+    const [productRelated, setProductRelated] = useState([]);
+    const [detailProduct, setDetailProduct] = useState([]);
 
-    const [products, setProducts] = useState([]);
+    const navigate = useNavigate();
+    const { productId } = useParams();
 
     useEffect(() => {
-        // Gửi yêu cầu lấy danh sách sản phẩm từ backend
         axios
-            .get("http://localhost/DACN1_API/api/getProduct.php")
+            .get(`http://localhost/DACN1_API/api/getProduct.php`)
             .then((response) => {
-                setProducts(response.data);
+                setProductRelated(response.data);
             });
     }, []);
+
+    useEffect(() => {
+        axios
+            .get(
+                `http://localhost/DACN1_API/api/getProductDetail.php?idproduct=${productId}`
+            )
+            .then((response) => {
+                setDetailProduct(response.data);
+            });
+    }, [productId]);
 
     const handleTru = () => {
         setQuantity((prew) => quantity - 1);
@@ -35,78 +49,65 @@ function DetaiProduct() {
     };
 
     const ref = useRef(null);
-    useEffect(() => {
+
+    const handleImage = (event) => {
         const ProductImg = ref.current;
-        var SmallImg = document.getElementsByClassName("small-img");
-
-        SmallImg[0].onclick = function () {
-            ProductImg.src = SmallImg[0].src;
-        };
-
-        SmallImg[1].onclick = function () {
-            ProductImg.src = SmallImg[1].src;
-        };
-
-        SmallImg[2].onclick = function () {
-            ProductImg.src = SmallImg[2].src;
-        };
-
-        SmallImg[3].onclick = function () {
-            ProductImg.src = SmallImg[3].src;
-        };
-    }, []);
+        var SmallImg = document.getElementsByClassName(event.target.className);
+        ProductImg.src = SmallImg[0].src;
+    };
 
     return (
         <>
-            <div className="small-container single-product">
-                <div className="row">
+            {detailProduct.map((detail) => (
+                <div className="small-container single-product">
                     <div className="col-2">
                         <img
                             id="imgProduct"
-                            src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/55eccda1-e687-4b28-affe-b3763f35da1c/court-vision-low-shoes-5RDlNK.png"
+                            src={detail.imageProduct_1}
                             alt="Image Product"
                             ref={ref}
                         />
                         <div className="small-img-row">
                             <div className="small-img-col">
                                 <img
-                                    src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/661d9634-4dc8-4b41-aaec-90b2c56ed64c/court-vision-low-shoes-5RDlNK.png"
+                                    src={detail.imageProduct_1}
                                     alt=""
-                                    className="small-img"
+                                    className="small-img1"
+                                    onClick={handleImage}
                                 />
                             </div>
                             <div className="small-img-col">
                                 <img
-                                    src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/55eccda1-e687-4b28-affe-b3763f35da1c/court-vision-low-shoes-5RDlNK.png"
+                                    src={detail.imageProduct_2}
                                     alt=""
-                                    className="small-img"
+                                    className="small-img2"
+                                    onClick={handleImage}
                                 />
                             </div>
                             <div className="small-img-col">
                                 <img
-                                    src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/d74fea1f-9443-4b02-95a1-e9639326ff74/court-vision-low-shoes-5RDlNK.png"
+                                    src={detail.imageProduct_3}
                                     alt=""
-                                    className="small-img"
+                                    className="small-img3"
+                                    onClick={handleImage}
                                 />
                             </div>
                             <div className="small-img-col">
                                 <img
-                                    src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/f191f2e1-3558-47ee-aa9b-73053ba20a7e/court-vision-low-shoes-5RDlNK.png"
+                                    src={detail.imageProduct_4}
                                     alt=""
-                                    className="small-img"
+                                    className="small-img4"
+                                    onClick={handleImage}
                                 />
                             </div>
                         </div>
                     </div>
                     <div className="col-2 margin_top">
-                        <h1>Nike Court Vision Low</h1>
+                        <h1>{detail.nameProduct}</h1>
                         <p className="about-product">
-                            The Nike Air Force 1 Shadow puts a playful twist on
-                            a classic b-ball design.Using a layered approach,
-                            doubling the branding and exaggerating the midsole,
-                            it highlights AF-1 DNA with a bold, new look.
+                            {detail.descriptionProduct}
                         </p>
-                        <h4 className="price">2,069,000₫</h4>
+                        <h4 className="price">{detail.priceProduct}₫</h4>
                         <p className="about-product about1">
                             Sản phẩm ở VuxStore có giá tốt nhất thị trường
                         </p>
@@ -145,7 +146,7 @@ function DetaiProduct() {
                         <p className="about-product about1">
                             Chỉ còn{" "}
                             <span className="style-about-quantity">
-                                12 sản phẩm
+                                {detail.quantityProduct} sản phẩm
                             </span>{" "}
                             trong kho hàng!
                         </p>
@@ -176,11 +177,18 @@ function DetaiProduct() {
                         </div>
                     </div>
                 </div>
+            ))}
+            <div className="products-container">
+                <div className="layout">
+                    <div className="sec-heading">{}</div>
+                    {/* <Category /> */}
+                    <div className="products">
+                        {productRelated.map((product) => (
+                            <Product key={product.idProduct} data={product} />
+                        ))}
+                    </div>
+                </div>
             </div>
-            <Products
-                products={products}
-                tittle_header={"SẢN PHẨM LIÊN QUAN"}
-            />
         </>
     );
 }
