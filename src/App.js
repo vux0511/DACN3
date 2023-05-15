@@ -20,32 +20,33 @@ function App() {
 
     return (
         <BrowserRouter>
-            <AppContext>
-                <Header cartCount={cartCount} />
-                <Routes>
-                    <Route
-                        path="/"
-                        element={
-                            <Home
-                                setCartCount={setCartCount}
-                                cartCount={cartCount}
-                            />
-                        }
-                    />
-                    <Route path="/category/:id" element={<Category />} />
-                    <Route path="/product/" element={<Products />} />
-                    <Route
-                        path="/product/:productId"
-                        element={<DetailProduct />}
-                    />
-                    <Route path="/cart/" element={<Cart />} />
-                    <Route path="/payment/" element={<Payment />} />
-                    <Route path="/login/" element={<Login />} />
-                    <Route path="/register/" element={<Register />} />
-                    <Route path="/about/" element={<About />} />
-                </Routes>
-                <Footer />
-            </AppContext>
+            {/* <AppContext> */}
+            <Header cartCount={cartCount} />
+            <Routes>
+                <Route
+                    path="/"
+                    element={
+                        <Home
+                            setCartCount={setCartCount}
+                            cartCount={cartCount}
+                        />
+                    }
+                />
+                <Route path="/category/:id" element={<Category />} />
+                <Route path="/product/" element={<Products />} />
+                <Route
+                    path="/product/category/:categoryId"
+                    element={<Products />}
+                />
+                <Route path="/product/:productId" element={<DetailProduct />} />
+                <Route path="/cart/" element={<Cart />} />
+                <Route path="/payment/" element={<Payment />} />
+                <Route path="/login/" element={<Login />} />
+                <Route path="/register/" element={<Register />} />
+                <Route path="/about/" element={<About />} />
+            </Routes>
+            <Footer />
+            {/* </AppContext> */}
         </BrowserRouter>
     );
 }

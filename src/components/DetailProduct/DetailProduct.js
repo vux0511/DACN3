@@ -8,7 +8,7 @@ import Product from "../Products/Product/Product";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
-function DetaiProduct(data) {
+function DetailProduct(data) {
     const [quantity, setQuantity] = useState(1);
     const [isDisable, setDisable] = useState(true);
     const [productRelated, setProductRelated] = useState([]);
@@ -16,14 +16,6 @@ function DetaiProduct(data) {
 
     const navigate = useNavigate();
     const { productId } = useParams();
-
-    useEffect(() => {
-        axios
-            .get(`http://localhost/DACN1_API/api/getProduct.php`)
-            .then((response) => {
-                setProductRelated(response.data);
-            });
-    }, []);
 
     useEffect(() => {
         axios
@@ -35,7 +27,17 @@ function DetaiProduct(data) {
             });
     }, [productId]);
 
-    const handleTru = () => {
+    useEffect(() => {
+        axios
+            .get(
+                `http://localhost/DACN1_API/api/getProductRelated.php?idproduct=${productId}`
+            )
+            .then((response) => {
+                setProductRelated(response.data);
+            });
+    }, [productId]);
+
+    const handleDecrease = () => {
         setQuantity((prew) => quantity - 1);
         if (quantity === 2) {
             setQuantity(1);
@@ -43,7 +45,7 @@ function DetaiProduct(data) {
         }
     };
 
-    const handleCong = () => {
+    const handleIncrease = () => {
         setQuantity((prew) => quantity + 1);
         setDisable(false);
     };
@@ -128,7 +130,7 @@ function DetaiProduct(data) {
                             <div className="input-quantity">
                                 <button
                                     className="tru"
-                                    onClick={handleTru}
+                                    onClick={handleDecrease}
                                     disabled={isDisable}
                                 >
                                     -
@@ -138,7 +140,10 @@ function DetaiProduct(data) {
                                     type="text"
                                     value={quantity}
                                 />
-                                <button className="cong" onClick={handleCong}>
+                                <button
+                                    className="cong"
+                                    onClick={handleIncrease}
+                                >
                                     +
                                 </button>
                             </div>
@@ -180,8 +185,7 @@ function DetaiProduct(data) {
             ))}
             <div className="products-container">
                 <div className="layout">
-                    <div className="sec-heading">{}</div>
-                    {/* <Category /> */}
+                    <div className="sec-heading">SẢN PHẨM LIÊN QUAN</div>
                     <div className="products">
                         {productRelated.map((product) => (
                             <Product key={product.idProduct} data={product} />
@@ -193,4 +197,4 @@ function DetaiProduct(data) {
     );
 }
 
-export default DetaiProduct;
+export default DetailProduct;

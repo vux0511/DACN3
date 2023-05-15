@@ -20,8 +20,7 @@ function Home({ setCartCount, cartCount }) {
             <div className="main-content">
                 <div className="layout">
                     <Products
-                        headingText="Popular Products"
-                        tittle_header={"SẢN PHẨM NỔI BẬT"}
+                        headingText="SẢN PHẨM NỔI BẬT"
                         setCartCount={setCartCount}
                         cartCount={cartCount}
                         products={products}

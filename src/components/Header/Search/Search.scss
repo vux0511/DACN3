@@ -52,6 +52,10 @@
     }
 }
 
+div::-webkit-scrollbar {
+    display: none;
+}
+
 @keyframes slideSearchWindow {
     0% {
         transform: translateY(100%);

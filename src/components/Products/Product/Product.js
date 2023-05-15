@@ -2,7 +2,7 @@ import "./Product.scss";
 import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import { Navigate, useNavigate } from "react-router-dom";
 
-function Product({ setCartCount, cartCount, idProduct, data }) {
+function Product({ setCartCount, cartCount, idProduct, data, productRelated }) {
     // const [cart, setCart] = useState(0);
     // const handlerAddCart = () => {
     //     setCart((prew) => prew + 1);
@@ -15,7 +15,6 @@ function Product({ setCartCount, cartCount, idProduct, data }) {
 
     return (
         <div className="product-card" key={data.idProduct}>
-            {/* <a href={`/product/id=${data.idProduct}`} className="clear"> */}
             <div
                 className="thumbnail"
                 onClick={() =>
@@ -26,7 +25,6 @@ function Product({ setCartCount, cartCount, idProduct, data }) {
             >
                 <img src={data.imageProduct_1} alt="" />
             </div>
-            {/* </a> */}
             <div className="product-detail">
                 <a href="/product/1" className="clear">
                     <div className="name">{data.nameProduct}</div>
