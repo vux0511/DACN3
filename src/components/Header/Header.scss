@@ -133,11 +133,28 @@
 }
 
 .account {
+    z-index: 100000000;
+
     padding: auto;
     cursor: pointer;
     padding-bottom: 4px;
-}
+    display: flex;
+    align-items: center;
+    // justify-content: center;
+    max-width: 150px;
+    overflow: hidden;
 
-.icon-account {
-    margin-bottom: -3px;
+    .icon-account {
+        margin-bottom: -3px;
+    }
+    .avatarUser {
+        width: 45px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    .userName {
+        padding-left: 8px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 }

@@ -10,6 +10,7 @@ import CALL_URL from "../../api/CALL_URL";
 function Category() {
     const [activeCategoryId, setActiveCategoryId] = useState("allCategory");
     const [category, setCategory] = useState([]);
+    const [nameCategory, setNameCategory] = useState("");
     const navigate = useNavigate();
 
     const handleClick = (id, idCategory) => {
