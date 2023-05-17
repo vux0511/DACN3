@@ -3,6 +3,8 @@ import { FiUser } from "react-icons/fi";
 import { CgShoppingCart } from "react-icons/cg";
 import { MdOutlineFavoriteBorder } from "react-icons/md";
 import avatarUser from "../../assets/avatar_user.webp";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 
 import "./Header.scss";
 import { useEffect, useState } from "react";
@@ -42,12 +44,10 @@ function Header({ cartCount }) {
         }
     };
 
-    // const handleNavigateLogin = () => {
-    //     // nếu chưa login
-    //     if () {
-    //         navigate("/login");
-    //     }
-    // }
+    const handleLogout = () => {
+        document.cookie = "user" + "=; Max-Age=0;";
+        navigate("/login");
+    };
 
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
@@ -75,18 +75,12 @@ function Header({ cartCount }) {
                     </ul>
                     <div className="right">
                         <div className="search">
-                            {/* <input
-                                type="text"
-                                placeholder="Tìm kiếm sản phẩm ..."
-                            /> */}
                             <button className="search-btn">
                                 <TbSearch onClick={() => setShowSearch(true)} />
                             </button>
                         </div>
                         <div className="favourite">
-                            {/* <button className="search-btn"> */}
                             <MdOutlineFavoriteBorder />
-                            {/* </button> */}
                         </div>
                         {user ? (
                             <a href="/cart">
@@ -104,23 +98,49 @@ function Header({ cartCount }) {
                             </a>
                         )}
 
-                        <Tippy content="OK">
-                            <span
-                                className="account"
-                                // onClick={handleNavigateLogin}
-                            >
-                                <img
-                                    className="avatarUser"
-                                    src={avatarUser}
-                                    alt="Avatar"
-                                />
-                                <div className="userName">
-                                    {username !== ""
-                                        ? "Hi " + username
-                                        : "Account"}
+                        <div className="dropdown">
+                            <button className="dropbtn">
+                                {username !== "" ? (
+                                    <span className="account">
+                                        <img
+                                            className="avatarUser"
+                                            src="https://static.vecteezy.com/system/resources/previews/013/042/571/original/default-avatar-profile-icon-social-media-user-photo-in-flat-style-vector.jpg"
+                                            alt="Avatar"
+                                        />
+                                        <div className="userName">
+                                            {username !== ""
+                                                ? "Hi " + username
+                                                : "Login"}
+                                        </div>
+                                    </span>
+                                ) : (
+                                    <span
+                                        className="account"
+                                        onClick={() => navigate("/login")}
+                                    >
+                                        <img
+                                            className="avatarUser"
+                                            src="https://static.vecteezy.com/system/resources/previews/013/042/571/original/default-avatar-profile-icon-social-media-user-photo-in-flat-style-vector.jpg"
+                                            alt="Avatar"
+                                        />
+                                        <div className="userName">
+                                            {username !== ""
+                                                ? "Hi " + username
+                                                : "Account"}
+                                        </div>
+                                    </span>
+                                )}
+                            </button>
+                            {username !== "" ? (
+                                <div className="dropdown-content">
+                                    <a href="#">Cập nhật tài khoản</a>
+                                    <a href="#">Đổi mật khẩu</a>
+                                    <a onClick={handleLogout}>Đăng xuất</a>
                                 </div>
-                            </span>
-                        </Tippy>
+                            ) : (
+                                ""
+                            )}
+                        </div>
                     </div>
                 </div>
             </header>

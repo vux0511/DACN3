@@ -13,7 +13,10 @@ function Popup(props) {
             <div className="popup-inner">
                 <img src={Tick} />
                 {props.children}
-                <button className="close-btn" onClick={handleNavigateLogin}>
+                <button
+                    className="close-btn-success"
+                    onClick={handleNavigateLogin}
+                >
                     OK
                 </button>
             </div>

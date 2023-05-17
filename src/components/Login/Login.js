@@ -62,6 +62,7 @@ function Login() {
                         id="username"
                         className="login-input"
                         placeholder="Nhập tài khoản..."
+                        autoComplete="off"
                         onChange={handleChangeUsername}
                     />
 
@@ -73,24 +74,20 @@ function Login() {
                         id="password"
                         className="login-input"
                         placeholder="Nhập mật khẩu..."
+                        autoComplete="off"
                         onChange={handleChangePassword}
                     />
-                    <button
-                        type="submit"
-                        className="login-submit"
-                        // onClick={handlePopup}
-                    >
+                    <button type="submit" className="login-submit">
                         Đăng Nhập
                     </button>
                     <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
                         <h3 className="title-thanks">Thành Công!</h3>
                         <p className="decs-thanks">Đăng nhập thành công!</p>
-                        <p>Nhấn OK để tiếp tục</p>
                     </Popup>
                     <PopupWrong trigger={popWrong} setTrigger={setPopWrong}>
                         <h3 className="title-thanks">Thất Bại!</h3>
                         <p className="decs-thanks">
-                            Đăng nhập thất bại! Vui lòng thử lại
+                            Đăng nhập thất bại. Vui lòng thử lại!
                         </p>
                     </PopupWrong>
                 </form>

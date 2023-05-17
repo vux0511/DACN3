@@ -10,7 +10,12 @@ function Products({ headingText }) {
     const [products, setProducts] = useState([]);
     const [idCategory, setIdCatgory] = useState([]);
     const navigate = useNavigate();
-    const { categoryId } = useParams();
+
+    var { categoryId } = useParams();
+
+    if (categoryId === undefined) {
+        categoryId = "allProduct";
+    }
 
     useEffect(() => {
         axios.get(CALL_URL.URL_getProduct).then((response) => {

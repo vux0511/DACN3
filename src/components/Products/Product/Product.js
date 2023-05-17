@@ -3,10 +3,6 @@ import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import { Navigate, useNavigate } from "react-router-dom";
 
 function Product({ setCartCount, cartCount, idProduct, data, productRelated }) {
-    // const [cart, setCart] = useState(0);
-    // const handlerAddCart = () => {
-    //     setCart((prew) => prew + 1);
-    // };
     const setCount = () => {
         setCartCount((prew) => cartCount + 1);
     };
