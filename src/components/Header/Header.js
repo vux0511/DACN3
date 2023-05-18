@@ -19,8 +19,6 @@ function Header({ cartCount }) {
     useEffect(() => {
         if (localStorage.getItem("user")) {
             setUser(true);
-        } else {
-            console.log("ok");
         }
     }, []);
 

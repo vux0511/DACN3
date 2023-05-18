@@ -2,8 +2,89 @@ import "./Information.scss";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import CALL_URL from "~/api/CALL_URL";
+import Cookies from "universal-cookie";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function Information() {
+    const cookies = new Cookies();
+    const [information, setInformation] = useState({});
+    const idUser = cookies.get("user").idUser;
+    const notify = () => toast();
+
+    useEffect(() => {
+        axios
+            .post(
+                `http://localhost/DACN1_API/api/getInformation.php?idUser=${idUser}`
+            )
+            .then((response) => {
+                setInformation(response.data[0]);
+            });
+    }, []);
+
+    const handleChangeFullname = (e) => {
+        setInformation({
+            ...information,
+            fullname: e.target.value,
+        });
+    };
+    const handleChangeEmail = (e) => {
+        setInformation({
+            ...information,
+            email: e.target.value,
+        });
+    };
+    const handleChangePhone = (e) => {
+        setInformation({
+            ...information,
+            phone: e.target.value,
+        });
+    };
+    const handleChangeAddress = (e) => {
+        setInformation({
+            ...information,
+            address: e.target.value,
+        });
+    };
+
+    const handleSubmitChangeInfor = (e) => {
+        e.preventDefault();
+
+        axios
+            .post("http://localhost/DACN1_API/api/setInfor.php", information)
+            .then((response) => {
+                console.log(information);
+                console.log(response.data);
+                if (response.data === null) {
+                    toast.error("Cập nhật thất bại", {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
+                } else {
+                    toast.success("Cập nhật thành công", {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
+                }
+            });
+    };
+
     return (
         <Container className="container-infor">
             <Row className="row-infor">
@@ -11,21 +92,23 @@ function Information() {
                     <div className="avatar-infor">
                         <img
                             className="avatar"
-                            src="https://static.vecteezy.com/system/resources/previews/002/275/847/original/male-avatar-profile-icon-of-smiling-caucasian-man-vector.jpg"
+                            src={information.avatar}
                             alt="Avatar"
                         />
                     </div>
                     <div className="decs-infor">
-                        <p className="fullname-infor">Hoàng Văn Vũ</p>
-                        <p className="email-infor">john@example.com</p>
-                        <p className="phone-infor">(239) 816-9029</p>
-                        <p className="address-infor">
-                            Bay Area, San Francisco, CA
-                        </p>
+                        <p className="fullname-infor">{information.fullname}</p>
+                        <p className="email-infor">{information.email}</p>
+                        <p className="phone-infor">{information.phone}</p>
+                        <p className="address-infor">{information.address}</p>
                     </div>
                 </Col>
+
                 <Col col-md={8} className="col-8-infor">
-                    <form className="information-form">
+                    <form
+                        className="information-form"
+                        onSubmit={handleSubmitChangeInfor}
+                    >
                         <label htmlFor="fullname" className="information-label">
                             Họ tên
                         </label>
@@ -35,7 +118,8 @@ function Information() {
                             className="information-input"
                             placeholder="Nhập họ tên của bạn..."
                             autoComplete="off"
-                            // onChange={handleChangeUsername}
+                            onChange={handleChangeFullname}
+                            defaultValue={information.fullname}
                         />
 
                         <label htmlFor="email" className="information-label">
@@ -47,7 +131,8 @@ function Information() {
                             className="information-input"
                             placeholder="Nhập Email của bạn..."
                             autoComplete="off"
-                            // onChange={handleChangePassword}
+                            onChange={handleChangeEmail}
+                            defaultValue={information.email}
                         />
                         <label htmlFor="phone" className="information-label">
                             Số điện thoại
@@ -58,7 +143,8 @@ function Information() {
                             className="information-input"
                             placeholder="Nhập số điện thoại của bạn..."
                             autoComplete="off"
-                            // onChange={handleChangeRePassword}
+                            defaultValue={information.phone}
+                            onChange={handleChangePhone}
                         />
                         <label htmlFor="address" className="information-label">
                             Địa chỉ
@@ -69,29 +155,13 @@ function Information() {
                             className="information-input"
                             placeholder="Nhập địa chỉ của bạn..."
                             autoComplete="off"
-                            // onChange={handleChangeRePassword}
+                            defaultValue={information.address}
+                            onChange={handleChangeAddress}
                         />
-                        <button
-                            className="information-submit"
-                            // onClick={() => setButtonPopup(true)}
-                        >
+                        <button onClick={notify} className="information-submit">
                             Lưu Thay Đổi
                         </button>
-                        {/* <Popup
-                        trigger={buttonPopup}
-                        setTrigger={setButtonPopup}
-                        setNavigate={"/login"}
-                    >
-                        <h3 className="title-thanks">Thành Công!</h3>
-                        <p className="decs-thanks">
-                            Đăng ký tài khoản thành công!
-                        </p>
-                        <p>Vui lòng đăng nhập để sử dụng dịch vụ!</p>
-                    </Popup>
-                    <PopupWrong trigger={popWrong} setTrigger={setPopWrong}>
-                        <h3 className="title-thanks">Thất Bại!</h3>
-                        <p className="decs-thanks">{messageRegister}</p>
-                    </PopupWrong> */}
+                        <ToastContainer />
                     </form>
                 </Col>
             </Row>

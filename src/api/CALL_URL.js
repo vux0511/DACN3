@@ -7,4 +7,5 @@ export default {
     URL_getProductDetail: URL + "/getProductDetail.php",
     URL_getProductRelated: URL + "/getProductRelated.php",
     URL_searchProduct: URL + "/searchProduct.php",
+    URL_getInformation: URL + "/getInformation.php",
 };

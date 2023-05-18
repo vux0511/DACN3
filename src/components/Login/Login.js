@@ -3,15 +3,16 @@ import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
-import Popup from "../Popup/Popup";
-import PopupWrong from "../PopupWrong/PopupWrong";
+import { Navigate, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [buttonPopup, setButtonPopup] = useState(false);
-    const [popWrong, setPopWrong] = useState(false);
     const cookies = new Cookies();
+    const navigate = useNavigate();
+    const notify = () => toast();
 
     const handleChangeUsername = (e) => {
         setUsername(e.target.value);
@@ -29,13 +30,31 @@ function Login() {
             .post("http://localhost/DACN1_API/api/getUser.php", data)
             .then((response) => {
                 if (response.data.user === null) {
-                    console.log("Sai tài khoản hoặc mật khẩu");
-                    setPopWrong(true);
-                } else {
-                    cookies.set("user", response.data.user, {
-                        // path: "/",
+                    toast.error("Đăng nhập thất bại", {
+                        position: "top-right",
+                        autoClose: 4000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
                     });
-                    setButtonPopup(true);
+                } else {
+                    cookies.set("user", response.data.user, {});
+                    toast.success("Đăng nhập thành công! Chuyển hướng sau 3s", {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
+                    setTimeout(() => {
+                        navigate("/");
+                    }, 3500);
                 }
             });
     };
@@ -70,30 +89,17 @@ function Login() {
                         Password
                     </label>
                     <input
-                        type="text"
+                        type="password"
                         id="password"
                         className="login-input"
                         placeholder="Nhập mật khẩu..."
                         autoComplete="off"
                         onChange={handleChangePassword}
                     />
-                    <button type="submit" className="login-submit">
+                    <button onClick={notify} className="login-submit">
                         Đăng Nhập
                     </button>
-                    <Popup
-                        trigger={buttonPopup}
-                        setTrigger={setButtonPopup}
-                        setNavigate={"/"}
-                    >
-                        <h3 className="title-thanks">Thành Công!</h3>
-                        <p className="decs-thanks">Đăng nhập thành công!</p>
-                    </Popup>
-                    <PopupWrong trigger={popWrong} setTrigger={setPopWrong}>
-                        <h3 className="title-thanks">Thất Bại!</h3>
-                        <p className="decs-thanks">
-                            Đăng nhập thất bại. Vui lòng thử lại!
-                        </p>
-                    </PopupWrong>
+                    <ToastContainer />
                 </form>
                 <p className="login-resetpass">
                     <span>Bạn chưa có tài khoản ? </span>
