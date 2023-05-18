@@ -11,6 +11,7 @@ function Register() {
     const [repassword, setRePassword] = useState("");
     const [popWrong, setPopWrong] = useState(false);
     const [buttonPopup, setButtonPopup] = useState(false);
+    const [messageRegister, setMessageRegister] = useState("");
 
     const handleChangeUsername = (e) => {
         setUsername(e.target.value);
@@ -27,19 +28,31 @@ function Register() {
         let data = {
             username: username,
             password: password,
-            repassword: repassword,
         };
-        console.log(data);
-        axios
-            .post("http://localhost/DACN1_API/api/setNewUser.php", data)
-            .then((response) => {
-                if (response.data.user === null) {
-                    console.log("Sai tài khoản hoặc mật khẩu");
-                    setPopWrong(true);
-                } else {
-                    setButtonPopup(true);
-                }
-            });
+
+        if (password === "" || username === "") {
+            setMessageRegister(
+                "Không được để trống trường tài khoản hoặc mật khẩu!"
+            );
+            setPopWrong(true);
+        } else if (password.length < 6 || username.length < 6) {
+            setMessageRegister("Độ dài của các trường phải lớn hơn 6 ký tự!");
+            setPopWrong(true);
+        } else if (password !== repassword) {
+            setMessageRegister("Vui lòng nhập mật khẩu trùng nhau!");
+            setPopWrong(true);
+        } else {
+            axios
+                .post("http://localhost/DACN1_API/api/setNewUser.php", data)
+                .then((response) => {
+                    if (response.data.message === "success") {
+                        setButtonPopup(true);
+                    } else {
+                        setMessageRegister(response.data.message);
+                        setPopWrong(true);
+                    }
+                });
+        }
     };
 
     return (
@@ -96,7 +109,11 @@ function Register() {
                     >
                         Đăng Ký
                     </button>
-                    <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+                    <Popup
+                        trigger={buttonPopup}
+                        setTrigger={setButtonPopup}
+                        setNavigate={"/login"}
+                    >
                         <h3 className="title-thanks">Thành Công!</h3>
                         <p className="decs-thanks">
                             Đăng ký tài khoản thành công!
@@ -105,9 +122,7 @@ function Register() {
                     </Popup>
                     <PopupWrong trigger={popWrong} setTrigger={setPopWrong}>
                         <h3 className="title-thanks">Thất Bại!</h3>
-                        <p className="decs-thanks">
-                            Đăng nhập thất bại. Vui lòng thử lại!
-                        </p>
+                        <p className="decs-thanks">{messageRegister}</p>
                     </PopupWrong>
                 </form>
                 <p className="register-resetpass">

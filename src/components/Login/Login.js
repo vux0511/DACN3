@@ -80,7 +80,11 @@ function Login() {
                     <button type="submit" className="login-submit">
                         Đăng Nhập
                     </button>
-                    <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+                    <Popup
+                        trigger={buttonPopup}
+                        setTrigger={setButtonPopup}
+                        setNavigate={"/"}
+                    >
                         <h3 className="title-thanks">Thành Công!</h3>
                         <p className="decs-thanks">Đăng nhập thành công!</p>
                     </Popup>

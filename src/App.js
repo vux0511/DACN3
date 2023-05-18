@@ -12,6 +12,7 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import About from "./components/About/About";
 import Products from "./components/Products/Products";
+import Information from "./components/Information/Information";
 
 import { useState } from "react";
 
@@ -44,6 +45,7 @@ function App() {
                 <Route path="/login/" element={<Login />} />
                 <Route path="/register/" element={<Register />} />
                 <Route path="/about/" element={<About />} />
+                <Route path="/information/" element={<Information />} />
             </Routes>
             <Footer />
             {/* </AppContext> */}

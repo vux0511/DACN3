@@ -1,17 +1,12 @@
 import { TbSearch } from "react-icons/tb";
-import { FiUser } from "react-icons/fi";
 import { CgShoppingCart } from "react-icons/cg";
 import { MdOutlineFavoriteBorder } from "react-icons/md";
-import avatarUser from "../../assets/avatar_user.webp";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
-
-import "./Header.scss";
-import { useEffect, useState } from "react";
 import Search from "./Search/Search";
-import Tippy from "@tippyjs/react";
-import { useNavigate } from "react-router-dom";
+
+import { useEffect, useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import Cookies from "universal-cookie";
+import "./Header.scss";
 
 function Header({ cartCount }) {
     const cookies = new Cookies();
@@ -133,7 +128,9 @@ function Header({ cartCount }) {
                             </button>
                             {username !== "" ? (
                                 <div className="dropdown-content">
-                                    <a href="#">Cập nhật tài khoản</a>
+                                    <Link to={"/information"}>
+                                        Cập nhật tài khoản
+                                    </Link>
                                     <a href="#">Đổi mật khẩu</a>
                                     <a onClick={handleLogout}>Đăng xuất</a>
                                 </div>

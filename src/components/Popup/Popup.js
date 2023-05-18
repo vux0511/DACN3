@@ -6,7 +6,7 @@ function Popup(props) {
     const navigate = useNavigate();
     const handleNavigateLogin = () => {
         props.setTrigger(false);
-        navigate("/");
+        navigate(props.setNavigate);
     };
     return props.trigger ? (
         <div className="popup">
