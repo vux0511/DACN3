@@ -51,36 +51,42 @@ function Information() {
         });
     };
 
+    const handleToastifyError = (message) => {
+        toast.error(message, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });
+    };
+
+    const handleToastifySucces = (message) => {
+        toast.success(message, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });
+    };
+
     const handleSubmitChangeInfor = (e) => {
         e.preventDefault();
 
         axios
             .post("http://localhost/DACN1_API/api/setInfor.php", information)
             .then((response) => {
-                console.log(information);
-                console.log(response.data);
                 if (response.data === null) {
-                    toast.error("Cập nhật thất bại", {
-                        position: "top-right",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored",
-                    });
+                    handleToastifyError("Cập nhật nhất bại");
                 } else {
-                    toast.success("Cập nhật thành công", {
-                        position: "top-right",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored",
-                    });
+                    handleToastifySucces("Cập nhật thành công");
                 }
             });
     };

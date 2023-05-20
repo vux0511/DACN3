@@ -47,6 +47,7 @@ function Products({ headingText }) {
                             key={itemProduct.idProduct}
                             data={itemProduct}
                             idCategory={itemProduct.idCategory}
+                            cart={itemProduct.idProduct}
                         />
                     ))}
                 </div>

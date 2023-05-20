@@ -16,11 +16,11 @@ function Header({ cartCount }) {
     const [user, setUser] = useState(false);
     const [username, setUsername] = useState("");
 
-    useEffect(() => {
-        if (localStorage.getItem("user")) {
-            setUser(true);
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (localStorage.getItem("user")) {
+    //         setUser(true);
+    //     }
+    // }, []);
 
     useEffect(() => {
         if (cookies.get("user")) {
@@ -72,10 +72,7 @@ function Header({ cartCount }) {
                                 <TbSearch onClick={() => setShowSearch(true)} />
                             </button>
                         </div>
-                        <div className="favourite">
-                            <MdOutlineFavoriteBorder />
-                        </div>
-                        {user ? (
+                        {username ? (
                             <a href="/cart">
                                 <span className="cart-icon">
                                     <CgShoppingCart />
@@ -129,7 +126,7 @@ function Header({ cartCount }) {
                                     <Link to={"/information"}>
                                         Cập nhật tài khoản
                                     </Link>
-                                    <a href="#">Đổi mật khẩu</a>
+                                    <Link to={"/changepass"}>Đổi mật khẩu</Link>
                                     <a onClick={handleLogout}>Đăng xuất</a>
                                 </div>
                             ) : (

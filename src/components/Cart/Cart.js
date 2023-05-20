@@ -1,12 +1,39 @@
 import "./Cart.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MdOutlineClear } from "react-icons/md";
+import Cookies from "universal-cookie";
+import axios from "axios";
 
 function Cart() {
-    const [quantityCart, setQuantityCart] = useState(1);
+    const cookies = new Cookies();
+    const [username, setUsername] = useState("");
+    const [itemCarts, setItemCarts] = useState([]);
     const [isDisable, setDisable] = useState(true);
+    const [subTotal, setSubTotal] = useState(0);
+    const [quantityCart, setQuantityCart] = useState({
+        idProduct: 12,
+        quantity: 12,
+    });
 
-    const handleTru = () => {
+    useEffect(() => {
+        if (cookies.get("user")) {
+            setUsername(cookies.get("user").username);
+        }
+    }, []);
+
+    useEffect(() => {
+        var data = {
+            idUser: cookies.get("user").idUser,
+        };
+        axios
+            .post("http://localhost/DACN1_API/api/getCart.php", data)
+            .then((response) => {
+                setItemCarts(response.data);
+                console.log(itemCarts);
+            });
+    }, []);
+
+    const handleDecrease = (e) => {
         setQuantityCart((prew) => quantityCart - 1);
         if (quantityCart === 2) {
             setQuantityCart(1);
@@ -14,160 +41,103 @@ function Cart() {
         }
     };
 
-    const handleCong = () => {
-        setQuantityCart((prew) => quantityCart + 1);
-        setDisable(false);
+    const handleIncrease = (e) => {
+        // console.log(e.target.id);
+        // var tempCarts = itemCarts;
+        // tempCarts[e.target.id] = {
+        //     ...tempCarts[e.target.id],
+        //     quantityProductCart: tempCarts[e.target.id].quantityProductCart + 1,
+        // };
+        // setItemCarts(tempCarts);
     };
+
     return (
         <div>
             <div className="small-container cart-page">
                 <h3 className="sec-cart">Giỏ hàng của bạn</h3>
                 <table>
-                    <tr>
-                        <th className="th_product">Sản Phẩm</th>
-                        <th className="th_quantity">Số Lượng</th>
-                        <th className="th_price">Giá</th>
-                        <th className="delete">Xoá</th>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th className="th_product">Sản Phẩm</th>
+                            <th className="th_quantity">Số Lượng</th>
+                            <th className="th_price">Giá</th>
+                            <th className="delete">Xoá</th>
+                        </tr>
+                    </thead>
                     {/* Product */}
-                    <tr>
-                        <td>
-                            <div className="cart-info">
-                                <img
-                                    src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/e3a34d4b-7c78-4fe2-bd56-a491a861ce8e/air-force-1-react-shoes-mm8pv3.png"
-                                    alt=""
-                                />
-                                <div>
-                                    <p className="name-product-cart">
-                                        Nike Air Force 1
-                                    </p>
-                                    <div className="small">2,981,299₫</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td className="css__input">
-                            <span>
-                                <button
-                                    className="tru"
-                                    onClick={handleTru}
-                                    disabled={isDisable}
-                                >
-                                    -
-                                </button>
-                                <input
-                                    type="text"
-                                    value={quantityCart}
-                                    className="input__cart"
-                                />
-                                <button className="cong" onClick={handleCong}>
-                                    +
-                                </button>
-                            </span>
-                        </td>
-                        <td className="price">2.000.000đ</td>
-                        <td>
-                            <a href="">
-                                <MdOutlineClear />
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div className="cart-info">
-                                <img
-                                    src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/d5410b82-214b-4628-a06f-e0753795782f/air-huarache-craft-shoes-Xf0QhN.png"
-                                    alt=""
-                                />
-                                <div>
-                                    <p className="name-product-cart">
-                                        Nike Air Huarache Craft
-                                    </p>
-                                    <div className="small">2,680,299₫</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td className="css__input">
-                            <span>
-                                <button
-                                    className="tru"
-                                    onClick={handleTru}
-                                    disabled={isDisable}
-                                >
-                                    -
-                                </button>
-                                <input
-                                    type="text"
-                                    value={quantityCart}
-                                    className="input__cart"
-                                />
-                                <button className="cong" onClick={handleCong}>
-                                    +
-                                </button>
-                            </span>
-                        </td>
-                        <td className="price">2.000.000đ</td>
-                        <td>
-                            <a href="">
-                                <MdOutlineClear />
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div className="cart-info">
-                                <img
-                                    src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/d5410b82-214b-4628-a06f-e0753795782f/air-huarache-craft-shoes-Xf0QhN.png"
-                                    alt=""
-                                />
-                                <div>
-                                    <p className="name-product-cart">
-                                        Nike Air Huarache Craft
-                                    </p>
-                                    <div className="small">2,680,299₫</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td className="css__input">
-                            <span>
-                                <button
-                                    className="tru"
-                                    onClick={handleTru}
-                                    disabled={isDisable}
-                                >
-                                    -
-                                </button>
-                                <input
-                                    type="text"
-                                    value={quantityCart}
-                                    className="input__cart"
-                                />
-                                <button className="cong" onClick={handleCong}>
-                                    +
-                                </button>
-                            </span>
-                        </td>
-                        <td className="price">2.000.000đ</td>
-                        <td>
-                            <a href="">
-                                <MdOutlineClear />
-                            </a>
-                        </td>
-                    </tr>
+                    <tbody>
+                        {itemCarts.map((itemCart, index) => (
+                            <tr key={itemCart.idProduct}>
+                                <td>
+                                    <div className="cart-info">
+                                        <img
+                                            src={itemCart.imageProduct_1}
+                                            alt=""
+                                        />
+                                        <div>
+                                            <p className="name-product-cart">
+                                                {itemCart.nameProduct}
+                                            </p>
+                                            <div className="small">
+                                                {itemCart.priceProduct}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td className="css__input">
+                                    <span>
+                                        {/* <button
+                                            className="tru"
+                                            onClick={handleDecrease}
+                                            disabled={isDisable}
+                                        >
+                                            -
+                                        </button> */}
+                                        <input
+                                            type="number"
+                                            className="input__cart"
+                                            defaultValue={
+                                                itemCart.quantityProductCart
+                                            }
+                                        />
+                                        {/* <button
+                                            id={index}
+                                            className="cong"
+                                            onClick={handleIncrease}
+                                        >
+                                            +
+                                        </button> */}
+                                    </span>
+                                </td>
+                                <td className="price">
+                                    {itemCart.quantityProductCart *
+                                        itemCart.priceProduct}
+                                </td>
+                                <td>
+                                    <a href="">
+                                        <MdOutlineClear />
+                                    </a>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
                 </table>
                 <div className="total-price">
                     <table>
-                        <tr>
-                            <td>Tổng giá</td>
-                            <td>20.000.000đ</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <a href="/payment">
-                                    <button className="">Đặt Hàng</button>
-                                </a>
-                            </td>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <td>Tổng giá</td>
+                                <td>20.000.000đ</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <a href="/payment">
+                                        <button className="">Đặt Hàng</button>
+                                    </a>
+                                </td>
+                            </tr>
+                        </thead>
                     </table>
                 </div>
             </div>

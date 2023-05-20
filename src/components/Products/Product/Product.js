@@ -1,13 +1,52 @@
+import { useState, useEffect } from "react";
 import "./Product.scss";
 import { BsStarFill, BsStarHalf } from "react-icons/bs";
+import Cookies from "universal-cookie";
+import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Product({ setCartCount, cartCount, idProduct, data, productRelated }) {
-    const setCount = () => {
-        setCartCount((prew) => cartCount + 1);
-    };
-
+    const cookies = new Cookies();
     const navigate = useNavigate();
+    const [username, setUsername] = useState("");
+    // const notify = () => toast("Wow so easy!");
+
+    useEffect(() => {
+        if (cookies.get("user")) {
+            setUsername(cookies.get("user").username);
+        }
+    });
+
+    const handleAddToCart = (e) => {
+        if (username === "") {
+            toast.error(
+                "Bạn phải đăng nhập trước khi thêm sản phẩm vào giỏ hàng",
+                {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                }
+            );
+        } else {
+            var data = {
+                idUser: cookies.get("user").idUser,
+                idProduct: e.target.id,
+            };
+            console.log(data);
+            axios
+                .post("http://localhost/DACN1_API/api/setCart.php", data)
+                .then((response) => {
+                    console.log(response.data);
+                });
+        }
+    };
 
     return (
         <div className="product-card" key={data.idProduct}>
@@ -39,7 +78,14 @@ function Product({ setCartCount, cartCount, idProduct, data, productRelated }) {
                         </div>
                     </a>
                     <div className="add-cart-btn">
-                        <button onClick={setCount}>Thêm giỏ hàng</button>
+                        <button
+                            className="add-to-cart-btn"
+                            id={data.idProduct}
+                            onClick={handleAddToCart}
+                        >
+                            Thêm giỏ hàng
+                        </button>
+                        <ToastContainer />
                     </div>
                 </div>
             </div>

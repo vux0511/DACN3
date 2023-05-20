@@ -15,19 +15,20 @@ function Search({ setShowSearch }) {
     };
 
     useEffect(() => {
-        axios
-            .get(
-                `http://localhost/DACN1_API/api/searchProduct.php?key=${query}`
-            )
-            .then((response) => {
-                setProductSearch(response.data);
-            });
-    }, [query]);
+        const timer = setTimeout(() => {
+            axios
+                .get(
+                    `http://localhost/DACN1_API/api/searchProduct.php?key=${query}`
+                )
+                .then((response) => {
+                    setProductSearch(response.data);
+                });
+        }, 500);
 
-    // const handleClickSearch = () => {
-    //     navigate(`/product/${productSearch.idProduct}`);
-    //     // setShowSearch(false);
-    // };
+        return () => {
+            clearTimeout(timer);
+        };
+    }, [query]);
 
     return (
         <div className="search-model">
