@@ -116,7 +116,7 @@ function Header({ cartCount }) {
                                         <div className="userName">
                                             {username !== ""
                                                 ? "Hi " + username
-                                                : "Account"}
+                                                : "Log in"}
                                         </div>
                                     </span>
                                 )}

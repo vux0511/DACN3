@@ -51,8 +51,10 @@ td {
             // height: 150px;
             margin-right: 10px;
         }
-        .small {
+        .small-price {
             float: left;
+            font-size: 14px;
+            color: #333;
         }
     }
 }
@@ -203,4 +205,21 @@ p {
 
 .name-product-cart {
     text-align: left;
+}
+
+.buy-btn {
+    font-weight: 600 !important;
+    font-size: 15px !important;
+}
+
+.empty_cart {
+    text-align: center;
+    padding: 30px 0;
+    img {
+        width: 300px;
+    }
+    .title_empty_cart {
+        font-size: 18px;
+        color: #555;
+    }
 }
