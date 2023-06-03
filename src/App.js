@@ -14,6 +14,7 @@ import About from "./components/About/About";
 import Products from "./components/Products/Products";
 import Information from "./components/Information/Information";
 import ChangePassword from "./components/ChangePassword/ChangePassword";
+import NotFound from "./components/NotFound/NotFound";
 
 import { useState } from "react";
 
@@ -48,6 +49,7 @@ function App() {
                 <Route path="/about/" element={<About />} />
                 <Route path="/information/" element={<Information />} />
                 <Route path="/changepass/" element={<ChangePassword />} />
+                <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer />
             {/* </AppContext> */}

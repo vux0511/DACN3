@@ -5,10 +5,15 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "./Payment.scss";
 import Cookies from "universal-cookie";
+import { Navigate, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Payment() {
     const [buttonPopup, setButtonPopup] = useState(false);
     const cookies = new Cookies();
+    const navigate = useNavigate();
+    const notify = () => toast();
     const [itemCarts, setItemCarts] = useState([]);
     const [subTotal, setSubTotal] = useState(0);
     const [fullname, setFullname] = useState("");
@@ -53,19 +58,51 @@ function Payment() {
 
     const handleOrder = (e) => {
         e.preventDefault();
-        var data = {
-            idUser: cookies.get("user").idUser,
-            fullname: fullname,
-            phone: phone,
-            address: address,
-            email: email,
-        };
 
-        axios
-            .post("http://localhost/DACN1_API/api/setOrder.php", data)
-            .then((response) => {
-                console.log(data);
+        if (fullname === "" || phone === "" || address === "" || email === "") {
+            toast.error("Không được để trống các trường", {
+                position: "top-right",
+                autoClose: 4000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
             });
+        } else {
+            var data = {
+                idUser: cookies.get("user").idUser,
+                fullname: fullname,
+                phone: phone,
+                address: address,
+                email: email,
+                status: "Chờ vận chuyển",
+                payment: "COD",
+                totalPrice: subTotal,
+                products: itemCarts,
+            };
+            axios
+                .post("http://localhost/DACN1_API/api/setOrder.php", data)
+                .then((response) => {
+                    toast.success(
+                        "Đặt hàng thành công, chuyển hướng sau 3 giây",
+                        {
+                            position: "top-right",
+                            autoClose: 4000,
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                        }
+                    );
+                    setTimeout(() => {
+                        navigate("/");
+                    }, 3000);
+                });
+        }
     };
 
     return (
@@ -133,7 +170,6 @@ function Payment() {
                                     autoComplete="off"
                                     onChange={handleChangeAddress}
                                 />
-
                                 <label
                                     htmlFor="email"
                                     className="payment-label"
@@ -164,12 +200,14 @@ function Payment() {
                                 </div>
                                 <button
                                     type="submit"
+                                    onClick={notify}
                                     // onClick={() => setButtonPopup(true)}
                                     // onClick={handlOrder}
                                     className="payment-submit"
                                 >
                                     Đặt Hàng
                                 </button>
+                                <ToastContainer />
                                 {/* <Popup
                                 trigger={buttonPopup}
                                 setTrigger={setButtonPopup}

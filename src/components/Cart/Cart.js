@@ -93,9 +93,7 @@ function Cart() {
             <div className="small-container cart-page">
                 {subTotal !== 0 ? (
                     <h3 className="sec-cart">Giỏ hàng của bạn</h3>
-                ) : (
-                    ""
-                )}
+                ) : null}
                 <table>
                     {subTotal !== 0 ? (
                         <>
@@ -134,7 +132,7 @@ function Cart() {
                                         <div className="cart-info">
                                             <img
                                                 src={itemCart.imageProduct_1}
-                                                alt=""
+                                                alt="Image Product"
                                             />
                                             <div>
                                                 <p className="name-product-cart">
@@ -211,9 +209,7 @@ function Cart() {
                                         </td>
                                     </tr>
                                 </>
-                            ) : (
-                                ""
-                            )}
+                            ) : null}
                         </thead>
                     </table>
                 </div>
