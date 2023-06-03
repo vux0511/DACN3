@@ -74,10 +74,10 @@ function Information() {
     const handleSubmitChangePass = (e) => {
         e.preventDefault();
 
-        if (information.newPass !== information.reNewPass) {
+        if (information.newPass.length < 6) {
+            handleToastifyError("Mật khẩu phải có độ dài lớn hơn 6  ký tự");
+        } else if (information.newPass !== information.reNewPass) {
             handleToastifyError("Mật khẩu mới phải trùng nhau");
-        } else if (information.newPass.length < 6) {
-            handleToastifyError("Mật khẩu phải có độ dài lớn hơn 6 ký tự");
         } else {
             axios
                 .post(
@@ -98,6 +98,10 @@ function Information() {
         <Container className="container-infor">
             <Row className="row-infor">
                 <Col col-md={6} className="col-8-infor">
+                    <h3 className="sec-information">
+                        Chỉnh Sửa Thông Tin Cá Nhân
+                    </h3>
+
                     <form
                         className="information-form"
                         onSubmit={handleSubmitChangePass}

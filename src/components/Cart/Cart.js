@@ -48,6 +48,27 @@ function Cart() {
             });
     };
 
+    const handleDeleteItemCart = (e) => {
+        e.preventDefault();
+        var data = {
+            idCart: e.target.value,
+        };
+        axios
+            .post("http://localhost/DACN1_API/api/deleteCart.php", data)
+            .then((response) => {
+                const updatedCartItems = itemCarts.filter((item) => {
+                    if (item.idCart === data.idCart) {
+                        setSubTotal(
+                            subTotal -
+                                item.quantityProductCart * item.priceProduct
+                        );
+                    }
+                    return item.idCart !== data.idCart;
+                });
+                setItemCarts(updatedCartItems);
+            });
+    };
+
     useEffect(() => {
         var data = {
             idUser: cookies.get("user").idUser,
@@ -57,7 +78,6 @@ function Cart() {
             .post("http://localhost/DACN1_API/api/getCart.php", data)
             .then((response) => {
                 setItemCarts(response.data);
-                console.log(response.data);
                 var totalCart = 0;
                 response.data.map((itemCart, index) => {
                     totalCart =
@@ -153,9 +173,13 @@ function Cart() {
                                         }).format(itemCart.price)}
                                     </td>
                                     <td>
-                                        <a href="">
-                                            <MdOutlineClear />
-                                        </a>
+                                        <button
+                                            className="delete-item-cart-btn"
+                                            onClick={handleDeleteItemCart}
+                                            value={itemCart.idCart}
+                                        >
+                                            {/* <MdOutlineClear /> */} x
+                                        </button>
                                     </td>
                                 </tr>
                             ))

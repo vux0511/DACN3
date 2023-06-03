@@ -93,6 +93,7 @@ function Information() {
 
     return (
         <Container className="container-infor">
+            <h3 className="sec-cart">Chỉnh Sửa Thông Tin Cá Nhân</h3>
             <Row className="row-infor">
                 <Col col-md={4} className="col-4-infor">
                     <div className="avatar-infor">

@@ -223,3 +223,16 @@ p {
         color: #555;
     }
 }
+
+.delete-item-cart-btn {
+    border: 0;
+    background-color: transparent;
+    // font-weight: 700;
+    font-size: 18px;
+    cursor: pointer;
+    color: #222;
+
+    &:hover {
+        color: #777;
+    }
+}
