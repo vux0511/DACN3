@@ -13,6 +13,7 @@ function DetailProduct(data) {
     const [isDisable, setDisable] = useState(true);
     const [productRelated, setProductRelated] = useState([]);
     const [detailProduct, setDetailProduct] = useState([]);
+    const [checked, setChecked] = useState();
 
     const navigate = useNavigate();
     const { productId } = useParams();
@@ -113,7 +114,7 @@ function DetailProduct(data) {
                         <p className="about-product about1">
                             Sản phẩm ở VuxStore có giá tốt nhất thị trường
                         </p>
-                        <div className="size-quantity">
+                        {/* <div className="size-quantity">
                             <span>
                                 <select name="" id="" className="select">
                                     <option value="">SELECT SIZE</option>
@@ -146,6 +147,49 @@ function DetailProduct(data) {
                                 >
                                     +
                                 </button>
+                            </div>
+                        </div> */}
+                        <div className="title-select-size">
+                            <p>Select Size</p>
+                        </div>
+                        <div className="select-size">
+                            <div>
+                                <label>
+                                    <input type="radio" name="checked" id="" />
+                                    <span>Size 37</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="checked" id="" />
+                                    <span>Size 37</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="checked" id="" />
+                                    <span>Size 37</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="checked" id="" />
+                                    <span>Size 37</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="checked" id="" />
+                                    <span>Size 37</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="checked" id="" />
+                                    <span>Size 37</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="checked" id="" />
+                                    <span>Size 37</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="checked" id="" />
+                                    <span>Size 37</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="checked" id="" />
+                                    <span>Size 37</span>
+                                </label>
                             </div>
                         </div>
                         <p className="about-product about1">
