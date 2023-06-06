@@ -1,5 +1,7 @@
 import "./ChangePassword.scss";
 import Container from "react-bootstrap/Container";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { ToastContainer, toast } from "react-toastify";
@@ -95,71 +97,78 @@ function Information() {
     };
 
     return (
-        <Container className="container-infor">
-            <Row className="row-infor">
-                <Col col-md={6} className="col-8-infor">
-                    <h3 className="sec-information">
-                        Chỉnh Sửa Thông Tin Cá Nhân
-                    </h3>
+        <>
+            <Header />
+            <Container className="container-infor">
+                <Row className="row-infor">
+                    <Col col-md={6} className="col-8-infor">
+                        <h3 className="sec-information">
+                            Chỉnh Sửa Thông Tin Cá Nhân
+                        </h3>
 
-                    <form
-                        className="information-form"
-                        onSubmit={handleSubmitChangePass}
-                    >
-                        <label
-                            htmlFor="currentPassword"
-                            className="information-label"
+                        <form
+                            className="information-form"
+                            onSubmit={handleSubmitChangePass}
                         >
-                            Mật khẩu hiện tại
-                        </label>
-                        <input
-                            type="password"
-                            id="currentPassword"
-                            className="information-input"
-                            placeholder="Nhập mật khẩu hiện tại của bạn..."
-                            autoComplete="off"
-                            onChange={handleChangeCurrentPassword}
-                        />
+                            <label
+                                htmlFor="currentPassword"
+                                className="information-label"
+                            >
+                                Mật khẩu hiện tại
+                            </label>
+                            <input
+                                type="password"
+                                id="currentPassword"
+                                className="information-input"
+                                placeholder="Nhập mật khẩu hiện tại của bạn..."
+                                autoComplete="off"
+                                onChange={handleChangeCurrentPassword}
+                            />
 
-                        <label
-                            htmlFor="newPassword"
-                            className="information-label"
-                        >
-                            Mật khẩu mới
-                        </label>
-                        <input
-                            type="password"
-                            id="newPassword"
-                            className="information-input"
-                            placeholder="Nhập mật khẩu mới của bạn..."
-                            autoComplete="off"
-                            onChange={handleChangeNewPassword}
-                            // defaultValue={information.email}
-                        />
-                        <label
-                            htmlFor="reNewPassword"
-                            className="information-label"
-                        >
-                            Nhập lại mật khẩu mới
-                        </label>
-                        <input
-                            type="password"
-                            id="reNewPassword"
-                            className="information-input"
-                            placeholder="Nhập lại mật khẩu mới của bạn..."
-                            autoComplete="off"
-                            // defaultValue={information.phone}
-                            onChange={handleChangeReNewPassword}
-                        />
+                            <label
+                                htmlFor="newPassword"
+                                className="information-label"
+                            >
+                                Mật khẩu mới
+                            </label>
+                            <input
+                                type="password"
+                                id="newPassword"
+                                className="information-input"
+                                placeholder="Nhập mật khẩu mới của bạn..."
+                                autoComplete="off"
+                                onChange={handleChangeNewPassword}
+                                // defaultValue={information.email}
+                            />
+                            <label
+                                htmlFor="reNewPassword"
+                                className="information-label"
+                            >
+                                Nhập lại mật khẩu mới
+                            </label>
+                            <input
+                                type="password"
+                                id="reNewPassword"
+                                className="information-input"
+                                placeholder="Nhập lại mật khẩu mới của bạn..."
+                                autoComplete="off"
+                                // defaultValue={information.phone}
+                                onChange={handleChangeReNewPassword}
+                            />
 
-                        <button onClick={notify} className="information-submit">
-                            Đổi mật khẩu
-                        </button>
-                        <ToastContainer />
-                    </form>
-                </Col>
-            </Row>
-        </Container>
+                            <button
+                                onClick={notify}
+                                className="information-submit"
+                            >
+                                Đổi mật khẩu
+                            </button>
+                            <ToastContainer />
+                        </form>
+                    </Col>
+                </Row>
+            </Container>
+            <Footer />
+        </>
     );
 }
 

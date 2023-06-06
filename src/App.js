@@ -2,8 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Category from "./components/Category/Category";
 // import Product from "./components/Products/Products";
-import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
 import DetailProduct from "./components/DetailProduct/DetailProduct";
 // import AppContext from "./utils/context";
 import Cart from "./components/Cart/Cart";
@@ -15,6 +13,10 @@ import Products from "./components/Products/Products";
 import Information from "./components/Information/Information";
 import ChangePassword from "./components/ChangePassword/ChangePassword";
 import NotFound from "./components/NotFound/NotFound";
+import AdminPage from "./components/Admin/Admin";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 
 import { useState } from "react";
 
@@ -24,7 +26,6 @@ function App() {
     return (
         <BrowserRouter>
             {/* <AppContext> */}
-            <Header cartCount={cartCount} />
             <Routes>
                 <Route
                     path="/"
@@ -49,9 +50,9 @@ function App() {
                 <Route path="/about/" element={<About />} />
                 <Route path="/information/" element={<Information />} />
                 <Route path="/changepass/" element={<ChangePassword />} />
+                <Route path="/admin/" element={<AdminPage />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
-            <Footer />
             {/* </AppContext> */}
         </BrowserRouter>
     );

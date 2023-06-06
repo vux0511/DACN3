@@ -1,0 +1,57 @@
+.container-admin {
+    position: fixed;
+    width: 300px;
+    background-color: #fff;
+    height: 100%;
+}
+
+.sidebar-menu {
+    border-right: 10px;
+    padding-top: 15px;
+    li {
+        padding: 20px 0;
+    }
+}
+
+a.link-sidebar {
+    padding-left: 80px;
+}
+
+.link-sidebar {
+    padding: 20px;
+    color: #333;
+    font-size: 18px;
+    font-weight: 500;
+    &:hover {
+        text-decoration: none;
+        color: #666;
+    }
+}
+
+.home-admin {
+    position: fixed;
+    margin-left: 300px;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(242, 237, 243);
+}
+
+.report-admin {
+    display: flex;
+    padding: 30px;
+}
+
+.icon-home {
+    width: 330px;
+    height: 220px;
+    padding: 10px;
+    background-color: #fff;
+    text-align: center;
+    margin-right: 20px;
+    padding-top: 50px;
+    border-radius: 5px;
+}
+
+.img-brand {
+    width: 30px;
+}

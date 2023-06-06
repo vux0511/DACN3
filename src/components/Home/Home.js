@@ -1,5 +1,7 @@
 import "./Home.scss";
 import Bannner from "./Banner/Banner";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 import Products from "../Products/Products";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -27,6 +29,7 @@ function Home({ setCartCount, cartCount }) {
 
     return (
         <div>
+            <Header />
             <Bannner />
             <div className="main-content">
                 <div className="layout">
@@ -47,6 +50,7 @@ function Home({ setCartCount, cartCount }) {
                     ))}
                 </div>
             </div>
+            <Footer />
         </div>
     );
 }
