@@ -15,6 +15,7 @@
             border: 1px solid #dcdbdb;
             padding: 20px;
             border-radius: 5px;
+            margin-right: 20px;
 
             .avatar-infor {
                 padding-top: 10px;
@@ -86,5 +87,21 @@
                 margin-bottom: 20px;
             }
         }
+    }
+}
+
+.sec-infor {
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 50px;
+
+    &:after {
+        content: "";
+        display: block;
+        margin-top: 5px;
+        width: 100px;
+        height: 3px;
+        background-color: #8e2de2;
     }
 }

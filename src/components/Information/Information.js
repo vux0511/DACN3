@@ -97,7 +97,7 @@ function Information() {
         <>
             <Header />
             <Container className="container-infor">
-                <h3 className="sec-cart">Chỉnh Sửa Thông Tin Cá Nhân</h3>
+                <h3 className="sec-infor">Chỉnh Sửa Thông Tin Cá Nhân</h3>
                 <Row className="row-infor">
                     <Col col-md={4} className="col-4-infor">
                         <div className="avatar-infor">

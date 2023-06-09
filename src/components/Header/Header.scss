@@ -99,6 +99,7 @@
             }
             .cart-icon {
                 position: relative;
+                color: #333;
                 span {
                     min-width: 20px;
                     text-align: center;
@@ -121,6 +122,10 @@
         top: 0;
         animation: stickyHeader 0.3s ease forwards;
     }
+}
+
+ul.center {
+    margin-bottom: 0;
 }
 
 @keyframes stickyHeader {
@@ -191,6 +196,11 @@
     cursor: pointer;
 }
 
+.dropdown-css {
+    color: red;
+    text-decoration: none;
+}
+
 .dropdown-content a {
     color: black;
     padding: 12px 16px;
@@ -200,6 +210,8 @@
 
 .dropdown-content a:hover {
     background-color: #f1f1f1;
+    color: #333;
+    text-decoration: none;
 }
 
 .dropdown:hover .dropdown-content {

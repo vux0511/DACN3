@@ -77,7 +77,7 @@ function Header({ cartCount }) {
                             <a href="/login">
                                 <span className="cart-icon">
                                     <CgShoppingCart />
-                                    <span>{cartCount}</span>
+                                    <span></span>
                                 </span>
                             </a>
                         )}
@@ -117,11 +117,24 @@ function Header({ cartCount }) {
                             </button>
                             {username !== "" ? (
                                 <div className="dropdown-content">
-                                    <Link to={"/information"}>
+                                    <Link
+                                        className="dropdown-css"
+                                        to={"/information"}
+                                    >
                                         Cập nhật tài khoản
                                     </Link>
-                                    <Link to={"/order"}>Xem đơn hàng</Link>
-                                    <Link to={"/changepass"}>Đổi mật khẩu</Link>
+                                    <Link
+                                        className="dropdown-css"
+                                        to={"/order"}
+                                    >
+                                        Xem đơn hàng
+                                    </Link>
+                                    <Link
+                                        className="dropdown-css"
+                                        to={"/changepass"}
+                                    >
+                                        Đổi mật khẩu
+                                    </Link>
                                     <a onClick={handleLogout}>Đăng xuất</a>
                                 </div>
                             ) : (

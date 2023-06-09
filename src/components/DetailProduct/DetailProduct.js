@@ -1,6 +1,8 @@
 import { FaShippingFast } from "react-icons/fa";
 import { TbTruckReturn } from "react-icons/tb";
 
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 import "./DetailProduct.scss";
 import { useRef, useEffect, useState } from "react";
 import Products from "../Products/Products";
@@ -61,9 +63,10 @@ function DetailProduct(data) {
 
     return (
         <>
+            <Header />
             {detailProduct.map((detail) => (
                 <div className="small-container single-product">
-                    <div className="col-2">
+                    <div className="col-2-detail">
                         <img
                             id="imgProduct"
                             src={detail.imageProduct_1}
@@ -105,8 +108,8 @@ function DetailProduct(data) {
                             </div>
                         </div>
                     </div>
-                    <div className="col-2 margin_top">
-                        <h1>{detail.nameProduct}</h1>
+                    <div className="col-2-detail margin_top">
+                        <h1 className="nameProduct">{detail.nameProduct}</h1>
                         <p className="about-product">
                             {detail.descriptionProduct}
                         </p>
@@ -114,41 +117,6 @@ function DetailProduct(data) {
                         <p className="about-product about1">
                             Sản phẩm ở VuxStore có giá tốt nhất thị trường
                         </p>
-                        {/* <div className="size-quantity">
-                            <span>
-                                <select name="" id="" className="select">
-                                    <option value="">SELECT SIZE</option>
-                                    <option value="">36</option>
-                                    <option value="">37</option>
-                                    <option value="">38</option>
-                                    <option value="">39</option>
-                                    <option value="">40</option>
-                                    <option value="">41</option>
-                                    <option value="">42</option>
-                                    <option value="">43</option>
-                                </select>
-                            </span>
-                            <div className="input-quantity">
-                                <button
-                                    className="tru"
-                                    onClick={handleDecrease}
-                                    disabled={isDisable}
-                                >
-                                    -
-                                </button>
-                                <input
-                                    className="input"
-                                    type="text"
-                                    value={quantity}
-                                />
-                                <button
-                                    className="cong"
-                                    onClick={handleIncrease}
-                                >
-                                    +
-                                </button>
-                            </div>
-                        </div> */}
                         <div className="title-select-size">
                             <p>Select Size</p>
                         </div>
@@ -199,30 +167,38 @@ function DetailProduct(data) {
                             </span>{" "}
                             trong kho hàng!
                         </p>
-                        <div className="buy-btn">
-                            <a href="/payment" className="btn buy-now">
+                        <div className="btn-detail">
+                            <a
+                                href="/payment"
+                                className="btn-buy-detail buy-now"
+                            >
                                 Mua Ngay
                             </a>
-                            <a href="" className="btn buy-now add-to-cart">
+                            <a href="" className="btn-buy-detail add-to-cart">
                                 Thêm Giỏ Hàng
                             </a>
                         </div>
-                        <div className="delivery">
-                            <h3>
-                                <FaShippingFast className="icon-ship" /> Free
-                                Delivery
-                            </h3>
-                            <p>Miễn phí vận chuyển khi mua hàng tại VuxStore</p>
-                        </div>
-                        <div className="delivery d1">
-                            <h3>
-                                <TbTruckReturn className="icon-ship" /> Returns
-                                Delivery
-                            </h3>
-                            <p>
-                                Miễn phí đổi trả hàng khi không hài lòng về sản
-                                phẩm
-                            </p>
+                        <div className="term-detail">
+                            <div className="delivery">
+                                <h3>
+                                    <FaShippingFast className="icon-ship" />{" "}
+                                    Free Delivery
+                                </h3>
+                                <p>
+                                    Miễn phí vận chuyển khi mua hàng tại
+                                    VuxStore
+                                </p>
+                            </div>
+                            <div className="delivery d1">
+                                <h3>
+                                    <TbTruckReturn className="icon-ship" />{" "}
+                                    Returns Delivery
+                                </h3>
+                                <p>
+                                    Miễn phí đổi trả hàng khi không hài lòng về
+                                    sản phẩm
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -237,6 +213,7 @@ function DetailProduct(data) {
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
     );
 }

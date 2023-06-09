@@ -1,21 +1,11 @@
 @import "../../../scss/styles.scss";
 
 .product-card {
-    // width: calc(50% - 5px);
-    // margin-bottom: 20px;
-    // // margin-top: 20px;
-    // border-radius: 10px;
-
-    // @include md {
-    //     padding: 5px;
-    //     width: calc(25% - 15px);
-    // }\
     cursor: pointer;
     width: calc(50% - 5px);
     margin-bottom: 20px;
     border-radius: 10px;
     min-height: 200px;
-    // background-color: red;
 
     @include md {
         width: calc(25% - 15px);
@@ -54,6 +44,10 @@
     }
 
     .product-detail {
+        a {
+            text-decoration: none;
+        }
+
         .name {
             font-size: 14px;
             display: block;
@@ -62,6 +56,10 @@
             overflow: hidden;
             font-weight: bold;
             margin-bottom: 5px;
+            color: #333;
+
+            &:hover {
+            }
 
             @include md {
                 font-size: 16px;
@@ -78,6 +76,7 @@
                     font-size: 14px;
                     font-weight: bold;
                     float: right;
+                    color: #333;
 
                     @include md {
                         font-size: 14px;
@@ -94,7 +93,6 @@
                     min-width: 120px;
                     height: 35px;
                     border: 1.5px solid rgb(246, 95, 1);
-                    color: #444;
                     font-size: 13px;
                     font-weight: 600;
                     &:hover {

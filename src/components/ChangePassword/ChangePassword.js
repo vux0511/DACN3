@@ -99,27 +99,86 @@ function Information() {
     return (
         <>
             <Header />
-            <Container className="container-infor">
-                <Row className="row-infor">
-                    <Col col-md={6} className="col-8-infor">
-                        <h3 className="sec-information">
-                            Chỉnh Sửa Thông Tin Cá Nhân
-                        </h3>
-
+            <div className="row-pass">
+                <div className="changepass-container">
+                    <div className="changepass">
+                        <h1 className="sec-changepass">Chỉnh Sửa Mật Khẩu</h1>
                         <form
-                            className="information-form"
+                            className="changepass-form"
                             onSubmit={handleSubmitChangePass}
                         >
                             <label
                                 htmlFor="currentPassword"
-                                className="information-label"
+                                className="changepass-label"
                             >
                                 Mật khẩu hiện tại
                             </label>
                             <input
                                 type="password"
                                 id="currentPassword"
-                                className="information-input"
+                                className="changepass-input"
+                                placeholder="Nhập mật khẩu hiện tại của bạn..."
+                                autoComplete="off"
+                                onChange={handleChangeCurrentPassword}
+                            />
+
+                            <label
+                                htmlFor="password"
+                                className="changepass-label"
+                            >
+                                Mật khẩu mới
+                            </label>
+                            <input
+                                type="password"
+                                id="password"
+                                className="changepass-input"
+                                placeholder="Nhập mật khẩu mới của bạn..."
+                                autoComplete="off"
+                                onChange={handleChangeNewPassword}
+                            />
+                            <label
+                                htmlFor="repassword"
+                                className="changepass-label"
+                            >
+                                Nhập lại mật khẩu mới
+                            </label>
+                            <input
+                                type="password"
+                                id="repassword"
+                                className="changepass-input"
+                                placeholder="Nhập lại mật khẩu mới của bạn..."
+                                autoComplete="off"
+                                onChange={handleChangeReNewPassword}
+                            />
+                            <button
+                                onClick={notify}
+                                className="changepass-submit"
+                            >
+                                Đổi mật khẩu
+                            </button>
+                            <ToastContainer />
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {/* <Container className="container-changepass">
+                <Row className="row-changepass">
+                    <Col col-md={6} className="col-8-changepass">
+                        <h3 className="sec-changepass">Chỉnh Sửa Mật Khẩu</h3>
+                        <form
+                            className="changepass-form"
+                            onSubmit={handleSubmitChangePass}
+                        >
+                            <label
+                                htmlFor="currentPassword"
+                                className="changepass-label"
+                            >
+                                Mật khẩu hiện tại
+                            </label>
+                            <input
+                                type="password"
+                                id="currentPassword"
+                                className="changepass-input"
                                 placeholder="Nhập mật khẩu hiện tại của bạn..."
                                 autoComplete="off"
                                 onChange={handleChangeCurrentPassword}
@@ -127,38 +186,38 @@ function Information() {
 
                             <label
                                 htmlFor="newPassword"
-                                className="information-label"
+                                className="changepass-label"
                             >
                                 Mật khẩu mới
                             </label>
                             <input
                                 type="password"
                                 id="newPassword"
-                                className="information-input"
+                                className="changepass-input"
                                 placeholder="Nhập mật khẩu mới của bạn..."
                                 autoComplete="off"
                                 onChange={handleChangeNewPassword}
-                                // defaultValue={information.email}
+                                // defaultValue={changepass.email}
                             />
                             <label
                                 htmlFor="reNewPassword"
-                                className="information-label"
+                                className="changepass-label"
                             >
                                 Nhập lại mật khẩu mới
                             </label>
                             <input
                                 type="password"
                                 id="reNewPassword"
-                                className="information-input"
+                                className="changepass-input"
                                 placeholder="Nhập lại mật khẩu mới của bạn..."
                                 autoComplete="off"
-                                // defaultValue={information.phone}
+                                // defaultValue={changepass.phone}
                                 onChange={handleChangeReNewPassword}
                             />
 
                             <button
                                 onClick={notify}
-                                className="information-submit"
+                                className="changepass-submit"
                             >
                                 Đổi mật khẩu
                             </button>
@@ -166,7 +225,7 @@ function Information() {
                         </form>
                     </Col>
                 </Row>
-            </Container>
+            </Container> */}
             <Footer />
         </>
     );

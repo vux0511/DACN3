@@ -1,3 +1,5 @@
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 import EmptyCart from "../../assets/emptyCart.png";
 import "./Cart.scss";
 import { useState, useEffect } from "react";
@@ -90,6 +92,7 @@ function Cart() {
 
     return (
         <div>
+            <Header />
             <div className="small-container cart-page">
                 {subTotal !== 0 ? (
                     <h3 className="sec-cart">Giỏ hàng của bạn</h3>
@@ -214,6 +217,7 @@ function Cart() {
                     </table>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 }
