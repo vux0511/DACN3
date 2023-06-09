@@ -1,4 +1,3 @@
-import "./Login.scss";
 import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -8,8 +7,9 @@ import Cookies from "universal-cookie";
 import { Navigate, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Sidebar from "./Sidebar";
 
-function Login() {
+function LoginAdmin() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const cookies = new Cookies();
@@ -29,9 +29,9 @@ function Login() {
             password: password,
         };
         axios
-            .post("http://localhost/DACN1_API/api/getUser.php", data)
+            .post("http://localhost/DACN1_API/api/getIdAdmin.php", data)
             .then((response) => {
-                if (response.data.user === null) {
+                if (response.data.idAdmin === null) {
                     toast.error(
                         "Tài khoản hoặc mật khẩu không đúng. Vui lòng thử lại",
                         {
@@ -46,7 +46,7 @@ function Login() {
                         }
                     );
                 } else {
-                    cookies.set("user", response.data.user, {});
+                    cookies.set("idAdmin", response.data.idAdmin, {});
                     toast.success("Đăng nhập thành công! Chuyển hướng sau 3s", {
                         position: "top-right",
                         autoClose: 3000,
@@ -57,29 +57,17 @@ function Login() {
                         progress: undefined,
                         theme: "colored",
                     });
-                    console.log(response.data.user);
                     setTimeout(() => {
-                        navigate("/");
-                    }, 3500);
+                        window.location.reload();
+                    }, 3000);
                 }
             });
     };
-
     return (
         <>
-            <Header />
             <div className="login-container">
                 <div className="login">
-                    <h1 className="login-heading">Đăng Nhập</h1>
-                    <button className="login-social">
-                        <FcGoogle className="login-social-icon" />
-                        <span className="login-social-text">
-                            Đăng Nhập Với Tài Khoản Google
-                        </span>
-                    </button>
-                    <div className="login-or">
-                        <span>hoặc</span>
-                    </div>
+                    <h1 className="login-heading">LOGIN ADMIN</h1>
                     <form className="login-form" onSubmit={handleLogin}>
                         <label htmlFor="username" className="login-label">
                             User name
@@ -109,18 +97,10 @@ function Login() {
                         </button>
                         <ToastContainer />
                     </form>
-                    <p className="login-resetpass">
-                        <span>Bạn chưa có tài khoản ? </span>
-                        <a href="/register" className="register-link">
-                            {" "}
-                            Đăng ký
-                        </a>
-                    </p>
                 </div>
             </div>
-            <Footer />
         </>
     );
 }
 
-export default Login;
+export default LoginAdmin;

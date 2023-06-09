@@ -89,6 +89,7 @@ body {
 #sidebar .side-menu {
     width: 100%;
     margin-top: 48px;
+    margin-left: 20px;
 }
 #sidebar .side-menu li {
     height: 48px;
@@ -142,9 +143,7 @@ body {
     width: calc(48px - (4px * 2));
     transition: width 0.3s ease;
 }
-#sidebar .side-menu li a.logout {
-    color: var(--red);
-}
+
 #sidebar .side-menu.top li a:hover {
     color: var(--blue);
 }
@@ -424,9 +423,10 @@ body {
 }
 #content main .table-data .order table th {
     padding-bottom: 12px;
-    font-size: 13px;
+    font-size: 16px;
     text-align: left;
     border-bottom: 1px solid var(--grey);
+    background: transparent;
 }
 #content main .table-data .order table td {
     padding: 16px 0;
@@ -463,14 +463,14 @@ body {
     background: var(--orange);
 }
 
-#content main .table-data .todo {
+#content main .table-data .product-home-admin {
     flex-grow: 1;
     flex-basis: 300px;
 }
-#content main .table-data .todo .todo-list {
+#content main .table-data .product-home-admin .products-list {
     width: 100%;
 }
-#content main .table-data .todo .todo-list li {
+#content main .table-data .product-home-admin .products-list li {
     width: 100%;
     margin-bottom: 16px;
     background: var(--grey);
@@ -480,16 +480,11 @@ body {
     justify-content: space-between;
     align-items: center;
 }
-#content main .table-data .todo .todo-list li .bx {
+#content main .table-data .product-home-admin .products-list li .bx {
     cursor: pointer;
 }
-#content main .table-data .todo .todo-list li.completed {
-    border-left: 10px solid var(--blue);
-}
-#content main .table-data .todo .todo-list li.not-completed {
-    border-left: 10px solid var(--orange);
-}
-#content main .table-data .todo .todo-list li:last-child {
+
+#content main .table-data .product-home-admin .products-list li:last-child {
     margin-bottom: 0;
 }
 
@@ -558,7 +553,131 @@ body {
     #content main .table-data .order table {
         min-width: 420px;
     }
-    #content main .table-data .todo .todo-list {
+    #content main .table-data .product-home-admin .products-list {
         min-width: 420px;
     }
+}
+
+.icon-home {
+    width: 78px;
+    height: 80px;
+    border-radius: 10px;
+    font-size: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--light-blue);
+    color: var(--blue);
+}
+
+.icon-products-home {
+    background: var(--light-yellow);
+    color: var(--yellow);
+}
+
+.icon-users-home {
+    background: var(--light-orange);
+    color: var(--orange);
+}
+
+.text-sidebar {
+    padding-left: 10px;
+}
+
+.product-home-admin {
+    img {
+        width: 50px;
+    }
+    p {
+        margin-bottom: 0;
+    }
+}
+
+td {
+    p {
+        margin-bottom: 0;
+    }
+}
+
+// Products List
+.listProducts {
+    position: relative;
+    width: calc(100% - 280px);
+    left: 280px;
+    transition: 0.3s ease;
+    padding: 40px 20px;
+
+    .title-products-list h3 {
+        padding-bottom: 20px;
+        font-size: 25px;
+        font-weight: 600;
+    }
+
+    .add-product-admin {
+        background-color: #04aa6d;
+        margin-bottom: 20px;
+        height: 42px;
+        color: #f2f2f2;
+        border-radius: 30px;
+        border: 1px solid #04aa6d;
+        padding: 0 15px;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all ease-out 0.3s;
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th,
+    td {
+        text-align: center;
+        padding: 8px;
+        img {
+            width: 100px;
+        }
+    }
+
+    td {
+        border-bottom: 1px solid #e6e4e4;
+    }
+
+    th {
+        background-color: rgb(246, 95, 1);
+        color: white;
+        text-align: center;
+    }
+}
+
+th.th-id-product {
+    width: 5%;
+}
+
+th.th-name-product {
+    width: 20%;
+}
+th.th-image-product {
+    width: 10%;
+}
+th.th-price-product {
+    width: 10%;
+}
+th.th-decs-product {
+    width: 35%;
+}
+th.th-act-product {
+    width: 10%;
+}
+
+.desc-product-admin {
+    max-width: 370px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
 }

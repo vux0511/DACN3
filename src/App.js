@@ -14,6 +14,9 @@ import Information from "./components/Information/Information";
 import ChangePassword from "./components/ChangePassword/ChangePassword";
 import NotFound from "./components/NotFound/NotFound";
 import AdminPage from "./components/Admin/Admin";
+import ProductsAdmin from "./components/Admin/ProductsAdmin";
+import EditProduct from "./components/Admin/EditProduct";
+import AddProduct from "./components/Admin/AddProduct";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
@@ -51,6 +54,15 @@ function App() {
                 <Route path="/information/" element={<Information />} />
                 <Route path="/changepass/" element={<ChangePassword />} />
                 <Route path="/admin/" element={<AdminPage />} />
+                <Route path="/admin/products" element={<ProductsAdmin />} />
+                <Route
+                    path="/admin/product/edit/:idProduct"
+                    element={<EditProduct />}
+                />
+                <Route path="/admin/product/add" element={<AddProduct />} />
+                {/* <Route path="/admin/products" element={<ProductsAdmin />} />
+                <Route path="/admin/products" element={<ProductsAdmin />} />
+                <Route path="/admin/products" element={<ProductsAdmin />} /> */}
                 <Route path="*" element={<NotFound />} />
             </Routes>
             {/* </AppContext> */}

@@ -1,69 +1,68 @@
-import { GiConverseShoe } from "react-icons/gi";
 import { AiOutlineDashboard, AiOutlineShoppingCart } from "react-icons/ai";
-import { BiCategory } from "react-icons/bi";
-import { FiUsers } from "react-icons/fi";
+import { GiRubberBoot } from "react-icons/gi";
 
+import { useNavigate, Link } from "react-router-dom";
 import "../../scss/Admin.scss";
-import "boxicons";
 
 function Sidebar() {
     return (
         <section id="sidebar">
             <a href="#" className="brand">
-                <box-icon className="bx" name="smile" type="solid"></box-icon>
-                <span className="text">AdminHub</span>
+                <span className="text-brand">ADMIN</span>
             </a>
             <ul className="side-menu top">
-                <li className="active">
-                    <a href="#">
-                        <box-icon
+                <li>
+                    <a href="/admin">
+                        {/* <box-icon
                             className="bx"
                             name="dashboard"
                             type="solid"
-                        ></box-icon>
-                        <span className="text">Dashboard</span>
+                        ></box-icon> */}
+                        <AiOutlineDashboard />
+                        <span className="text text-sidebar">Dashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <box-icon
+                    <a href="/admin/products">
+                        {/* <box-icon
                             className="bx"
                             name="product-hunt"
                             type="logo"
-                        ></box-icon>
-                        <span className="text">Products</span>
+                        ></box-icon> */}
+                        <GiRubberBoot />
+                        <span className="text text-sidebar">
+                            {/* <Link to={"/admin/products"}></Link> */}
+                            Products
+                        </span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/admin/category">
                         <box-icon className="bx" name="category"></box-icon>
-                        <span className="text">Category</span>
+                        <span className="text text-sidebar">
+                            {/* <Link to={"/admin/category"}></Link> */}
+                            Category
+                        </span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
                         <box-icon className="bx" name="cart"></box-icon>
-                        <span className="text">Order</span>
+                        <span className="text text-sidebar">Order</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <box-icon className="bx" name="cart"></box-icon>
-                        <span className="text">Member</span>
+                        <box-icon name="group"></box-icon>
+                        <span className="text text-sidebar">Member</span>
                     </a>
                 </li>
             </ul>
             <ul className="side-menu">
-                {/* <li>
-                    <a href="#">
-                        <i className="bx bxs-cog" />
-                        <span className="text">Settings</span>
-                    </a>
-                </li> */}
                 <li>
                     <a href="#" className="logout">
-                        <i className="bx bxs-log-out-circle" />
-                        <span className="text">Logout</span>
+                        <box-icon name="log-out"></box-icon>
+                        <span className="text text-sidebar">Logout</span>
                     </a>
                 </li>
             </ul>
