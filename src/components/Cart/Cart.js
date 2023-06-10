@@ -14,6 +14,7 @@ function Cart() {
     const [isDisable, setDisable] = useState(true);
     const [subTotal, setSubTotal] = useState(0);
     const [quantity, setQuantity] = useState(0);
+    const [size, setSize] = useState(0);
 
     useEffect(() => {
         if (cookies.get("user")) {
@@ -130,7 +131,7 @@ function Cart() {
                             </tr>
                         ) : (
                             itemCarts.map((itemCart, index) => (
-                                <tr key={itemCart.idProduct}>
+                                <tr key={index}>
                                     <td>
                                         <div className="cart-info">
                                             <img
@@ -150,7 +151,8 @@ function Cart() {
                                                         }
                                                     ).format(
                                                         itemCart.priceProduct
-                                                    )}
+                                                    )}{" "}
+                                                    - Size {itemCart.size}
                                                 </div>
                                             </div>
                                         </div>

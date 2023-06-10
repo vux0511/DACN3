@@ -1,5 +1,9 @@
 import { AiOutlineDashboard, AiOutlineShoppingCart } from "react-icons/ai";
 import { GiRubberBoot } from "react-icons/gi";
+import { BiCategoryAlt } from "react-icons/bi";
+import { FiUsers } from "react-icons/fi";
+import { CgLogOut } from "react-icons/cg";
+import LogoAdmin from "../../assets/logo-admin.png";
 
 import { useNavigate, Link } from "react-router-dom";
 import "../../scss/Admin.scss";
@@ -7,62 +11,59 @@ import "../../scss/Admin.scss";
 function Sidebar() {
     return (
         <section id="sidebar">
-            <a href="#" className="brand">
-                <span className="text-brand">ADMIN</span>
-            </a>
+            <div className="brand-logo">
+                <img src={LogoAdmin} alt="" />
+                <p>Admin</p>
+            </div>
             <ul className="side-menu top">
                 <li>
                     <a href="/admin">
-                        {/* <box-icon
-                            className="bx"
-                            name="dashboard"
-                            type="solid"
-                        ></box-icon> */}
-                        <AiOutlineDashboard />
-                        <span className="text text-sidebar">Dashboard</span>
+                        <p className="okkk">
+                            <AiOutlineDashboard className="icon-home-admin" />
+                            Dashboard
+                        </p>
                     </a>
                 </li>
                 <li>
                     <a href="/admin/products">
-                        {/* <box-icon
-                            className="bx"
-                            name="product-hunt"
-                            type="logo"
-                        ></box-icon> */}
-                        <GiRubberBoot />
-                        <span className="text text-sidebar">
-                            {/* <Link to={"/admin/products"}></Link> */}
+                        <p className="okkk">
+                            <GiRubberBoot className="icon-home-admin" />
                             Products
-                        </span>
+                        </p>
                     </a>
                 </li>
                 <li>
                     <a href="/admin/category">
-                        <box-icon className="bx" name="category"></box-icon>
-                        <span className="text text-sidebar">
-                            {/* <Link to={"/admin/category"}></Link> */}
+                        <p className="okkk">
+                            <BiCategoryAlt className="icon-home-admin" />
                             Category
-                        </span>
+                        </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/order">
+                        <p className="okkk">
+                            <AiOutlineShoppingCart className="icon-home-admin" />
+                            Order
+                        </p>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <box-icon className="bx" name="cart"></box-icon>
-                        <span className="text text-sidebar">Order</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <box-icon name="group"></box-icon>
-                        <span className="text text-sidebar">Member</span>
+                        <p className="okkk">
+                            <FiUsers className="icon-home-admin" />
+                            Member
+                        </p>
                     </a>
                 </li>
             </ul>
             <ul className="side-menu">
                 <li>
                     <a href="#" className="logout">
-                        <box-icon name="log-out"></box-icon>
-                        <span className="text text-sidebar">Logout</span>
+                        <p className="okkk">
+                            <CgLogOut className="icon-home-admin" />
+                            Logout
+                        </p>
                     </a>
                 </li>
             </ul>

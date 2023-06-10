@@ -110,7 +110,6 @@ function Payment() {
     return (
         <>
             <Header />
-
             <div>
                 <div className="main-content">
                     <div className="layout">
@@ -123,7 +122,7 @@ function Payment() {
                             </p>
                         </div>
                         <div className="row-payment">
-                            <div className="col-2 col-left">
+                            <div className="col-2-payment col-left">
                                 <div className="payment-title">
                                     <h3>
                                         <u>Thông tin khách hàng</u>
@@ -197,14 +196,14 @@ function Payment() {
                                             Hình thức thanh toán
                                         </p>
                                         <input
-                                            checked
+                                            defaultChecked
                                             type="radio"
                                             id="shipCod"
                                             name="shipCod"
-                                            value="shipCod"
+                                            defaultValue="shipCod"
                                         />
                                         <label htmlFor="shipCod">
-                                            {" "}
+                                            {"  "}
                                             Ship COD
                                         </label>
                                     </div>
@@ -230,7 +229,7 @@ function Payment() {
                             </Popup> */}
                                 </form>
                             </div>
-                            <div className="col-2 col-right">
+                            <div className="col-2-payment col-right">
                                 <div className="payment-title-cart">
                                     <div className="payment-title">
                                         <h3>Giỏ hàng</h3>
@@ -241,57 +240,51 @@ function Payment() {
                                                 className="row-product-payment"
                                                 key={index}
                                             >
-                                                <div className="col-2">
-                                                    <div className="name-product">
+                                                <div className="col-2-items-payment">
+                                                    <p className="name-product-payment">
                                                         {itemCart.nameProduct}
-                                                    </div>
-                                                    <div className="quantity-price-product">
-                                                        <p className="priceItem">
-                                                            {" "}
-                                                            {new Intl.NumberFormat(
-                                                                "vn-VI",
-                                                                {
-                                                                    style: "currency",
-                                                                    currency:
-                                                                        "VND",
-                                                                }
-                                                            ).format(
-                                                                itemCart.priceProduct
-                                                            )}{" "}
-                                                            x{" "}
+                                                    </p>
+                                                    <p>
+                                                        {new Intl.NumberFormat(
+                                                            "vn-VI",
                                                             {
-                                                                itemCart.quantityProductCart
+                                                                style: "currency",
+                                                                currency: "VND",
                                                             }
-                                                        </p>
-                                                    </div>
+                                                        ).format(
+                                                            itemCart.priceProduct
+                                                        )}{" "}
+                                                        - SL
+                                                        {
+                                                            itemCart.quantityProductCart
+                                                        }{" "}
+                                                        - Size {itemCart.size}{" "}
+                                                    </p>
                                                 </div>
-                                                <div className="col-2">
-                                                    <div className="total-price-product">
-                                                        <p className="totalPriceItem">
-                                                            {new Intl.NumberFormat(
-                                                                "vn-VI",
-                                                                {
-                                                                    style: "currency",
-                                                                    currency:
-                                                                        "VND",
-                                                                }
-                                                            ).format(
-                                                                itemCart.priceProduct *
-                                                                    itemCart.quantityProductCart
-                                                            )}
-                                                        </p>
-                                                    </div>
+                                                <div className="col-2-items-payment">
+                                                    <p className="totalprice">
+                                                        {new Intl.NumberFormat(
+                                                            "vn-VI",
+                                                            {
+                                                                style: "currency",
+                                                                currency: "VND",
+                                                            }
+                                                        ).format(
+                                                            itemCart.priceProduct *
+                                                                itemCart.quantityProductCart
+                                                        )}
+                                                    </p>
                                                 </div>
                                             </div>
                                         ))}
 
                                         <div className="row-total-payment">
-                                            <div className="col-2">
+                                            <div className="col-2-checkout">
                                                 <div className="title-subtotal-product">
                                                     Tổng thành tiền
                                                 </div>
                                             </div>
-                                            <div className="col-2">
+                                            <div className="col-2-checkout">
                                                 <div className="subtotal-product">
                                                     <p className="subTotal">
                                                         {new Intl.NumberFormat(

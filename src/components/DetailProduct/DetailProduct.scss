@@ -108,11 +108,12 @@ a.btn-buy-detail.buy-now {
     padding: 8px 5px;
     margin-bottom: 20px;
     border-radius: 30px;
-    transition: background 0.5;
+    transition: all ease-in-out 0.3s;
     margin-right: 10px;
     min-width: 140px;
     text-align: center;
     font-weight: 600;
+
     &:hover {
         opacity: 0.7;
         text-decoration: none;
@@ -121,6 +122,19 @@ a.btn-buy-detail.buy-now {
         padding: 8px 30px;
         min-width: 190px;
     }
+}
+
+button.add-to-cart-detail-btn {
+    background-color: transparent;
+    border: 0;
+    font-weight: 600;
+}
+
+.buy-now-detail-btn {
+    background-color: rgb(246, 95, 1);
+    border: 0;
+    font-weight: 600;
+    color: #fff;
 }
 
 .add-to-cart {
@@ -283,10 +297,11 @@ a.btn-buy-detail.buy-now {
 }
 
 .title-select-size {
-    font-size: 16px;
+    font-size: 20px;
     color: #333;
     padding: 10px 0;
     padding-bottom: 0;
+    font-weight: 600;
 }
 
 .select-size {
@@ -318,14 +333,15 @@ a.btn-buy-detail.buy-now {
     position: relative;
     display: inline-block;
     background: transparent;
-    padding: 15px 30px;
+    padding: 8px 12px;
     color: #555;
     transition: 0.5s;
     user-select: none;
     overflow: hidden;
     outline: none;
     align-items: center;
-    height: 48px;
+    height: 60px;
+    min-width: 125px;
     border-radius: 4px;
     background: rgb(255, 255, 255);
     color: rgb(17, 17, 17);
@@ -337,4 +353,13 @@ a.btn-buy-detail.buy-now {
 .select-size div label input[type="radio"]:checked ~ span {
     border: 1px solid #7d7d7d;
     outline: none;
+}
+
+.quantity-product-detail {
+    font-size: 13px;
+    color: rgb(246, 95, 1) !important;
+}
+
+.view-product {
+    float: right;
 }

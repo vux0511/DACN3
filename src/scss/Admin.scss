@@ -55,7 +55,7 @@ body {
     height: 100%;
     background: var(--light);
     z-index: 2000;
-    font-family: var(--lato);
+    font-family: "Inter", sans-serif;
     transition: 0.3s ease;
     overflow-x: hidden;
     scrollbar-width: none;
@@ -83,20 +83,26 @@ body {
 }
 #sidebar .brand .bx {
     min-width: 60px;
-    display: flex;
+    // display: flex;
     justify-content: center;
 }
 #sidebar .side-menu {
-    width: 100%;
-    margin-top: 48px;
-    margin-left: 20px;
+    // width: 100%;
+    // margin-top: 48px;
+    // margin-left: 20px;
 }
 #sidebar .side-menu li {
-    height: 48px;
+    height: 50px;
     background: transparent;
-    margin-left: 6px;
     border-radius: 48px 0 0 48px;
-    padding: 4px;
+    width: 100%;
+}
+
+#sidebar .side-menu li a {
+    padding-left: 40px;
+    p {
+        font-size: 17px;
+    }
 }
 #sidebar .side-menu li.active {
     background: var(--grey);
@@ -117,7 +123,7 @@ body {
     content: "";
     position: absolute;
     width: 40px;
-    height: 40px;
+    height: 70px;
     border-radius: 50%;
     bottom: -40px;
     right: 0;
@@ -126,11 +132,11 @@ body {
 }
 #sidebar .side-menu li a {
     width: 100%;
-    height: 100%;
+    height: 55px;
     background: var(--light);
     display: flex;
     align-items: center;
-    border-radius: 48px;
+    // border-radius: 48px;
     font-size: 16px;
     color: var(--dark);
     white-space: nowrap;
@@ -145,7 +151,10 @@ body {
 }
 
 #sidebar .side-menu.top li a:hover {
-    color: var(--blue);
+    // color: var(--blue);
+    transition: all ease-in-out 0.4s;
+    // opacity: 0.7;
+    background-color: rgb(220, 220, 220);
 }
 #sidebar .side-menu li a .bx {
     min-width: calc(60px - ((4px + 6px) * 2));
@@ -614,12 +623,12 @@ td {
     }
 
     .add-product-admin {
-        background-color: #04aa6d;
+        background-color: rgb(246, 95, 1);
         margin-bottom: 20px;
         height: 42px;
         color: #f2f2f2;
         border-radius: 30px;
-        border: 1px solid #04aa6d;
+        border: 1px solid rgb(246, 95, 1);
         padding: 0 15px;
         font-size: 16px;
         font-weight: 600;
@@ -648,8 +657,9 @@ td {
     }
 
     th {
-        background-color: rgb(246, 95, 1);
-        color: white;
+        color: #2c3135;
+        background-color: #e9ecef;
+        border-color: #dee2e6;
         text-align: center;
     }
 }
@@ -680,4 +690,226 @@ th.th-act-product {
     white-space: nowrap;
     text-overflow: ellipsis;
     text-align: center;
+}
+
+.address-order-admin {
+    max-width: 300px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+.login-admin {
+    min-height: 750px;
+}
+
+.delete-item-product-btn {
+    background-color: transparent;
+    border: 0;
+    font-weight: 500;
+}
+
+.icon-home-admin {
+    font-size: 23px;
+    margin-right: 15px;
+    // margin-left: 20px;
+}
+
+// .side-menu li {
+//     margin-bottom: 10px;
+
+//     a {
+//         span {
+//             font-size: 18px;
+//         }
+//     }
+// }
+
+.okkk {
+    width: 100%;
+}
+
+p.okkk {
+    margin-bottom: 0;
+}
+
+.brand-logo {
+    text-align: center;
+    padding-top: 30px;
+    margin-bottom: 20px;
+    // color: rgb(246, 95, 1);
+    img {
+        width: 80px;
+    }
+    p {
+        font-weight: 600;
+        font-size: 18px;
+    }
+}
+
+.row {
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    -ms-flex-wrap: wrap; /* IE10 */
+    flex-wrap: wrap;
+    margin: 0 -16px;
+    box-sizing: border-box;
+}
+
+.col-25 {
+    -ms-flex: 25%; /* IE10 */
+    flex: 25%;
+}
+
+.col-50 {
+    -ms-flex: 50%; /* IE10 */
+    flex: 50%;
+}
+
+.col-75 {
+    -ms-flex: 75%; /* IE10 */
+    flex: 75%;
+}
+
+.col-25,
+.col-50,
+.col-75 {
+    padding: 0 16px;
+}
+
+.container {
+    // background-color: #f2f2f2;
+    padding: 5px 20px 15px 20px;
+    // border: 1px solid lightgrey;
+    border-radius: 3px;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+label {
+    margin-bottom: 10px;
+    display: block;
+}
+
+.icon-container {
+    margin-bottom: 20px;
+    padding: 7px 0;
+    font-size: 24px;
+}
+
+.btn {
+    background-color: #04aa6d;
+    color: white;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    width: 100%;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+a {
+    color: #2196f3;
+}
+
+hr {
+    border: 1px solid lightgrey;
+}
+
+span.price {
+    float: right;
+    color: grey;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
+@media (max-width: 800px) {
+    .row {
+        flex-direction: column-reverse;
+    }
+    .col-25 {
+        margin-bottom: 20px;
+    }
+}
+
+.select-category {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.add-pro-btn {
+    background-color: rgb(246, 95, 1);
+    margin-bottom: 20px;
+    height: 42px;
+    color: #f2f2f2;
+    border-radius: 30px;
+    border: 1px solid rgb(246, 95, 1);
+    padding: 0 15px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all ease-out 0.3s;
+
+    &:hover {
+        opacity: 0.7;
+    }
+}
+
+th.th-id-order {
+    width: 4%;
+}
+th.th-id-user {
+    width: 6%;
+}
+th.th-fullname-order {
+    width: 15%;
+}
+th.th-phone-order {
+    width: 15%;
+}
+th.th-address-order {
+    width: 30%;
+}
+th.th-payment-order {
+    width: 10%;
+}
+th.th-status-order {
+    width: 10%;
+}
+th.th-act-order {
+    width: 10%;
+}
+
+// ----------------------------------------------------------------
+th.th-name-product-order {
+    width: 20%;
+}
+th.th-img-product-order {
+    width: 20%;
+}
+th.th-price-product-order {
+    width: 10%;
+}
+th.th-size-product-order {
+    width: 10%;
+}
+th.th-quantity-product-order {
+    width: 10%;
+}
+th.th-subtotal-product-order {
+    width: 10%;
 }

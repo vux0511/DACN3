@@ -17,7 +17,7 @@ function Product({ setCartCount, cartCount, idProduct, data, productRelated }) {
         if (cookies.get("user")) {
             setUsername(cookies.get("user").username);
         }
-    });
+    }, []);
 
     const handleAddToCart = (e) => {
         if (username === "") {

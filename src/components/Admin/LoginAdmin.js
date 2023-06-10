@@ -65,7 +65,7 @@ function LoginAdmin() {
     };
     return (
         <>
-            <div className="login-container">
+            <div className="login-container login-admin">
                 <div className="login">
                     <h1 className="login-heading">LOGIN ADMIN</h1>
                     <form className="login-form" onSubmit={handleLogin}>

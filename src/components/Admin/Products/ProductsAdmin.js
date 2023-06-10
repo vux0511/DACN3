@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import Sidebar from "./Sidebar";
+import Sidebar from "../Sidebar";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function ProductAdmin() {
     const [itemProducts, setItemProducts] = useState([]);
-
+    const notify = () => toast();
     useEffect(() => {
         axios
             .get(`http://localhost/DACN1_API/api/getProduct.php`)
@@ -13,6 +15,33 @@ function ProductAdmin() {
                 setItemProducts(response.data);
             });
     }, []);
+
+    const handleDeleteProduct = (e) => {
+        e.preventDefault();
+        var data = {
+            idProduct: e.target.value,
+        };
+        axios
+            .post("http://localhost/DACN1_API/api/deleteProduct.php", data)
+            .then((response) => {
+                const updatedItemsProducts = itemProducts.filter((item) => {
+                    if (item.idProduct === data.idProduct) {
+                        toast.success("Xoá thành công", {
+                            position: "top-right",
+                            autoClose: 3000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                        });
+                    }
+                    return item.idProduct !== data.idProduct;
+                });
+                setItemProducts(updatedItemsProducts);
+            });
+    };
 
     return (
         <div className="main-container">
@@ -56,24 +85,24 @@ function ProductAdmin() {
                                         </div>
                                     </td>
                                     <td>
-                                        {/* <a href="/admin/product/edit/">
-                                            <button>Sửa</button>
-                                        </a>{" "}
-                                        -{" "}
-                                        <a href="">
-                                            <button>Xoá</button>
-                                        </a> */}
                                         <Link
                                             to={`/admin/product/edit/${item.idProduct}`}
                                         >
-                                            Sửa
+                                            <button className="delete-item-product-btn">
+                                                Sửa
+                                            </button>
                                         </Link>{" "}
                                         -{" "}
-                                        <Link
-                                            to={`/admin/product/delete/${item.idProduct}`}
-                                        >
-                                            Xoá
-                                        </Link>
+                                        <a href="">
+                                            <button
+                                                className="delete-item-product-btn"
+                                                value={item.idProduct}
+                                                onClick={handleDeleteProduct}
+                                            >
+                                                Xoá
+                                            </button>
+                                            <ToastContainer />
+                                        </a>
                                     </td>
                                 </tr>
                             ))}

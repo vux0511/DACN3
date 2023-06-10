@@ -14,9 +14,14 @@ import Information from "./components/Information/Information";
 import ChangePassword from "./components/ChangePassword/ChangePassword";
 import NotFound from "./components/NotFound/NotFound";
 import AdminPage from "./components/Admin/Admin";
-import ProductsAdmin from "./components/Admin/ProductsAdmin";
-import EditProduct from "./components/Admin/EditProduct";
-import AddProduct from "./components/Admin/AddProduct";
+import ProductsAdmin from "./components/Admin/Products/ProductsAdmin";
+import EditProduct from "./components/Admin/Products/EditProduct";
+import AddProduct from "./components/Admin/Products/AddProduct";
+import CategoryAdmin from "./components/Admin/Category/Category";
+import EditCategory from "./components/Admin/Category/EditCategory";
+import AddCategory from "./components/Admin/Category/AddCategory";
+import Order from "./components/Admin/Order/Order";
+import EditOrder from "./components/Admin/Order/EditOrder";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
@@ -60,9 +65,19 @@ function App() {
                     element={<EditProduct />}
                 />
                 <Route path="/admin/product/add" element={<AddProduct />} />
-                {/* <Route path="/admin/products" element={<ProductsAdmin />} />
-                <Route path="/admin/products" element={<ProductsAdmin />} />
-                <Route path="/admin/products" element={<ProductsAdmin />} /> */}
+
+                <Route path="/admin/category" element={<CategoryAdmin />} />
+                <Route path="/admin/category/add" element={<AddCategory />} />
+                <Route
+                    path="/admin/category/edit/:idCategory"
+                    element={<EditCategory />}
+                />
+
+                <Route path="/admin/order" element={<Order />} />
+                <Route
+                    path="/admin/order/edit/:idOrder"
+                    element={<EditOrder />}
+                />
                 <Route path="*" element={<NotFound />} />
             </Routes>
             {/* </AppContext> */}

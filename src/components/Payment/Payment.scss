@@ -81,7 +81,7 @@
     display: flex;
     border-bottom: 1px solid rgb(171, 171, 171);
     .total-price-product {
-        float: left;
+        float: right;
     }
 }
 .row-total-payment {
@@ -113,4 +113,36 @@
 
 .subTotal {
     font-weight: bold;
+}
+
+.col-2-payment {
+    width: 45%;
+}
+
+.price-payment {
+    float: right;
+}
+
+.col-2-items-payment {
+    width: 50%;
+}
+
+.name-product-payment {
+    padding-top: 10px;
+}
+
+.col-2-checkout {
+    width: 50%;
+}
+p.subTotal {
+    float: right;
+}
+
+.row-total-payment {
+    padding-top: 30px;
+}
+
+.totalprice {
+    padding-top: 10px;
+    float: right;
 }
