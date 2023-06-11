@@ -14,88 +14,17 @@ function EditProduct() {
     const navigate = useNavigate();
     const notify = () => toast();
     const { idOrder } = useParams();
-    const [idCategory, setIdCategory] = useState([]);
-    const [order, setOrder] = useState([]);
+    const [status, setStatus] = useState([]);
     const [detailOrder, setDetailOrder] = useState([]);
 
-    const [itemProductEdit, setItemProductEdit] = useState({});
-
-    const handleChangeNameProduct = (e) => {
-        setItemProductEdit({ ...itemProductEdit, nameProduct: e.target.value });
-    };
-    const handleChangeIdCate = (e) => {
-        setItemProductEdit({ ...itemProductEdit, idCategory: e.target.value });
-    };
-    const handleChangePriceProduct = (e) => {
-        setItemProductEdit({
-            ...itemProductEdit,
-            priceProduct: e.target.value,
-        });
-    };
-    const handleChangeDescriptionProduct = (e) => {
-        setItemProductEdit({
-            ...itemProductEdit,
-            descriptionProduct: e.target.value,
-        });
-    };
-    const handleChangeViewProduct = (e) => {
-        setItemProductEdit({ ...itemProductEdit, viewProduct: e.target.value });
-    };
-    const handleChangeSize37 = (e) => {
-        setItemProductEdit({ ...itemProductEdit, siz37: e.target.value });
-    };
-    const handleChangeSize38 = (e) => {
-        setItemProductEdit({ ...itemProductEdit, siz38: e.target.value });
-    };
-    const handleChangeSize39 = (e) => {
-        setItemProductEdit({ ...itemProductEdit, siz39: e.target.value });
-    };
-    const handleChangeSize40 = (e) => {
-        setItemProductEdit({ ...itemProductEdit, siz40: e.target.value });
-    };
-    const handleChangeSize41 = (e) => {
-        setItemProductEdit({ ...itemProductEdit, siz41: e.target.value });
-    };
-    const handleChangeSize42 = (e) => {
-        setItemProductEdit({ ...itemProductEdit, siz42: e.target.value });
-    };
-    const handleChangeSize43 = (e) => {
-        setItemProductEdit({ ...itemProductEdit, siz43: e.target.value });
-    };
-    const handleChangeSize44 = (e) => {
-        setItemProductEdit({ ...itemProductEdit, siz44: e.target.value });
-    };
-    const handleChangeSize45 = (e) => {
-        setItemProductEdit({ ...itemProductEdit, size45: e.target.value });
-    };
-    const handleChangeImageProduct_1 = (e) => {
-        setItemProductEdit({
-            ...itemProductEdit,
-            imageProduct_1: e.target.value,
-        });
-    };
-    const handleChangeImageProduct_2 = (e) => {
-        setItemProductEdit({
-            ...itemProductEdit,
-            imageProduct_2: e.target.value,
-        });
-    };
-    const handleChangeImageProduct_3 = (e) => {
-        setItemProductEdit({
-            ...itemProductEdit,
-            imageProduct_3: e.target.value,
-        });
-    };
-    const handleChangeImageProduct_4 = (e) => {
-        setItemProductEdit({
-            ...itemProductEdit,
-            imageProduct_4: e.target.value,
-        });
+    const handleChangeStatus = (e) => {
+        setStatus(e.target.value);
+        console.log(status);
     };
 
     const handleAddProduct = (e) => {
         e.preventDefault();
-        let data = itemProductEdit;
+        let data = status;
         data.id = idOrder;
 
         axios
@@ -128,16 +57,7 @@ function EditProduct() {
             });
     };
 
-    // Get Detail Order
-    // useEffect(() => {
-    //     axios
-    //         .get("http://localhost/DACN1_API/api/getDetailOrder.php")
-    //         .then((response) => {
-    //             setIdCategory(response.data);
-    //         });
-    // }, []);
-
-    // Get Product
+    // Get getDetailOrder
     useEffect(() => {
         axios
             .get(
@@ -145,9 +65,20 @@ function EditProduct() {
             )
             .then((response) => {
                 setDetailOrder(response.data);
-                console.log(detailOrder);
             });
     }, []);
+
+    // Get Status Order
+    // useEffect(() => {
+    //     axios
+    //         .get(
+    //             `http://localhost/DACN1_API/api/getStatusOrder.php?idorder=${idOrder}`
+    //         )
+    //         .then((response) => {
+    //             setStatusOrder(response.data);
+    //             console.log(response.data);
+    //         });
+    // }, []);
 
     return (
         <div className="main-container">
@@ -189,8 +120,11 @@ function EditProduct() {
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {order.map(
-                                                            (order, index) => (
+                                                        {detailOrder.map(
+                                                            (
+                                                                detailOrder,
+                                                                index
+                                                            ) => (
                                                                 <tr key={index}>
                                                                     <td>
                                                                         {index +
@@ -198,25 +132,51 @@ function EditProduct() {
                                                                     </td>
                                                                     <td>
                                                                         {
-                                                                            order.nameProduct
+                                                                            detailOrder.nameProduct
                                                                         }
                                                                     </td>
                                                                     <td>
-                                                                        {
-                                                                            order.fullname
-                                                                        }
-                                                                    </td>
-                                                                    <td>
-                                                                        {
-                                                                            order.phone
-                                                                        }
-                                                                    </td>
-                                                                    <td>
-                                                                        <div className="address-order-admin">
-                                                                            {
-                                                                                order.address
+                                                                        <img
+                                                                            src={
+                                                                                detailOrder.imageProduct_1
                                                                             }
-                                                                        </div>
+                                                                            alt="Image Product"
+                                                                        />
+                                                                    </td>
+                                                                    <td>
+                                                                        {new Intl.NumberFormat(
+                                                                            "vn-VI",
+                                                                            {
+                                                                                style: "currency",
+                                                                                currency:
+                                                                                    "VND",
+                                                                            }
+                                                                        ).format(
+                                                                            detailOrder.priceProduct
+                                                                        )}
+                                                                    </td>
+                                                                    <td>
+                                                                        {
+                                                                            detailOrder.size
+                                                                        }
+                                                                    </td>
+                                                                    <td>
+                                                                        {
+                                                                            detailOrder.quantityProduct
+                                                                        }
+                                                                    </td>
+                                                                    <td>
+                                                                        {new Intl.NumberFormat(
+                                                                            "vn-VI",
+                                                                            {
+                                                                                style: "currency",
+                                                                                currency:
+                                                                                    "VND",
+                                                                            }
+                                                                        ).format(
+                                                                            detailOrder.priceProduct *
+                                                                                detailOrder.quantityProduct
+                                                                        )}
                                                                     </td>
                                                                 </tr>
                                                             )
@@ -226,7 +186,26 @@ function EditProduct() {
                                             </div>
                                         </div>
                                     </div>
-
+                                    {/* <select
+                                        onChange={handleChangeStatus}
+                                        name="select-category"
+                                        id="select-category"
+                                        className="select-order"
+                                    >
+                                        {statusOrder.map((status, index) => (
+                                            <>
+                                                <option value="waitting">
+                                                    {status.status}
+                                                </option>
+                                                <option value="shipping">
+                                                    Đang vận chuyển
+                                                </option>
+                                                <option value="cancle">
+                                                    Huỷ đơn hàng
+                                                </option>
+                                            </>
+                                        ))}
+                                    </select> */}
                                     <button className="add-pro-btn">
                                         Lưu thay đổi
                                     </button>

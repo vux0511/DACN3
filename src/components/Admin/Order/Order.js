@@ -44,6 +44,38 @@ function Order() {
             });
     };
 
+    const handleChangeStatus = (e) => {
+        // e.preventDefault();
+
+        let idOrder = e.target.className.split(" ");
+        var data = {
+            nameStatus: e.target.value,
+            idOrder: idOrder[1],
+        };
+
+        axios
+            .post("http://localhost/DACN1_API/api/editStatus.php", data)
+            .then((response) => {
+                console.log(response.data);
+                // const updatedItemsProducts = order.filter((item) => {
+                //     if (item.idProduct === data.idProduct) {
+                //         toast.success("Xoá thành công", {
+                //             position: "top-right",
+                //             autoClose: 3000,
+                //             hideProgressBar: false,
+                //             closeOnClick: true,
+                //             pauseOnHover: true,
+                //             draggable: true,
+                //             progress: undefined,
+                //             theme: "colored",
+                //         });
+                //     }
+                //     return item.idProduct !== data.idProduct;
+                // });
+                // setOrder(updatedItemsProducts);
+            });
+    };
+
     return (
         <div className="main-container">
             <Sidebar />
@@ -78,7 +110,27 @@ function Order() {
                                         </div>
                                     </td>
                                     <td>{order.payment}</td>
-                                    <td>{order.status}</td>
+                                    <td>
+                                        <select
+                                            onChange={handleChangeStatus}
+                                            name="select-category"
+                                            id="select-category"
+                                            className={`select-order ${order.idOrder}`}
+                                        >
+                                            <option value={order.status}>
+                                                {order.status}
+                                            </option>
+                                            <option value="Đang vận chuyển">
+                                                Đang vận chuyển
+                                            </option>
+                                            <option value="Đã hoàn thành">
+                                                Đã hoàn thành
+                                            </option>
+                                            <option value="Huỷ đơn hàng">
+                                                Huỷ đơn hàng
+                                            </option>
+                                        </select>
+                                    </td>
                                     <td>
                                         <Link
                                             to={`/admin/order/edit/${order.idOrder}`}
