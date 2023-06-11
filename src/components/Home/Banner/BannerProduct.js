@@ -6,7 +6,7 @@ function BannerProduct() {
                     <li>
                         <a href="">
                             <img
-                                src="https://cdn.vox-cdn.com/thumbor/b0dwIIAKUKkCleifU9elFpYCmDg=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/21973505/vpavic_4243_20201018_0121.0.jpg"
+                                src="https://www.mensjournal.com/.image/t_share/MTk2MTM2NTU1NDAyMTEwMDk3/joyride1.jpg"
                                 alt=""
                             />
                         </a>
@@ -16,7 +16,7 @@ function BannerProduct() {
                     <li>
                         <a href="">
                             <img
-                                src="https://static.standard.co.uk/2021/06/04/08/newFile-1.jpg?width=1200"
+                                src="https://discover.zestmoney.in/wp-content/uploads/2021/01/shoe-banner.jpg"
                                 alt=""
                             />
                         </a>

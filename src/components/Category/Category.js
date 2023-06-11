@@ -69,7 +69,7 @@ function Category() {
                                         href="javascript:void(0)"
                                         className="dropdown-toggle sort-by"
                                     >
-                                        Sắp Xếp <FiChevronDown />
+                                        Sắp Xếp
                                     </a>
                                     <ul className="dropdown-menu">
                                         <li>

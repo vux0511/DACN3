@@ -22,7 +22,7 @@ function EditProduct() {
         console.log(status);
     };
 
-    const handleAddProduct = (e) => {
+    const handleViewOrder = (e) => {
         e.preventDefault();
         let data = status;
         data.id = idOrder;
@@ -68,18 +68,6 @@ function EditProduct() {
             });
     }, []);
 
-    // Get Status Order
-    // useEffect(() => {
-    //     axios
-    //         .get(
-    //             `http://localhost/DACN1_API/api/getStatusOrder.php?idorder=${idOrder}`
-    //         )
-    //         .then((response) => {
-    //             setStatusOrder(response.data);
-    //             console.log(response.data);
-    //         });
-    // }, []);
-
     return (
         <div className="main-container">
             <Sidebar />
@@ -89,7 +77,7 @@ function EditProduct() {
                     <div className="row">
                         <div className="col-75">
                             <div className="container">
-                                <form onSubmit={handleAddProduct}>
+                                <form onSubmit={handleViewOrder}>
                                     <div className="row">
                                         <div className="col-50">
                                             <div className="product-list">

@@ -12,6 +12,8 @@ import About from "./components/About/About";
 import Products from "./components/Products/Products";
 import Information from "./components/Information/Information";
 import ChangePassword from "./components/ChangePassword/ChangePassword";
+import OrderUser from "./components/Order/Order";
+import Invoice from "./components/Order/Invoice";
 import NotFound from "./components/NotFound/NotFound";
 import AdminPage from "./components/Admin/Admin";
 import ProductsAdmin from "./components/Admin/Products/ProductsAdmin";
@@ -59,6 +61,8 @@ function App() {
                 <Route path="/about/" element={<About />} />
                 <Route path="/information/" element={<Information />} />
                 <Route path="/changepass/" element={<ChangePassword />} />
+                <Route path="/order/" element={<OrderUser />} />
+                <Route path="/order/invoice/:idOrder" element={<Invoice />} />
                 <Route path="/admin/" element={<AdminPage />} />
                 <Route path="/admin/products" element={<ProductsAdmin />} />
                 <Route
