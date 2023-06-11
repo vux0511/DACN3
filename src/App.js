@@ -21,7 +21,8 @@ import CategoryAdmin from "./components/Admin/Category/Category";
 import EditCategory from "./components/Admin/Category/EditCategory";
 import AddCategory from "./components/Admin/Category/AddCategory";
 import Order from "./components/Admin/Order/Order";
-import EditOrder from "./components/Admin/Order/EditOrder";
+import ViewDetailOrder from "./components/Admin/Order/ViewDetailOrder";
+import User from "./components/Admin/User/ViewUser";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
@@ -76,9 +77,11 @@ function App() {
                 <Route path="/admin/order" element={<Order />} />
                 <Route
                     path="/admin/order/edit/:idOrder"
-                    element={<EditOrder />}
+                    element={<ViewDetailOrder />}
                 />
                 <Route path="*" element={<NotFound />} />
+
+                <Route path="/admin/user" element={<User />} />
             </Routes>
             {/* </AppContext> */}
         </BrowserRouter>

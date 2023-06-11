@@ -49,10 +49,10 @@ function Sidebar() {
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/admin/user">
                         <p className="okkk">
                             <FiUsers className="icon-home-admin" />
-                            Member
+                            Users
                         </p>
                     </a>
                 </li>

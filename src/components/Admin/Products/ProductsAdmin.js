@@ -50,9 +50,7 @@ function ProductAdmin() {
                 <div className="title-products-list">
                     <h3>Danh Sách Sản Phẩm</h3>
                     <a href="/admin/product/add">
-                        <button className="add-product-admin">
-                            Thêm sản phẩm
-                        </button>
+                        <button className="save-btn">Thêm sản phẩm</button>
                     </a>
                 </div>
                 <div className="product-list">

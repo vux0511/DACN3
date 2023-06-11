@@ -86,7 +86,7 @@ function AddCategory() {
                                         </div>
                                     </div>
 
-                                    <button className="add-pro-btn">
+                                    <button className="save-btn">
                                         Thêm danh mục
                                     </button>
                                     <ToastContainer />

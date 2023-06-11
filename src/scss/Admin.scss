@@ -854,12 +854,20 @@ span.price {
 
 .select-order {
     width: 150px;
-    margin-bottom: 20px;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 3px;
-    margin-top: 40px;
     margin-right: 20px;
+}
+
+.select-role {
+    .select-order {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        margin-right: 20px;
+    }
 }
 
 .add-pro-btn {
@@ -922,4 +930,21 @@ th.th-quantity-product-order {
 }
 th.th-subtotal-product-order {
     width: 10%;
+}
+
+.save-btn {
+    // width: 200px;
+    padding: 12px 20px;
+    margin-top: 20px;
+    border: 1px solid #04aa6d;
+    background-color: #04aa6d;
+    color: #fff;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: all 0.5s;
+    margin-bottom: 20px;
+
+    &:hover {
+        background-color: #11bc7d;
+    }
 }

@@ -186,27 +186,8 @@ function EditProduct() {
                                             </div>
                                         </div>
                                     </div>
-                                    {/* <select
-                                        onChange={handleChangeStatus}
-                                        name="select-category"
-                                        id="select-category"
-                                        className="select-order"
-                                    >
-                                        {statusOrder.map((status, index) => (
-                                            <>
-                                                <option value="waitting">
-                                                    {status.status}
-                                                </option>
-                                                <option value="shipping">
-                                                    Đang vận chuyển
-                                                </option>
-                                                <option value="cancle">
-                                                    Huỷ đơn hàng
-                                                </option>
-                                            </>
-                                        ))}
-                                    </select> */}
-                                    <button className="add-pro-btn">
+
+                                    <button className="save-btn">
                                         Lưu thay đổi
                                     </button>
                                     <ToastContainer />

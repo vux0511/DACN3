@@ -17,16 +17,16 @@ function Order() {
             });
     }, []);
 
-    const handleDeleteProduct = (e) => {
+    const handleDeleteOrder = (e) => {
         e.preventDefault();
         var data = {
-            idProduct: e.target.value,
+            idOrder: e.target.value,
         };
         axios
-            .post("http://localhost/DACN1_API/api/deleteProduct.php", data)
+            .post("http://localhost/DACN1_API/api/deleteOrder.php", data)
             .then((response) => {
-                const updatedItemsProducts = order.filter((item) => {
-                    if (item.idProduct === data.idProduct) {
+                const updatedOrder = order.filter((item) => {
+                    if (item.idOrder === data.idOrder) {
                         toast.success("Xoá thành công", {
                             position: "top-right",
                             autoClose: 3000,
@@ -38,15 +38,13 @@ function Order() {
                             theme: "colored",
                         });
                     }
-                    return item.idProduct !== data.idProduct;
+                    return item.idOrder !== data.idOrder;
                 });
-                setOrder(updatedItemsProducts);
+                setOrder(updatedOrder);
             });
     };
 
     const handleChangeStatus = (e) => {
-        // e.preventDefault();
-
         let idOrder = e.target.className.split(" ");
         var data = {
             nameStatus: e.target.value,
@@ -57,22 +55,6 @@ function Order() {
             .post("http://localhost/DACN1_API/api/editStatus.php", data)
             .then((response) => {
                 console.log(response.data);
-                // const updatedItemsProducts = order.filter((item) => {
-                //     if (item.idProduct === data.idProduct) {
-                //         toast.success("Xoá thành công", {
-                //             position: "top-right",
-                //             autoClose: 3000,
-                //             hideProgressBar: false,
-                //             closeOnClick: true,
-                //             pauseOnHover: true,
-                //             draggable: true,
-                //             progress: undefined,
-                //             theme: "colored",
-                //         });
-                //     }
-                //     return item.idProduct !== data.idProduct;
-                // });
-                // setOrder(updatedItemsProducts);
             });
     };
 
@@ -117,16 +99,40 @@ function Order() {
                                             id="select-category"
                                             className={`select-order ${order.idOrder}`}
                                         >
-                                            <option value={order.status}>
-                                                {order.status}
+                                            <option
+                                                value="Chờ xác nhận"
+                                                selected={
+                                                    order.status ===
+                                                    "Chờ xác nhận"
+                                                }
+                                            >
+                                                Chờ xác nhận
                                             </option>
-                                            <option value="Đang vận chuyển">
+                                            <option
+                                                value="Đang vận chuyển"
+                                                selected={
+                                                    order.status ===
+                                                    "Đang vận chuyển"
+                                                }
+                                            >
                                                 Đang vận chuyển
                                             </option>
-                                            <option value="Đã hoàn thành">
+                                            <option
+                                                value="Đã hoàn thành"
+                                                selected={
+                                                    order.status ===
+                                                    "Đã hoàn thành"
+                                                }
+                                            >
                                                 Đã hoàn thành
                                             </option>
-                                            <option value="Huỷ đơn hàng">
+                                            <option
+                                                value="Huỷ đơn hàng"
+                                                selected={
+                                                    order.status ===
+                                                    "Huỷ đơn hàng"
+                                                }
+                                            >
                                                 Huỷ đơn hàng
                                             </option>
                                         </select>
@@ -136,7 +142,7 @@ function Order() {
                                             to={`/admin/order/edit/${order.idOrder}`}
                                         >
                                             <button className="delete-item-product-btn">
-                                                Sửa
+                                                Xem
                                             </button>
                                         </Link>{" "}
                                         -{" "}
@@ -144,7 +150,7 @@ function Order() {
                                             <button
                                                 className="delete-item-product-btn"
                                                 value={order.idOrder}
-                                                onClick={handleDeleteProduct}
+                                                onClick={handleDeleteOrder}
                                             >
                                                 Xoá
                                             </button>

@@ -51,9 +51,7 @@ function CategoryAdmin() {
                 <div className="title-products-list">
                     <h3>Danh Sách Danh Mục</h3>
                     <a href="/admin/category/add">
-                        <button className="add-product-admin">
-                            Thêm danh mục
-                        </button>
+                        <button className="save-btn">Thêm danh mục</button>
                     </a>
                 </div>
                 <div className="product-list">

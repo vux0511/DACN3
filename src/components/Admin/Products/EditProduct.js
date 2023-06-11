@@ -514,7 +514,7 @@ function EditProduct() {
                                         </div>
                                     </div>
 
-                                    <button className="add-pro-btn">
+                                    <button className="save-btn">
                                         Lưu thay đổi
                                     </button>
                                     <ToastContainer />

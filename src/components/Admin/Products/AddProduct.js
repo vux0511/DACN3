@@ -463,7 +463,7 @@ function AddProduct() {
                                         </div>
                                     </div>
 
-                                    <button className="add-pro-btn">
+                                    <button className="save-btn">
                                         Thêm sản phẩm
                                     </button>
                                     <ToastContainer />
