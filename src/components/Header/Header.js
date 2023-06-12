@@ -70,7 +70,7 @@ function Header({ cartCount }) {
                             <a href="/cart">
                                 <span className="cart-icon">
                                     <CgShoppingCart />
-                                    <span>0</span>
+                                    {/* <span>0</span> */}
                                 </span>
                             </a>
                         ) : (

@@ -29,17 +29,9 @@ function Order() {
         };
         setItemCarts([]);
         axios
-            .post("http://localhost/DACN1_API/api/getCartByUser.php", data)
+            .post("http://localhost/DACN1_API/api/getOrderByUser.php", data)
             .then((response) => {
                 setOrder(response.data);
-                console.log(response.data);
-                // var totalCart = 0;
-                // response.data.map((itemCart, index) => {
-                //     totalCart =
-                //         totalCart +
-                //         itemCart.quantityProductCart * itemCart.priceProduct;
-                // });
-                // setSubTotal(totalCart);
             });
     }, []);
 
