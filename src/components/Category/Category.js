@@ -61,7 +61,7 @@ function Category() {
                     ))}
 
                     {/* Button Sort */}
-                    <button className="btn-sort">
+                    {/* <button className="btn-sort">
                         <div className="sort">
                             <ul className="nav">
                                 <li className="button-dropdown">
@@ -98,7 +98,7 @@ function Category() {
                                 </li>
                             </ul>
                         </div>
-                    </button>
+                    </button> */}
                 </div>
             </div>
         </div>

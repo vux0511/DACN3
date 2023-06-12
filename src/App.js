@@ -15,6 +15,7 @@ import ChangePassword from "./components/ChangePassword/ChangePassword";
 import OrderUser from "./components/Order/Order";
 import Invoice from "./components/Order/Invoice";
 import NotFound from "./components/NotFound/NotFound";
+import RequiredLogin from "./components/RequiredLogin/RequiredLogin";
 import AdminPage from "./components/Admin/Admin";
 import ProductsAdmin from "./components/Admin/Products/ProductsAdmin";
 import EditProduct from "./components/Admin/Products/EditProduct";
@@ -86,6 +87,7 @@ function App() {
                 <Route path="*" element={<NotFound />} />
 
                 <Route path="/admin/user" element={<User />} />
+                <Route path="/requiredlogin" element={<RequiredLogin />} />
             </Routes>
             {/* </AppContext> */}
         </BrowserRouter>

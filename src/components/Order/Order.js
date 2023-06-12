@@ -5,10 +5,10 @@ import { useState, useEffect } from "react";
 import { MdOutlineClear } from "react-icons/md";
 import Cookies from "universal-cookie";
 import axios from "axios";
+import { Navigate, useNavigate } from "react-router-dom";
 import "./Order.scss";
 
 function Order() {
-    const cookies = new Cookies();
     const [username, setUsername] = useState("");
     const [itemCarts, setItemCarts] = useState([]);
     const [order, setOrder] = useState([]);
@@ -16,6 +16,15 @@ function Order() {
     const [subTotal, setSubTotal] = useState(0);
     const [quantity, setQuantity] = useState(0);
     const [size, setSize] = useState(0);
+    const navigate = useNavigate();
+    const cookies = new Cookies();
+
+    // Check login
+    useEffect(() => {
+        if (cookies.get("user") === undefined) {
+            navigate("/login");
+        }
+    }, []);
 
     useEffect(() => {
         if (cookies.get("user")) {
@@ -68,7 +77,9 @@ function Order() {
                                     <th className="th_status_order">
                                         Trạng thái
                                     </th>
-                                    <th className="th_view-btn_order">Xem</th>
+                                    <th className="th_view-btn_order">
+                                        Chi tiết
+                                    </th>
                                 </tr>
                             </thead>
                         </>

@@ -20,7 +20,7 @@ function Header({ cartCount }) {
         if (cookies.get("user")) {
             setUsername(cookies.get("user").username);
         }
-    });
+    }, []);
 
     const handleScroll = () => {
         const offset = window.scrollY;
@@ -77,7 +77,7 @@ function Header({ cartCount }) {
                             <a href="/login">
                                 <span className="cart-icon">
                                     <CgShoppingCart />
-                                    <span></span>
+                                    {/* <span></span> */}
                                 </span>
                             </a>
                         )}

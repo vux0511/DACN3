@@ -5,10 +5,29 @@ import { FiUsers } from "react-icons/fi";
 import { CgLogOut } from "react-icons/cg";
 import LogoAdmin from "../../assets/logo-admin.png";
 
+import Cookies from "universal-cookie";
 import { useNavigate, Link } from "react-router-dom";
 import "../../scss/Admin.scss";
+import { useEffect } from "react";
 
 function Sidebar() {
+    const cookies = new Cookies();
+    const navigate = useNavigate();
+
+    //Check login
+    useEffect(() => {
+        if (cookies.get("idAdmin") === undefined) {
+            navigate("/admin");
+        } else {
+            console.log("Đã đăng nhập");
+            console.log(cookies.get("idAdmin"));
+        }
+    }, []);
+
+    const handleLogOutAdmin = () => {
+        document.cookie = "idAdmin" + "=; Max-Age=0;";
+        window.location.reload();
+    };
     return (
         <section id="sidebar">
             <div className="brand-logo">
@@ -58,8 +77,8 @@ function Sidebar() {
                 </li>
             </ul>
             <ul className="side-menu">
-                <li>
-                    <a href="#" className="logout">
+                <li onClick={handleLogOutAdmin}>
+                    <a className="logout">
                         <p className="okkk">
                             <CgLogOut className="icon-home-admin" />
                             Logout

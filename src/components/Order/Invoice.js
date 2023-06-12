@@ -7,6 +7,7 @@ import Footer from "../Footer/Footer";
 import LogoInvoice from "../../assets/logo.png";
 import Signature from "../../assets/signature.png";
 import ProductInvoice from "../../assets/mobile.jpg";
+import { Cookies, useCookies } from "react-cookie";
 
 import "./Invoice.scss";
 
@@ -15,6 +16,15 @@ function Invoice() {
     const [clientOrder, setClientOrder] = useState([]);
     const [subTotal, setSubTotal] = useState(0);
     const { idOrder } = useParams();
+    const navigate = useNavigate();
+    const cookies = new Cookies();
+
+    // Check login
+    useEffect(() => {
+        if (cookies.get("user") === undefined) {
+            navigate("/login");
+        }
+    }, []);
 
     useEffect(() => {
         axios
@@ -117,7 +127,7 @@ function Invoice() {
                     </section>
                     <section className="product-area mt-4">
                         <table className="table table-hover">
-                            <thead>
+                            <thead className="invoice">
                                 <tr>
                                     <td>Sản Phẩm</td>
                                     <td>Đơn Giá</td>

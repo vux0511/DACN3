@@ -57,9 +57,9 @@ function LoginAdmin() {
                         progress: undefined,
                         theme: "colored",
                     });
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 3000);
+                    // setTimeout(() => {
+                    window.location.reload();
+                    // }, 3000);
                 }
             });
     };

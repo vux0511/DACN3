@@ -6,6 +6,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Navigate, useNavigate } from "react-router-dom";
 
 import CALL_URL from "~/api/CALL_URL";
 import Cookies from "universal-cookie";
@@ -17,6 +18,14 @@ function Information() {
     const [information, setInformation] = useState({});
     const idUser = cookies.get("user").idUser;
     const notify = () => toast();
+    const navigate = useNavigate();
+
+    // Check login
+    useEffect(() => {
+        if (cookies.get("user") === undefined) {
+            navigate("/requiredlogin");
+        }
+    }, []);
 
     useEffect(() => {
         axios

@@ -5,6 +5,7 @@ import "./Cart.scss";
 import { useState, useEffect } from "react";
 import { MdOutlineClear } from "react-icons/md";
 import Cookies from "universal-cookie";
+import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Cart() {
@@ -15,6 +16,14 @@ function Cart() {
     const [subTotal, setSubTotal] = useState(0);
     const [quantity, setQuantity] = useState(0);
     const [size, setSize] = useState(0);
+    const navigate = useNavigate();
+
+    // Check login
+    useEffect(() => {
+        if (cookies.get("user") === undefined) {
+            navigate("/requiredlogin");
+        }
+    }, []);
 
     useEffect(() => {
         if (cookies.get("user")) {

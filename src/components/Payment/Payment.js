@@ -12,7 +12,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Payment() {
-    const [buttonPopup, setButtonPopup] = useState(false);
     const cookies = new Cookies();
     const navigate = useNavigate();
     const notify = () => toast();
@@ -22,6 +21,13 @@ function Payment() {
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
     const [email, setEmail] = useState("");
+
+    // Check login
+    useEffect(() => {
+        if (cookies.get("user") === undefined) {
+            navigate("/requiredlogin");
+        }
+    }, []);
 
     useEffect(() => {
         var data = {
