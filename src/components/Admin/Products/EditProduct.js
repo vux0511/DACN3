@@ -7,7 +7,7 @@ import Header from "../../Header/Header";
 import Footer from "../../Footer/Footer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import CALL_URL from "~/api/CALL_URL";
 import "../scss/AddProduct.scss";
 
 function EditProduct() {
@@ -96,51 +96,45 @@ function EditProduct() {
         let data = itemProductEdit;
         data.id = idProduct;
 
-        axios
-            .post("http://localhost/DACN1_API/api/editProduct.php", data)
-            .then((response) => {
-                console.log(response.data);
-                if (response.data.status === "success") {
-                    toast.success("Sửa thành công", {
-                        position: "top-right",
-                        autoClose: 4000,
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored",
-                    });
-                } else {
-                    toast.success("Sửa thất bại", {
-                        position: "top-right",
-                        autoClose: 4000,
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored",
-                    });
-                }
-            });
+        axios.post(CALL_URL.URL_editProduct, data).then((response) => {
+            console.log(response.data);
+            if (response.data.status === "success") {
+                toast.success("Sửa thành công", {
+                    position: "top-right",
+                    autoClose: 4000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+            } else {
+                toast.success("Sửa thất bại", {
+                    position: "top-right",
+                    autoClose: 4000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+            }
+        });
     };
 
     // Get Category
     useEffect(() => {
-        axios
-            .get("http://localhost/DACN1_API/api/getCategory.php")
-            .then((response) => {
-                setIdCategory(response.data);
-            });
+        axios.get(CALL_URL.URL_editCategory).then((response) => {
+            setIdCategory(response.data);
+        });
     }, []);
 
     // Get Product
     useEffect(() => {
         axios
-            .get(
-                `http://localhost/DACN1_API/api/getProductDetail.php?idproduct=${idProduct}`
-            )
+            .get(`${CALL_URL.URL_getProductDetail}?idproduct=${idProduct}`)
             .then((response) => {
                 setItemProductEdit(response.data[0]);
             });

@@ -6,8 +6,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Navigate, useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 import CALL_URL from "~/api/CALL_URL";
 import Cookies from "universal-cookie";
 import { useEffect, useState } from "react";
@@ -89,15 +88,13 @@ function Information() {
     const handleSubmitChangeInfor = (e) => {
         e.preventDefault();
 
-        axios
-            .post("http://localhost/DACN1_API/api/setInfor.php", information)
-            .then((response) => {
-                if (response.data === null) {
-                    handleToastifyError("Cập nhật nhất bại");
-                } else {
-                    handleToastifySucces("Cập nhật thành công");
-                }
-            });
+        axios.post(CALL_URL.URL_setInfor, information).then((response) => {
+            if (response.data === null) {
+                handleToastifyError("Cập nhật nhất bại");
+            } else {
+                handleToastifySucces("Cập nhật thành công");
+            }
+        });
     };
 
     return (

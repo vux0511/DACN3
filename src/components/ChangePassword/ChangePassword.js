@@ -18,16 +18,6 @@ function Information() {
     var idUser = cookies.get("user").idUser;
     const notify = () => toast();
 
-    // useEffect(() => {
-    //     axios
-    //         .post(
-    //             `http://localhost/DACN1_API/api/setNewPass.php?idUser=${idUser}`
-    //         )
-    //         .then((response) => {
-    //             setInformation(response.data[0]);
-    //         });
-    // }, []);
-
     const handleChangeCurrentPassword = (e) => {
         setInformation({
             ...information,
@@ -83,7 +73,6 @@ function Information() {
         } else {
             axios
                 .post(
-                    // `http://localhost/DACN1_API/api/setNewPass.php?idUser=${idUser}`
                     `${CALL_URL.URL_setNewPass}?idUser=${idUser}`,
                     information
                 )

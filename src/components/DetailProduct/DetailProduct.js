@@ -9,7 +9,7 @@ import { useRef, useEffect, useState } from "react";
 import Product from "../Products/Product/Product";
 import axios from "axios";
 import Cookies from "universal-cookie";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function DetailProduct(data) {
@@ -74,11 +74,9 @@ function DetailProduct(data) {
                 size: checked,
             };
 
-            axios
-                .post("http://localhost/DACN1_API/api/setCart.php", data)
-                .then((response) => {
-                    console.log(response.data);
-                });
+            axios.post(CALL_URL.URL_setCart, data).then((response) => {
+                console.log(response.data);
+            });
         }
     };
 

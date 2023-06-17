@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Search.scss";
-
+import CALL_URL from "~/api/CALL_URL";
 import { MdClose } from "react-icons/md";
 
 function Search({ setShowSearch }) {
@@ -17,9 +17,7 @@ function Search({ setShowSearch }) {
     useEffect(() => {
         const timer = setTimeout(() => {
             axios
-                .get(
-                    `http://localhost/DACN1_API/api/searchProduct.php?key=${query}`
-                )
+                .get(`${CALL_URL.URL_searchProduct}?key=${query}`)
                 .then((response) => {
                     setProductSearch(response.data);
                 });

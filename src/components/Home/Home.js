@@ -27,20 +27,16 @@ function Home({ setCartCount, cartCount }) {
 
     // Top Products
     useEffect(() => {
-        axios
-            .get(`http://localhost/DACN1_API/api/getTopProduct.php`)
-            .then((response) => {
-                setTopProduct(response.data);
-            });
+        axios.get(CALL_URL.URL_getTopProduct).then((response) => {
+            setTopProduct(response.data);
+        });
     }, []);
 
     // New Products
     useEffect(() => {
-        axios
-            .get(`http://localhost/DACN1_API/api/getNewProduct.php`)
-            .then((response) => {
-                setNewProduct(response.data);
-            });
+        axios.get(CALL_URL.URL_getNewProduct).then((response) => {
+            setNewProduct(response.data);
+        });
     }, []);
 
     // Get category list

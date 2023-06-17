@@ -1,4 +1,4 @@
-const URL = "http://localhost/DACN1_API/api";
+const URL = "https://dacn1-vux.000webhostapp.com";
 
 export default {
     URL_getProduct: URL + "/getProduct.php",
@@ -35,6 +35,10 @@ export default {
     URL_deleteCategory: URL + "/deleteCategory.php",
     URL_editCategory: URL + "/editCategory.php",
     URL_getCategoryEdit: URL + "/getCategoryEdit.php",
+    URL_editProduct: URL + "/editProduct.php",
+    URL_getTopProduct: URL + "/getTopProduct.php",
+    URL_getNewProduct: URL + "/getNewProduct.php",
+    URL_setInfor: URL + "/setInfor.php",
 
-    // getCategoryEdit.php
+    // setInfor.php
 };
