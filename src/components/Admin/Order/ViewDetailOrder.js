@@ -7,62 +7,51 @@ import Header from "../../Header/Header";
 import Footer from "../../Footer/Footer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import CALL_URL from "~/api/CALL_URL";
 import "../scss/AddProduct.scss";
 
 function EditProduct() {
-    const navigate = useNavigate();
-    const notify = () => toast();
     const { idOrder } = useParams();
     const [status, setStatus] = useState([]);
     const [detailOrder, setDetailOrder] = useState([]);
-
-    const handleChangeStatus = (e) => {
-        setStatus(e.target.value);
-        console.log(status);
-    };
 
     const handleViewOrder = (e) => {
         e.preventDefault();
         let data = status;
         data.id = idOrder;
 
-        axios
-            .post("http://localhost/DACN1_API/api/editOrder.php", data)
-            .then((response) => {
-                console.log(response.data);
-                if (response.data.status === "success") {
-                    toast.success("Sửa thành công", {
-                        position: "top-right",
-                        autoClose: 4000,
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored",
-                    });
-                } else {
-                    toast.success("Sửa thất bại", {
-                        position: "top-right",
-                        autoClose: 4000,
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored",
-                    });
-                }
-            });
+        axios.post(CALL_URL.URL_editOrder, data).then((response) => {
+            console.log(response.data);
+            if (response.data.status === "success") {
+                toast.success("Sửa thành công", {
+                    position: "top-right",
+                    autoClose: 4000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+            } else {
+                toast.success("Sửa thất bại", {
+                    position: "top-right",
+                    autoClose: 4000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+            }
+        });
     };
 
     // Get getDetailOrder
     useEffect(() => {
         axios
-            .get(
-                `http://localhost/DACN1_API/api/getDetailOrder.php?idorder=${idOrder}`
-            )
+            .get(`${CALL_URL.URL_getInformation}?idorder=${idOrder}`)
             .then((response) => {
                 setDetailOrder(response.data);
             });

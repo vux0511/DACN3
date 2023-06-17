@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../Sidebar";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CALL_URL from "~/api/CALL_URL";
 
 function ProductAdmin() {
     const [itemProducts, setItemProducts] = useState([]);
     const notify = () => toast();
     useEffect(() => {
-        axios
-            .get(`http://localhost/DACN1_API/api/getProduct.php`)
-            .then((response) => {
-                setItemProducts(response.data);
-            });
+        axios.get(CALL_URL.URL_getProduct).then((response) => {
+            setItemProducts(response.data);
+        });
     }, []);
 
     const handleDeleteProduct = (e) => {
@@ -21,26 +20,24 @@ function ProductAdmin() {
         var data = {
             idProduct: e.target.value,
         };
-        axios
-            .post("http://localhost/DACN1_API/api/deleteProduct.php", data)
-            .then((response) => {
-                const updatedItemsProducts = itemProducts.filter((item) => {
-                    if (item.idProduct === data.idProduct) {
-                        toast.success("Xoá thành công", {
-                            position: "top-right",
-                            autoClose: 3000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "colored",
-                        });
-                    }
-                    return item.idProduct !== data.idProduct;
-                });
-                setItemProducts(updatedItemsProducts);
+        axios.post(CALL_URL.URL_deleteProduct, data).then((response) => {
+            const updatedItemsProducts = itemProducts.filter((item) => {
+                if (item.idProduct === data.idProduct) {
+                    toast.success("Xoá thành công", {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
+                }
+                return item.idProduct !== data.idProduct;
             });
+            setItemProducts(updatedItemsProducts);
+        });
     };
 
     return (

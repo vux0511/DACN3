@@ -10,8 +10,6 @@ import { useNavigate, useParams, useLocation } from "react-router-dom";
 
 function Products({ headingText }) {
     const [products, setProducts] = useState([]);
-    const [idCategory, setIdCatgory] = useState([]);
-    const navigate = useNavigate();
     const location = useLocation();
 
     var { categoryId } = useParams();
@@ -29,9 +27,9 @@ function Products({ headingText }) {
     // Categories
     useEffect(() => {
         axios
-            .get(
-                `http://localhost/DACN1_API/api/getProductCategory.php?idcategory=${categoryId}`
-            )
+            .get(CALL_URL.URL_getProductCategory, {
+                params: { idcategory: categoryId },
+            })
             .then((response) => {
                 setProducts(response.data);
             });

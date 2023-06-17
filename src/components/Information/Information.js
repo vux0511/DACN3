@@ -29,9 +29,7 @@ function Information() {
 
     useEffect(() => {
         axios
-            .post(
-                `http://localhost/DACN1_API/api/getInformation.php?idUser=${idUser}`
-            )
+            .post(`${CALL_URL.URL_getInformation}?idUser=${idUser}`)
             .then((response) => {
                 setInformation(response.data[0]);
             });

@@ -8,6 +8,7 @@ import Cookies from "universal-cookie";
 import { Navigate, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CALL_URL from "../../api/CALL_URL";
 
 function Login() {
     const [username, setUsername] = useState("");
@@ -28,41 +29,39 @@ function Login() {
             username: username,
             password: password,
         };
-        axios
-            .post("http://localhost/DACN1_API/api/getUser.php", data)
-            .then((response) => {
-                if (response.data.user === null) {
-                    toast.error(
-                        "Tài khoản hoặc mật khẩu không đúng. Vui lòng thử lại",
-                        {
-                            position: "top-right",
-                            autoClose: 4000,
-                            hideProgressBar: true,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "colored",
-                        }
-                    );
-                } else {
-                    cookies.set("user", response.data.user, {});
-                    toast.success("Đăng nhập thành công! Chuyển hướng sau 3s", {
+        axios.post(CALL_URL.URL_getUser, data).then((response) => {
+            if (response.data.user === null) {
+                toast.error(
+                    "Tài khoản hoặc mật khẩu không đúng. Vui lòng thử lại",
+                    {
                         position: "top-right",
-                        autoClose: 3000,
-                        hideProgressBar: false,
+                        autoClose: 4000,
+                        hideProgressBar: true,
                         closeOnClick: true,
                         pauseOnHover: true,
                         draggable: true,
                         progress: undefined,
                         theme: "colored",
-                    });
-                    console.log(response.data.user);
-                    setTimeout(() => {
-                        navigate("/");
-                    }, 3500);
-                }
-            });
+                    }
+                );
+            } else {
+                cookies.set("user", response.data.user, {});
+                toast.success("Đăng nhập thành công! Chuyển hướng sau 3s", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+                console.log(response.data.user);
+                setTimeout(() => {
+                    navigate("/");
+                }, 3500);
+            }
+        });
     };
 
     return (

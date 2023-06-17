@@ -5,8 +5,9 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
+import CALL_URL from "../../api/CALL_URL";
 
 function Register() {
     const [username, setUsername] = useState("");
@@ -67,21 +68,19 @@ function Register() {
         } else if (password !== repassword) {
             handleToastifyError("Vui lòng nhập mật khẩu trùng nhau!");
         } else {
-            axios
-                .post("http://localhost/DACN1_API/api/setNewUser.php", data)
-                .then((response) => {
-                    console.log(response.data);
-                    if (response.data.message === "success") {
-                        handleToastifySucces(
-                            "Đăng ký thành công! Vui lòng đăng nhập lại "
-                        );
-                        setTimeout(() => {
-                            navigate("/login");
-                        }, 3000);
-                    } else {
-                        handleToastifyError(response.data.message);
-                    }
-                });
+            axios.post(CALL_URL.URL_setNewUser, data).then((response) => {
+                console.log(response.data);
+                if (response.data.message === "success") {
+                    handleToastifySucces(
+                        "Đăng ký thành công! Vui lòng đăng nhập lại "
+                    );
+                    setTimeout(() => {
+                        navigate("/login");
+                    }, 3000);
+                } else {
+                    handleToastifyError(response.data.message);
+                }
+            });
         }
     };
 

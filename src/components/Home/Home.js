@@ -56,25 +56,9 @@ function Home({ setCartCount, cartCount }) {
             <Bannner />
             <div className="main-content">
                 <div className="layout">
-                    {/* <Products
-                        headingText="SẢN PHẨM NỔI BẬT"
-                        setCartCount={setCartCount}
-                        cartCount={cartCount}
-                        topProduct={topProduct}
-                    /> */}
                     <TopProducts topProduct={topProduct} />
                     <BannerProduct />
                     <NewProduct newProduct={newProduct} />
-
-                    {/* {category.map((category) => (
-                        <Products
-                            key={category.idCategory}
-                            headingText={category.nameCategory}
-                            setCartCount={setCartCount}
-                            cartCount={cartCount}
-                            products={products}
-                        />
-                    ))} */}
                 </div>
             </div>
             <Footer />

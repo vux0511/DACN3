@@ -83,7 +83,8 @@ function Information() {
         } else {
             axios
                 .post(
-                    `http://localhost/DACN1_API/api/setNewPass.php?idUser=${idUser}`,
+                    // `http://localhost/DACN1_API/api/setNewPass.php?idUser=${idUser}`
+                    `${CALL_URL.URL_setNewPass}?idUser=${idUser}`,
                     information
                 )
                 .then((response) => {

@@ -693,7 +693,7 @@ th.th-act-product {
 }
 
 .address-order-admin {
-    max-width: 300px;
+    max-width: 150px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -784,15 +784,15 @@ p.okkk {
     padding: 5px 20px 15px 20px;
     // border: 1px solid lightgrey;
     border-radius: 3px;
-}
 
-input[type="text"],
-input[type="number"] {
-    width: 100%;
-    margin-bottom: 20px;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
+    input[type="text"],
+    input[type="number"] {
+        width: 100%;
+        margin-bottom: 20px;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
 }
 
 label {
@@ -901,7 +901,7 @@ th.th-phone-order {
     width: 15%;
 }
 th.th-address-order {
-    width: 30%;
+    width: 20%;
 }
 th.th-payment-order {
     width: 10%;
@@ -948,4 +948,12 @@ th.th-subtotal-product-order {
     &:hover {
         background-color: #11bc7d;
     }
+}
+
+.th-date-order {
+    width: 15%;
+}
+
+.th-total-order {
+    width: 15%;
 }

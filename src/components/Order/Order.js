@@ -6,6 +6,7 @@ import { MdOutlineClear } from "react-icons/md";
 import Cookies from "universal-cookie";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
+import CALL_URL from "../../api/CALL_URL";
 import "./Order.scss";
 
 function Order() {
@@ -37,11 +38,9 @@ function Order() {
             idUser: cookies.get("user").idUser,
         };
         setItemCarts([]);
-        axios
-            .post("http://localhost/DACN1_API/api/getOrderByUser.php", data)
-            .then((response) => {
-                setOrder(response.data);
-            });
+        axios.post(CALL_URL.URL_getOrderByUser, data).then((response) => {
+            setOrder(response.data);
+        });
     }, []);
 
     const handleViewOrder = (e) => {
@@ -54,7 +53,7 @@ function Order() {
     return (
         <div>
             <Header />
-            <div className="small-container cart-page">
+            <div className="small-container cart-page order-page">
                 {order !== null ? (
                     <h3 className="sec-cart">Đơn hàng của bạn</h3>
                 ) : null}
@@ -90,14 +89,14 @@ function Order() {
                     <tbody>
                         {!Array.isArray(order) || order.length == 0 ? (
                             <tr>
-                                <td colSpan={4} className="tdTanTu">
+                                <td colSpan={7} className="tdTanTu">
                                     <div className="empty_cart">
                                         <img
                                             src={EmptyCart}
                                             alt="Giỏ hàng trống"
                                         />
                                         <p className="title_empty_cart">
-                                            Không có sản phẩm trong giỏ hàng
+                                            Bạn chưa đặt đơn hàng nào
                                         </p>
                                     </div>
                                 </td>

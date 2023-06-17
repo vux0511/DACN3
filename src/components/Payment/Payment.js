@@ -1,6 +1,5 @@
 import { MdOutlinePayment, MdOutlineClear } from "react-icons/md";
 
-import Popup from "../Popup/Popup";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import { useState, useEffect } from "react";
@@ -10,6 +9,7 @@ import Cookies from "universal-cookie";
 import { Navigate, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CALL_URL from "../../api/CALL_URL";
 
 function Payment() {
     const cookies = new Cookies();
@@ -34,18 +34,16 @@ function Payment() {
             idUser: cookies.get("user").idUser,
         };
         setItemCarts([]);
-        axios
-            .post("http://localhost/DACN1_API/api/getCart.php", data)
-            .then((response) => {
-                setItemCarts(response.data);
-                var totalCart = 0;
-                response.data.map((itemCart, index) => {
-                    totalCart =
-                        totalCart +
-                        itemCart.quantityProductCart * itemCart.priceProduct;
-                });
-                setSubTotal(totalCart);
+        axios.post(CALL_URL.URL_getCart, data).then((response) => {
+            setItemCarts(response.data);
+            var totalCart = 0;
+            response.data.map((itemCart, index) => {
+                totalCart =
+                    totalCart +
+                    itemCart.quantityProductCart * itemCart.priceProduct;
             });
+            setSubTotal(totalCart);
+        });
     }, []);
 
     const handleChangeFullname = (e) => {
@@ -90,26 +88,21 @@ function Payment() {
                 totalPrice: subTotal,
                 products: itemCarts,
             };
-            axios
-                .post("http://localhost/DACN1_API/api/setOrder.php", data)
-                .then((response) => {
-                    toast.success(
-                        "Đặt hàng thành công, chuyển hướng sau 3 giây",
-                        {
-                            position: "top-right",
-                            autoClose: 4000,
-                            hideProgressBar: true,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "colored",
-                        }
-                    );
-                    setTimeout(() => {
-                        navigate("/");
-                    }, 3000);
+            axios.post(CALL_URL.URL_setOrder, data).then((response) => {
+                toast.success("Đặt hàng thành công, chuyển hướng sau 3 giây", {
+                    position: "top-right",
+                    autoClose: 4000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
                 });
+                setTimeout(() => {
+                    navigate("/");
+                }, 3000);
+            });
         }
     };
 

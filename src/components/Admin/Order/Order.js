@@ -4,17 +4,16 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CALL_URL from "~/api/CALL_URL";
 
 function Order() {
     const [order, setOrder] = useState([]);
     const notify = () => toast();
 
     useEffect(() => {
-        axios
-            .get(`http://localhost/DACN1_API/api/getOrder.php`)
-            .then((response) => {
-                setOrder(response.data);
-            });
+        axios.get(CALL_URL.URL_getOrder).then((response) => {
+            setOrder(response.data);
+        });
     }, []);
 
     const handleDeleteOrder = (e) => {
@@ -22,26 +21,24 @@ function Order() {
         var data = {
             idOrder: e.target.value,
         };
-        axios
-            .post("http://localhost/DACN1_API/api/deleteOrder.php", data)
-            .then((response) => {
-                const updatedOrder = order.filter((item) => {
-                    if (item.idOrder === data.idOrder) {
-                        toast.success("Xoá thành công", {
-                            position: "top-right",
-                            autoClose: 3000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "colored",
-                        });
-                    }
-                    return item.idOrder !== data.idOrder;
-                });
-                setOrder(updatedOrder);
+        axios.post(CALL_URL.URL_deleteOrder, data).then((response) => {
+            const updatedOrder = order.filter((item) => {
+                if (item.idOrder === data.idOrder) {
+                    toast.success("Xoá thành công", {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
+                }
+                return item.idOrder !== data.idOrder;
             });
+            setOrder(updatedOrder);
+        });
     };
 
     const handleChangeStatus = (e) => {
@@ -51,11 +48,9 @@ function Order() {
             idOrder: idOrder[1],
         };
 
-        axios
-            .post("http://localhost/DACN1_API/api/editStatus.php", data)
-            .then((response) => {
-                console.log(response.data);
-            });
+        axios.post(CALL_URL.URL_editStatus, data).then((response) => {
+            console.log(response.data);
+        });
     };
 
     return (
@@ -70,19 +65,21 @@ function Order() {
                         <thead>
                             <tr>
                                 <th className="th-id-order">#</th>
-                                <th className="th-id-user">ID KH</th>
+                                {/* <th className="th-id-user">ID KH</th> */}
                                 <th className="th-fullname-order">Người đặt</th>
                                 <th className="th-phone-order">SĐT</th>
                                 <th className="th-address-order">Địa chỉ</th>
                                 <th className="th-payment-order">Thanh toán</th>
                                 <th className="th-status-order">Trạng thái</th>
+                                <th className="th-date-order">Ngày đặt hàng</th>
+                                <th className="th-total-order">Tổng tiền</th>
                                 <th className="th-act-order">Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
                             {order.map((order, index) => (
                                 <tr key={index}>
-                                    <td>{index + 1}</td>
+                                    {/* <td>{index + 1}</td> */}
                                     <td>{order.idUser}</td>
                                     <td>{order.fullname}</td>
                                     <td>{order.phone}</td>
@@ -136,6 +133,13 @@ function Order() {
                                                 Huỷ đơn hàng
                                             </option>
                                         </select>
+                                    </td>
+                                    <td>{order.dateOrder}</td>
+                                    <td>
+                                        {new Intl.NumberFormat("vn-VI", {
+                                            style: "currency",
+                                            currency: "VND",
+                                        }).format(order.totalPrice)}
                                     </td>
                                     <td>
                                         <Link

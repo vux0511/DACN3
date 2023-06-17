@@ -7,7 +7,7 @@ import Header from "../../Header/Header";
 import Footer from "../../Footer/Footer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import CALL_URL from "~/api/CALL_URL";
 import "../scss/AddProduct.scss";
 
 function AddCategory() {
@@ -24,33 +24,31 @@ function AddCategory() {
             nameCategory: nameCategory,
         };
 
-        axios
-            .post("http://localhost/DACN1_API/api/addNewCategory.php", data)
-            .then((response) => {
-                console.log(response.data);
-                if (response.data.status === "success") {
-                    toast.success("Thêm danh mục thành công", {
-                        position: "top-right",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored",
-                    });
-                    setNameCategory("");
-                } else {
-                    toast.error("Thêm danh mục thất bại", {
-                        position: "top-right",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored",
-                    });
-                }
-            });
+        axios.post(CALL_URL.URL_addNewCategory, data).then((response) => {
+            console.log(response.data);
+            if (response.data.status === "success") {
+                toast.success("Thêm danh mục thành công", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+                setNameCategory("");
+            } else {
+                toast.error("Thêm danh mục thất bại", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+            }
+        });
     };
 
     return (

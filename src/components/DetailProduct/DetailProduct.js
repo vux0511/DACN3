@@ -1,29 +1,24 @@
 import { FaShippingFast } from "react-icons/fa";
 import { TbTruckReturn } from "react-icons/tb";
 import { GoEye } from "react-icons/go";
-
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
+import CALL_URL from "../../api/CALL_URL";
 import "./DetailProduct.scss";
 import { useRef, useEffect, useState } from "react";
-import Products from "../Products/Products";
 import Product from "../Products/Product/Product";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { useNavigate, useParams } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 function DetailProduct(data) {
-    const [quantity, setQuantity] = useState(1);
-    const [isDisable, setDisable] = useState(true);
     const [productRelated, setProductRelated] = useState([]);
     const [detailProduct, setDetailProduct] = useState([]);
     const [checked, setChecked] = useState();
     const cookies = new Cookies();
-    const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const { productId } = useParams();
-    const [sizeQuantity, setSizeQuantity] = useState(0);
 
     useEffect(() => {
         if (cookies.get("user")) {
@@ -34,9 +29,7 @@ function DetailProduct(data) {
     // Chi tiết SP
     useEffect(() => {
         axios
-            .get(
-                `http://localhost/DACN1_API/api/getProductDetail.php?idproduct=${productId}`
-            )
+            .get(`${CALL_URL.URL_getProductDetail}?idproduct=${productId}`)
             .then((response) => {
                 setDetailProduct(response.data);
             });
@@ -45,18 +38,14 @@ function DetailProduct(data) {
     // View Product
     useEffect(() => {
         axios
-            .get(
-                `http://localhost/DACN1_API/api/setViewProduct.php?idproduct=${productId}`
-            )
+            .get(`${CALL_URL.URL_setViewProduct}?idproduct=${productId}`)
             .then((response) => {});
     }, []);
 
     // SP liên quan
     useEffect(() => {
         axios
-            .get(
-                `http://localhost/DACN1_API/api/getProductRelated.php?idproduct=${productId}`
-            )
+            .get(`${CALL_URL.URL_getProductRelated}?idproduct=${productId}`)
             .then((response) => {
                 setProductRelated(response.data);
             });
@@ -158,7 +147,12 @@ function DetailProduct(data) {
                         <p className="about-product">
                             {detail.descriptionProduct}
                         </p>
-                        <h4 className="price">{detail.priceProduct}₫</h4>
+                        <h4 className="price">
+                            {new Intl.NumberFormat("vn-VI", {
+                                style: "currency",
+                                currency: "VND",
+                            }).format(detail.priceProduct)}
+                        </h4>
                         <p className="about-product about1">
                             Sản phẩm ở VuxStore có giá tốt nhất thị trường
                         </p>

@@ -3,15 +3,15 @@ import "./Product.scss";
 import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import Cookies from "universal-cookie";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CALL_URL from "../../../api/CALL_URL";
 
 function Product({ setCartCount, cartCount, idProduct, data, productRelated }) {
     const cookies = new Cookies();
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
-    // const notify = () => toast("Wow so easy!");
 
     useEffect(() => {
         if (cookies.get("user")) {
@@ -40,11 +40,9 @@ function Product({ setCartCount, cartCount, idProduct, data, productRelated }) {
                 idProduct: e.target.id,
             };
             console.log(data);
-            axios
-                .post("http://localhost/DACN1_API/api/setCart.php", data)
-                .then((response) => {
-                    console.log(response.data);
-                });
+            axios.post(CALL_URL.URL_setCart, data).then((response) => {
+                console.log(response.data);
+            });
         }
     };
 

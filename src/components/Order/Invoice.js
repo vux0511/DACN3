@@ -7,6 +7,7 @@ import Footer from "../Footer/Footer";
 import LogoInvoice from "../../assets/logo.png";
 import Signature from "../../assets/signature.png";
 import ProductInvoice from "../../assets/mobile.jpg";
+import CALL_URL from "../../api/CALL_URL";
 import { Cookies, useCookies } from "react-cookie";
 
 import "./Invoice.scss";
@@ -28,9 +29,7 @@ function Invoice() {
 
     useEffect(() => {
         axios
-            .get(
-                `http://localhost/DACN1_API/api/getDetailOrder.php?idorder=${idOrder}`
-            )
+            .get(`${CALL_URL.URL_getDetailOrder}?idorder=${idOrder}`)
             .then((response) => {
                 setDetailOrder(response.data);
 
@@ -47,9 +46,7 @@ function Invoice() {
     // Select Clients
     useEffect(() => {
         axios
-            .get(
-                `http://localhost/DACN1_API/api/getClientOrder.php?idorder=${idOrder}`
-            )
+            .get(`${CALL_URL.URL_getClientOrder}?idorder=${idOrder}`)
             .then((response) => {
                 setClientOrder(response.data);
             });

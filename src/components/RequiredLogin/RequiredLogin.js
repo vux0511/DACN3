@@ -2,7 +2,7 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import { useEffect } from "react";
 import Cookies from "universal-cookie";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import RequiredLoginImg from "../../assets/requiredlogin.png";
 import "./RequiredLogin.scss";
 

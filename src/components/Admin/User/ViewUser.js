@@ -4,18 +4,17 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CALL_URL from "~/api/CALL_URL";
 
 function User() {
     const [user, setUser] = useState([]);
     const notify = () => toast();
 
     useEffect(() => {
-        axios
-            .get(`http://localhost/DACN1_API/api/getUserAdmin.php`)
-            .then((response) => {
-                setUser(response.data);
-                console.log(response.data);
-            });
+        axios.get(CALL_URL.URL_getUserAdmin).then((response) => {
+            setUser(response.data);
+            console.log(response.data);
+        });
     }, []);
 
     const handleDeleteUser = (e) => {
@@ -23,26 +22,24 @@ function User() {
         var data = {
             idUser: e.target.value,
         };
-        axios
-            .post("http://localhost/DACN1_API/api/deleteUser.php", data)
-            .then((response) => {
-                const updatedUser = user.filter((item) => {
-                    if (item.idUser === data.idUser) {
-                        toast.success("Xoá thành công", {
-                            position: "top-right",
-                            autoClose: 3000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "colored",
-                        });
-                    }
-                    return item.idUser !== data.idUser;
-                });
-                setUser(updatedUser);
+        axios.post(CALL_URL.URL_deleteUser, data).then((response) => {
+            const updatedUser = user.filter((item) => {
+                if (item.idUser === data.idUser) {
+                    toast.success("Xoá thành công", {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
+                }
+                return item.idUser !== data.idUser;
             });
+            setUser(updatedUser);
+        });
     };
 
     const handleChangeRole = (e) => {
@@ -52,11 +49,9 @@ function User() {
             idUser: idUser[1],
         };
 
-        axios
-            .post("http://localhost/DACN1_API/api/editRole.php", data)
-            .then((response) => {
-                console.log(response.data);
-            });
+        axios.post(CALL_URL.URL_editRole, data).then((response) => {
+            console.log(response.data);
+        });
     };
 
     return (

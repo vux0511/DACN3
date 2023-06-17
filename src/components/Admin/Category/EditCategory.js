@@ -1,21 +1,14 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../Sidebar";
 import axios from "axios";
-import { useNavigate, Link, useParams } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
-import Header from "../../Header/Header";
-import Footer from "../../Footer/Footer";
+import { useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import CALL_URL from "~/api/CALL_URL";
 import "../scss/AddProduct.scss";
 
 function EditProduct() {
-    const navigate = useNavigate();
-    const notify = () => toast();
     const { idCategory } = useParams();
-    // const [idCategory, setIdCategory] = useState([]);
-
     const [itemCategoryEdit, setItemCategoryEdit] = useState({});
 
     const handleChangeNameProduct = (e) => {
@@ -30,42 +23,38 @@ function EditProduct() {
         let data = itemCategoryEdit;
         data.idCategory = idCategory;
 
-        axios
-            .post("http://localhost/DACN1_API/api/editCategory.php", data)
-            .then((response) => {
-                console.log(response.data);
-                if (response.data.status === "success") {
-                    toast.success("Sửa thành công", {
-                        position: "top-right",
-                        autoClose: 4000,
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored",
-                    });
-                } else {
-                    toast.error("Sửa thất bại", {
-                        position: "top-right",
-                        autoClose: 4000,
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored",
-                    });
-                }
-            });
+        axios.post(CALL_URL.URL_editCategory, data).then((response) => {
+            console.log(response.data);
+            if (response.data.status === "success") {
+                toast.success("Sửa thành công", {
+                    position: "top-right",
+                    autoClose: 4000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+            } else {
+                toast.error("Sửa thất bại", {
+                    position: "top-right",
+                    autoClose: 4000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+            }
+        });
     };
 
     // Get Category
     useEffect(() => {
         axios
-            .get(
-                `http://localhost/DACN1_API/api/getCategoryEdit.php?idcategory=${idCategory}`
-            )
+            .get(`${CALL_URL.URL_getCategoryEdit}?idcategory=${idCategory}`)
             .then((response) => {
                 setItemCategoryEdit(response.data[0]);
             });
@@ -76,7 +65,7 @@ function EditProduct() {
             <Sidebar />
             <div className="listProducts">
                 <div className="title-products-list">
-                    <h3>Thêm Sản Phẩm</h3>
+                    <h3>Sửa Danh Mục</h3>
                     <div className="row">
                         <div className="col-75">
                             <div className="container">
@@ -85,14 +74,14 @@ function EditProduct() {
                                         <div className="col-50">
                                             <label htmlFor="namecate">
                                                 <i className="fa fa-user" /> Tên
-                                                sản phẩm
+                                                danh mục
                                             </label>
                                             <input
                                                 required
                                                 type="text"
                                                 id="namecate"
                                                 name="namecate"
-                                                placeholder="Nhập tên sản phẩm"
+                                                placeholder="Nhập tên danh mục"
                                                 defaultValue={
                                                     itemCategoryEdit.nameCategory
                                                 }

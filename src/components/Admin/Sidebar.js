@@ -6,7 +6,7 @@ import { CgLogOut } from "react-icons/cg";
 import LogoAdmin from "../../assets/logo-admin.png";
 
 import Cookies from "universal-cookie";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../../scss/Admin.scss";
 import { useEffect } from "react";
 

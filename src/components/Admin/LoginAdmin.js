@@ -1,19 +1,14 @@
-import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
+import { useState } from "react";
 import Cookies from "universal-cookie";
-import { Navigate, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Sidebar from "./Sidebar";
+import CALL_URL from "~/api/CALL_URL";
 
 function LoginAdmin() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const cookies = new Cookies();
-    const navigate = useNavigate();
     const notify = () => toast();
 
     const handleChangeUsername = (e) => {
@@ -28,40 +23,36 @@ function LoginAdmin() {
             username: username,
             password: password,
         };
-        axios
-            .post("http://localhost/DACN1_API/api/getIdAdmin.php", data)
-            .then((response) => {
-                if (response.data.idAdmin === null) {
-                    toast.error(
-                        "Tài khoản hoặc mật khẩu không đúng. Vui lòng thử lại",
-                        {
-                            position: "top-right",
-                            autoClose: 4000,
-                            hideProgressBar: true,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "colored",
-                        }
-                    );
-                } else {
-                    cookies.set("idAdmin", response.data.idAdmin, {});
-                    toast.success("Đăng nhập thành công! Chuyển hướng sau 3s", {
+        axios.post(CALL_URL.URL_getIdAdmin, data).then((response) => {
+            if (response.data.idAdmin === null) {
+                toast.error(
+                    "Tài khoản hoặc mật khẩu không đúng. Vui lòng thử lại",
+                    {
                         position: "top-right",
-                        autoClose: 3000,
-                        hideProgressBar: false,
+                        autoClose: 4000,
+                        hideProgressBar: true,
                         closeOnClick: true,
                         pauseOnHover: true,
                         draggable: true,
                         progress: undefined,
                         theme: "colored",
-                    });
-                    // setTimeout(() => {
-                    window.location.reload();
-                    // }, 3000);
-                }
-            });
+                    }
+                );
+            } else {
+                cookies.set("idAdmin", response.data.idAdmin, {});
+                toast.success("Đăng nhập thành công! Chuyển hướng sau 3s", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+                window.location.reload();
+            }
+        });
     };
     return (
         <>

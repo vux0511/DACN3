@@ -7,6 +7,7 @@ import { MdOutlineClear } from "react-icons/md";
 import Cookies from "universal-cookie";
 import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
+import CALL_URL from "../../api/CALL_URL";
 
 function Cart() {
     const cookies = new Cookies();
@@ -36,28 +37,24 @@ function Cart() {
             idCart: e.target.id,
             quantityProductCart: e.target.value,
         };
-        axios
-            .post("http://localhost/DACN1_API/api/updateCart.php", data)
-            .then((response) => {
-                var tongTien = 0;
-                const updatedCartItems = itemCarts.map((item) => {
-                    if (item.idCart === data.idCart) {
-                        tongTien =
-                            tongTien + e.target.value * item.priceProduct;
-                        return {
-                            ...item,
-                            price: e.target.value * item.priceProduct,
-                        };
-                    } else {
-                        tongTien =
-                            tongTien +
-                            item.quantityProductCart * item.priceProduct;
-                        return item;
-                    }
-                });
-                setSubTotal(tongTien);
-                setItemCarts(updatedCartItems);
+        axios.post(CALL_URL.URL_updateCart, data).then((response) => {
+            var tongTien = 0;
+            const updatedCartItems = itemCarts.map((item) => {
+                if (item.idCart === data.idCart) {
+                    tongTien = tongTien + e.target.value * item.priceProduct;
+                    return {
+                        ...item,
+                        price: e.target.value * item.priceProduct,
+                    };
+                } else {
+                    tongTien =
+                        tongTien + item.quantityProductCart * item.priceProduct;
+                    return item;
+                }
             });
+            setSubTotal(tongTien);
+            setItemCarts(updatedCartItems);
+        });
     };
 
     const handleDeleteItemCart = (e) => {
@@ -65,20 +62,17 @@ function Cart() {
         var data = {
             idCart: e.target.value,
         };
-        axios
-            .post("http://localhost/DACN1_API/api/deleteCart.php", data)
-            .then((response) => {
-                const updatedCartItems = itemCarts.filter((item) => {
-                    if (item.idCart === data.idCart) {
-                        setSubTotal(
-                            subTotal -
-                                item.quantityProductCart * item.priceProduct
-                        );
-                    }
-                    return item.idCart !== data.idCart;
-                });
-                setItemCarts(updatedCartItems);
+        axios.post(CALL_URL.URL_deleteCart, data).then((response) => {
+            const updatedCartItems = itemCarts.filter((item) => {
+                if (item.idCart === data.idCart) {
+                    setSubTotal(
+                        subTotal - item.quantityProductCart * item.priceProduct
+                    );
+                }
+                return item.idCart !== data.idCart;
             });
+            setItemCarts(updatedCartItems);
+        });
     };
 
     useEffect(() => {
@@ -86,18 +80,16 @@ function Cart() {
             idUser: cookies.get("user").idUser,
         };
         setItemCarts([]);
-        axios
-            .post("http://localhost/DACN1_API/api/getCart.php", data)
-            .then((response) => {
-                setItemCarts(response.data);
-                var totalCart = 0;
-                response.data.map((itemCart, index) => {
-                    totalCart =
-                        totalCart +
-                        itemCart.quantityProductCart * itemCart.priceProduct;
-                });
-                setSubTotal(totalCart);
+        axios.post(CALL_URL.URL_getCart, data).then((response) => {
+            setItemCarts(response.data);
+            var totalCart = 0;
+            response.data.map((itemCart, index) => {
+                totalCart =
+                    totalCart +
+                    itemCart.quantityProductCart * itemCart.priceProduct;
             });
+            setSubTotal(totalCart);
+        });
     }, []);
 
     return (

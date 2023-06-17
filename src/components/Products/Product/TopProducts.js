@@ -3,16 +3,15 @@ import "./Product.scss";
 import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import Cookies from "universal-cookie";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { type } from "@testing-library/user-event/dist/type";
+import CALL_URL from "../../../api/CALL_URL";
 
 function TopProducts({ topProduct }) {
     const cookies = new Cookies();
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
-    // const notify = () => toast("Wow so easy!");
 
     useEffect(() => {
         if (cookies.get("user")) {
@@ -41,11 +40,9 @@ function TopProducts({ topProduct }) {
                 idProduct: e.target.id,
             };
             console.log(data);
-            axios
-                .post("http://localhost/DACN1_API/api/setCart.php", data)
-                .then((response) => {
-                    console.log(response.data);
-                });
+            axios.post(CALL_URL.URL_setCart, data).then((response) => {
+                console.log(response.data);
+            });
         }
     };
 
@@ -53,7 +50,7 @@ function TopProducts({ topProduct }) {
         <>
             <div className="products-container">
                 <div className="layout">
-                    <div className="sec-heading">Sản phẩm được nổi bật</div>
+                    <div className="sec-heading">Sản phẩm nổi bật</div>
                     <div className="products">
                         {topProduct.map((topProduct, index) => (
                             <div className="product-card" key={index}>
@@ -74,7 +71,6 @@ function TopProducts({ topProduct }) {
                                     />
                                 </div>
                                 <div className="product-detail">
-                                    {/* <a href="/product/1" className="clear"> */}
                                     <div
                                         className="name"
                                         onClick={() =>
@@ -88,7 +84,6 @@ function TopProducts({ topProduct }) {
                                     >
                                         {topProduct.nameProduct}
                                     </div>
-                                    {/* </a> */}
                                     <div
                                         className="product-bottom"
                                         onClick={() =>
@@ -100,7 +95,6 @@ function TopProducts({ topProduct }) {
                                             )
                                         }
                                     >
-                                        {/* <a href="/product/1" className="clear"> */}
                                         <div className="price-star">
                                             <span className="star">
                                                 <BsStarFill />
@@ -124,7 +118,6 @@ function TopProducts({ topProduct }) {
                                                 {topProduct.priceProduct}đ
                                             </span>
                                         </div>
-                                        {/* </a> */}
                                         <div className="add-cart-btn">
                                             <button
                                                 className="add-to-cart-btn"

@@ -2,17 +2,14 @@ import { useState, useEffect } from "react";
 import "./Product.scss";
 import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import Cookies from "universal-cookie";
-import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { type } from "@testing-library/user-event/dist/type";
 
 function NewProduct({ newProduct }) {
     const cookies = new Cookies();
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
-    // const notify = () => toast("Wow so easy!");
 
     useEffect(() => {
         if (cookies.get("user")) {

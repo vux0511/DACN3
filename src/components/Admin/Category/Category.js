@@ -4,17 +4,16 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CALL_URL from "~/api/CALL_URL";
 
 function CategoryAdmin() {
     const [itemCategory, setItemCategory] = useState([]);
     const notify = () => toast();
 
     useEffect(() => {
-        axios
-            .get(`http://localhost/DACN1_API/api/getCategory.php`)
-            .then((response) => {
-                setItemCategory(response.data);
-            });
+        axios.get(CALL_URL.URL_getCategory).then((response) => {
+            setItemCategory(response.data);
+        });
     }, []);
 
     const handleDeleteCategory = (e) => {
@@ -22,26 +21,24 @@ function CategoryAdmin() {
         var data = {
             idCategory: e.target.value,
         };
-        axios
-            .post("http://localhost/DACN1_API/api/deleteCategory.php", data)
-            .then((response) => {
-                const updatedItemsCategory = itemCategory.filter((item) => {
-                    if (item.idCategory === data.idCategory) {
-                        toast.success("Xoá danh mục thành công", {
-                            position: "top-right",
-                            autoClose: 3000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "colored",
-                        });
-                    }
-                    return item.idCategory !== data.idCategory;
-                });
-                setItemCategory(updatedItemsCategory);
+        axios.post(CALL_URL.URL_deleteCategory, data).then((response) => {
+            const updatedItemsCategory = itemCategory.filter((item) => {
+                if (item.idCategory === data.idCategory) {
+                    toast.success("Xoá danh mục thành công", {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
+                }
+                return item.idCategory !== data.idCategory;
             });
+            setItemCategory(updatedItemsCategory);
+        });
     };
 
     return (

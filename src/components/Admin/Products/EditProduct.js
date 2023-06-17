@@ -151,7 +151,7 @@ function EditProduct() {
             <Sidebar />
             <div className="listProducts">
                 <div className="title-products-list">
-                    <h3>Thêm Sản Phẩm</h3>
+                    <h3>Sửa Sản Phẩm</h3>
                     <div className="row">
                         <div className="col-75">
                             <div className="container">

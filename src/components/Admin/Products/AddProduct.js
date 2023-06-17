@@ -7,7 +7,7 @@ import Header from "../../Header/Header";
 import Footer from "../../Footer/Footer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import CALL_URL from "~/api/CALL_URL";
 import "../scss/AddProduct.scss";
 
 function AddProduct() {
@@ -111,42 +111,38 @@ function AddProduct() {
             imageProduct_4: imageProduct_4,
         };
 
-        axios
-            .post("http://localhost/DACN1_API/api/addNewProduct.php", data)
-            .then((response) => {
-                // console.log(response.data.status);
-                if (response.data.status === "success") {
-                    toast.success("Thêm sản phẩm thành công", {
-                        position: "top-right",
-                        autoClose: 4000,
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored",
-                    });
-                } else {
-                    toast.error("Thêm sản phẩm thất bại", {
-                        position: "top-right",
-                        autoClose: 4000,
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored",
-                    });
-                }
-            });
+        axios.post(CALL_URL.URL_addNewProduct, data).then((response) => {
+            // console.log(response.data.status);
+            if (response.data.status === "success") {
+                toast.success("Thêm sản phẩm thành công", {
+                    position: "top-right",
+                    autoClose: 4000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+            } else {
+                toast.error("Thêm sản phẩm thất bại", {
+                    position: "top-right",
+                    autoClose: 4000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+            }
+        });
     };
 
     useEffect(() => {
-        axios
-            .get("http://localhost/DACN1_API/api/getCategory.php")
-            .then((response) => {
-                setIdCategory(response.data);
-            });
+        axios.get(CALL_URL.URL_getCategory).then((response) => {
+            setIdCategory(response.data);
+        });
     }, []);
 
     return (

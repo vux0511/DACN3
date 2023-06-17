@@ -1,11 +1,11 @@
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { GiBoots } from "react-icons/gi";
 import { FiUsers } from "react-icons/fi";
-import { BsThreeDotsVertical } from "react-icons/bs";
 
 import ImgUser from "../../assets/avatar_user.webp";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import CALL_URL from "~/api/CALL_URL";
 
 function Home() {
     const [countProducts, setCountProducts] = useState(0);
@@ -14,21 +14,17 @@ function Home() {
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
-        axios
-            .get(`http://localhost/DACN1_API/api/getHomeAdmin.php`)
-            .then((response) => {
-                setCountProducts(response.data.countProducts);
-                setCountOrders(response.data.countOrders);
-                setCountUsers(response.data.countUsers);
-            });
+        axios.get(CALL_URL.URL_getHomeAdmin).then((response) => {
+            setCountProducts(response.data.countProducts);
+            setCountOrders(response.data.countOrders);
+            setCountUsers(response.data.countUsers);
+        });
     }, []);
 
     useEffect(() => {
-        axios
-            .get(`http://localhost/DACN1_API/api/getOrder.php`)
-            .then((response) => {
-                setOrders(response.data);
-            });
+        axios.get(CALL_URL.URL_getOrder).then((response) => {
+            setOrders(response.data);
+        });
     }, []);
 
     return (
