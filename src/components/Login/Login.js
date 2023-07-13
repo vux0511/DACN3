@@ -23,45 +23,51 @@ function Login() {
     const handleChangePassword = (e) => {
         setPassword(e.target.value);
     };
+    console.log(CALL_URL.URL_getUser);
     const handleLogin = (e) => {
         e.preventDefault();
         let data = {
             username: username,
             password: password,
         };
-        axios.post(CALL_URL.URL_getUser, data).then((response) => {
-            if (response.data.user === null) {
-                toast.error(
-                    "Tài khoản hoặc mật khẩu không đúng. Vui lòng thử lại",
-                    {
+
+        try {
+            axios.post(CALL_URL.URL_getUser, data).then((response) => {
+                if (response.data.user === null) {
+                    toast.error(
+                        "Tài khoản hoặc mật khẩu không đúng. Vui lòng thử lại",
+                        {
+                            position: "top-right",
+                            autoClose: 4000,
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                        }
+                    );
+                } else {
+                    cookies.set("user", response.data.user, {});
+                    toast.success("Đăng nhập thành công! Chuyển hướng sau 3s", {
                         position: "top-right",
-                        autoClose: 4000,
-                        hideProgressBar: true,
+                        autoClose: 3000,
+                        hideProgressBar: false,
                         closeOnClick: true,
                         pauseOnHover: true,
                         draggable: true,
                         progress: undefined,
                         theme: "colored",
-                    }
-                );
-            } else {
-                cookies.set("user", response.data.user, {});
-                toast.success("Đăng nhập thành công! Chuyển hướng sau 3s", {
-                    position: "top-right",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                });
-                console.log(response.data.user);
-                setTimeout(() => {
-                    navigate("/");
-                }, 3500);
-            }
-        });
+                    });
+                    console.log(response.data.user);
+                    setTimeout(() => {
+                        navigate("/");
+                    }, 3500);
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
