@@ -1,4 +1,3 @@
-import "./Newsletter.scss";
 import { BsFacebook, BsInstagram, BsGithub } from "react-icons/bs";
 import { CgMail } from "react-icons/cg";
 

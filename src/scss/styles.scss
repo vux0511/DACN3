@@ -1,29 +1,26 @@
-@mixin sm {
-    @media only screen and (min-width: 640px) {
-        @content;
-    }
-}
-
-@mixin md {
-    @media only screen and (min-width: 768px) {
-        @content;
-    }
-}
-
-@mixin lg {
-    @media only screen and (min-width: 1024px) {
-        @content;
-    }
-}
-
-@mixin xl {
-    @media only screen and (min-width: 1280px) {
-        @content;
-    }
-}
-
-@mixin xxl {
-    @media only screen and (min-width: 1536px) {
-        @content;
-    }
-}
+@import "valiable";
+@import "responsive";
+@import "global";
+@import "header";
+@import "footer";
+@import "login";
+@import "requiredLogin";
+@import "register";
+@import "products";
+@import "product";
+@import "popup";
+@import "payment";
+@import "order";
+@import "invoice";
+@import "notFound";
+@import "information";
+@import "home";
+@import "banner";
+@import "search";
+@import "detailProduct";
+@import "changePassword";
+@import "category";
+@import "about";
+@import "newsletter";
+@import "admin";
+@import "category_home";

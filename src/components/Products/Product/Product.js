@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "./Product.scss";
 import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import Cookies from "universal-cookie";
 import axios from "axios";
@@ -72,10 +71,10 @@ function Product({ setCartCount, cartCount, idProduct, data, productRelated }) {
                                 <BsStarFill />
                                 <BsStarHalf />
                             </span>
-                            <span className="price">{data.priceProduct}đ</span>
                         </div>
                     </a>
                     <div className="add-cart-btn">
+                        <span className="price">{data.priceProduct}đ</span>
                         <button
                             className="add-to-cart-btn"
                             id={data.idProduct}
@@ -83,8 +82,8 @@ function Product({ setCartCount, cartCount, idProduct, data, productRelated }) {
                         >
                             Thêm giỏ hàng
                         </button>
-                        <ToastContainer />
                     </div>
+                    <ToastContainer />
                 </div>
             </div>
         </div>

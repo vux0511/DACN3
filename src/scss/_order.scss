@@ -1,0 +1,48 @@
+.tr-order:hover {
+    background-color: rgb(249, 249, 249);
+    // text-align: center;
+}
+.tr-order th {
+    text-align: center;
+}
+
+.tr-order td {
+    text-align: center;
+    padding: 18px 0;
+}
+
+.th_id_order {
+    width: 5%;
+    text-align: center;
+}
+.th_fullname_order {
+    width: 15%;
+}
+.th_phone_order {
+    width: 15%;
+}
+.th_address_order {
+    width: 15%;
+}
+.th_total_order {
+    width: 15%;
+}
+.th_status_order {
+    width: 15%;
+}
+.th_view-btn_order {
+    width: 8%;
+    text-align: center;
+}
+
+.td-address {
+    max-width: 150px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+.small-container.cart-page.order-page {
+    min-height: 400px;
+}

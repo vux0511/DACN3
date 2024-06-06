@@ -1,7 +1,6 @@
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import EmptyCart from "../../assets/emptyCart.png";
-import "./Cart.scss";
 import { useState, useEffect } from "react";
 import { MdOutlineClear } from "react-icons/md";
 import Cookies from "universal-cookie";

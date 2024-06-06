@@ -6,7 +6,6 @@ import Cookies from "universal-cookie";
 import { useEffect, useState } from "react";
 
 import "boxicons";
-import "../../scss/Admin.scss";
 
 function App() {
     const cookies = new Cookies();

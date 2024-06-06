@@ -1,0 +1,47 @@
+.products-container {
+    margin: 50px 0;
+    @include md {
+        margin: 75px 0;
+    }
+    .sec-heading {
+        margin-bottom: 20px;
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+        @include md {
+            margin-bottom: 35px;
+            font-size: 21px;
+        }
+        &:after {
+            content: "";
+            display: block;
+            margin-top: 5px;
+            width: 100px;
+            height: 3px;
+            background-color: $orange-color;
+            @include md {
+                margin-top: 10px;
+            }
+        }
+    }
+    .products {
+        display: flex;
+        flex-flow: wrap;
+        gap: 10px;
+        @include md {
+            gap: 20px;
+        }
+    }
+}
+
+.layout {
+    max-width: calc(100% - 20px);
+    margin: 0 auto;
+    @include md {
+        max-width: 1100px;
+    }
+}
+
+.Toastify__toast {
+    box-shadow: 0px 0px #888888 !important;
+}

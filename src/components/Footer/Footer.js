@@ -1,9 +1,6 @@
 import { FaLocationArrow, FaMobileAlt } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
-
-import "./Footer.scss";
 import Newsletter from "./Newsletter/Newsletter";
-import Payment from "../../assets/payments.png";
 
 function Footer() {
     return (

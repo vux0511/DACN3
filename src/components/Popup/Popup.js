@@ -1,5 +1,4 @@
 import Tick from "~/assets/tick.png";
-import "./Popup.scss";
 import { useNavigate } from "react-router-dom";
 
 function Popup(props) {

@@ -1,4 +1,3 @@
-import "./Register.scss";
 import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
 import Header from "../Header/Header";

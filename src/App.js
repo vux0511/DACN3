@@ -27,9 +27,6 @@ import Order from "./components/Admin/Order/Order";
 import ViewDetailOrder from "./components/Admin/Order/ViewDetailOrder";
 import User from "./components/Admin/User/ViewUser";
 
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min";
-
 import { useState } from "react";
 
 function App() {

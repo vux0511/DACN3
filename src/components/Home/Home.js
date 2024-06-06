@@ -1,12 +1,12 @@
-import "./Home.scss";
 import Bannner from "./Banner/Banner";
+import CategoryHome from "../Category/CategoryHome";
 import BannerProduct from "./Banner/BannerProduct";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import Products from "../Products/Products";
 import TopProducts from "../Products/Product/TopProducts";
 import NewProduct from "../Products/Product/NewProduct";
-import { useState, useEffect } from "react";
+import { useState, useEffect, CSSProperties } from "react";
 import axios from "axios";
 import CALL_URL from "../../api/CALL_URL";
 import { useNavigate, useParams } from "react-router-dom";
@@ -53,6 +53,7 @@ function Home({ setCartCount, cartCount }) {
             <div className="main-content">
                 <div className="layout">
                     <TopProducts topProduct={topProduct} />
+                    <CategoryHome />
                     <BannerProduct />
                     <NewProduct newProduct={newProduct} />
                 </div>

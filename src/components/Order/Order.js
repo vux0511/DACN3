@@ -7,7 +7,6 @@ import Cookies from "universal-cookie";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
 import CALL_URL from "../../api/CALL_URL";
-import "./Order.scss";
 
 function Order() {
     const [username, setUsername] = useState("");

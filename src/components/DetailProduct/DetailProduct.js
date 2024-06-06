@@ -4,7 +4,6 @@ import { GoEye } from "react-icons/go";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import CALL_URL from "../../api/CALL_URL";
-import "./DetailProduct.scss";
 import { useRef, useEffect, useState } from "react";
 import Product from "../Products/Product/Product";
 import axios from "axios";

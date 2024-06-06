@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 import RequiredLoginImg from "../../assets/requiredlogin.png";
-import "./RequiredLogin.scss";
 
 function RequiredLogin() {
     const navigate = useNavigate();

@@ -1,4 +1,3 @@
-import "./Products.scss";
 import Product from "./Product/Product";
 import Category from "../Category/Category";
 import Header from "../Header/Header";

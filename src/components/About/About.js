@@ -1,4 +1,3 @@
-import "./About.scss";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import { BsTelephone, BsInstagram } from "react-icons/bs";

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./Search.scss";
 import CALL_URL from "~/api/CALL_URL";
 import { MdClose } from "react-icons/md";
 

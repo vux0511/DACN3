@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CALL_URL from "~/api/CALL_URL";
-import "../scss/AddProduct.scss";
 
 function EditProduct() {
     const { idCategory } = useParams();

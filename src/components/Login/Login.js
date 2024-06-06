@@ -1,4 +1,3 @@
-import "./Login.scss";
 import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
 import { useEffect, useState } from "react";

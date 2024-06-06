@@ -6,7 +6,6 @@ import Search from "./Search/Search";
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Cookies from "universal-cookie";
-import "./Header.scss";
 
 function Header({ cartCount }) {
     const cookies = new Cookies();
@@ -22,6 +21,11 @@ function Header({ cartCount }) {
         }
     }, []);
 
+    const handleLogout = () => {
+        document.cookie = "user" + "=; Max-Age=0;";
+        navigate("/login");
+    };
+
     const handleScroll = () => {
         const offset = window.scrollY;
         if (offset > 200) {
@@ -31,11 +35,6 @@ function Header({ cartCount }) {
         }
     };
 
-    const handleLogout = () => {
-        document.cookie = "user" + "=; Max-Age=0;";
-        navigate("/login");
-    };
-
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
     }, []);
@@ -43,7 +42,9 @@ function Header({ cartCount }) {
     return (
         <>
             <header
-                className={`main-header ${scrolled ? "sticky-header" : ""}`}
+                className={`main-header ${
+                    scrolled ? "sticky-header main-header" : ""
+                }`}
             >
                 <div className="header-content">
                     <div className="left">
@@ -54,7 +55,10 @@ function Header({ cartCount }) {
                             <a href="/">Home</a>
                         </li>
                         <li>
-                            <a href="/product">Product</a>
+                            <a href="/product">Products</a>
+                        </li>
+                        <li>
+                            <a href="/contact">Contact</a>
                         </li>
                         <li>
                             <a href="/about">About</a>
@@ -82,7 +86,7 @@ function Header({ cartCount }) {
                             </a>
                         )}
 
-                        <div className="dropdown">
+                        <div className="dropdown drop-btn-user">
                             <button className="dropbtn">
                                 {username !== "" ? (
                                     <span className="account">

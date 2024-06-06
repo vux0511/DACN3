@@ -3,14 +3,11 @@ import { useNavigate, Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-
 import LogoInvoice from "../../assets/logo.png";
 import Signature from "../../assets/signature.png";
 import ProductInvoice from "../../assets/mobile.jpg";
 import CALL_URL from "../../api/CALL_URL";
 import { Cookies, useCookies } from "react-cookie";
-
-import "./Invoice.scss";
 
 function Invoice() {
     const [detailOrder, setDetailOrder] = useState([]);

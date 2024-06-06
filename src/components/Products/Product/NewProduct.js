@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "./Product.scss";
 import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
@@ -21,7 +20,7 @@ function NewProduct({ newProduct }) {
         <>
             <div className="products-container">
                 <div className="layout">
-                    <div className="sec-heading">Sản phẩm mới nhất</div>
+                    <div className="sec-heading">Sản phẩm đề xuất</div>
                     <div className="products">
                         {newProduct.map((newProduct, index) => (
                             <div className="product-card" key={index}>
@@ -42,7 +41,6 @@ function NewProduct({ newProduct }) {
                                     />
                                 </div>
                                 <div className="product-detail">
-                                    {/* <a href="/product/1" className="clear"> */}
                                     <div
                                         className="name"
                                         onClick={() =>
@@ -56,7 +54,6 @@ function NewProduct({ newProduct }) {
                                     >
                                         {newProduct.nameProduct}
                                     </div>
-                                    {/* </a> */}
                                     <div
                                         className="product-bottom"
                                         onClick={() =>
@@ -68,7 +65,6 @@ function NewProduct({ newProduct }) {
                                             )
                                         }
                                     >
-                                        {/* <a href="/product/1" className="clear"> */}
                                         <div className="price-star">
                                             <span className="star">
                                                 <BsStarFill />
@@ -77,6 +73,8 @@ function NewProduct({ newProduct }) {
                                                 <BsStarFill />
                                                 <BsStarHalf />
                                             </span>
+                                        </div>
+                                        <div className="add-cart-btn">
                                             <span
                                                 className="price"
                                                 onClick={() =>
@@ -91,9 +89,6 @@ function NewProduct({ newProduct }) {
                                             >
                                                 {newProduct.priceProduct}đ
                                             </span>
-                                        </div>
-                                        {/* </a> */}
-                                        <div className="add-cart-btn">
                                             <button
                                                 className="add-to-cart-btn"
                                                 id={newProduct.idProduct}
@@ -109,8 +104,8 @@ function NewProduct({ newProduct }) {
                                             >
                                                 Thêm giỏ hàng
                                             </button>
-                                            <ToastContainer />
                                         </div>
+                                        <ToastContainer />
                                     </div>
                                 </div>
                             </div>

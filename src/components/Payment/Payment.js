@@ -1,10 +1,8 @@
 import { MdOutlinePayment, MdOutlineClear } from "react-icons/md";
-
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "./Payment.scss";
 import Cookies from "universal-cookie";
 import { Navigate, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
