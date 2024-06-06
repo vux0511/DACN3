@@ -1,4 +1,4 @@
-# Đồ Án Chuyên Ngành 1 - Shoes Store - ReactJS and PHP
+# Đồ Án Chuyên Ngành 3
 
 ### First run `npm install`
 
