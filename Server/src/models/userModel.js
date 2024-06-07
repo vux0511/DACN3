@@ -22,7 +22,7 @@ userSchema.statics = {
     },
 
     findByEmail(emailUser) {
-        return this.findOne({ "local.email": emailUser }).exec();
+        return this.findOne({ email: emailUser }).exec();
     },
 
     updateInfor(idUser, item) {
@@ -32,7 +32,10 @@ userSchema.statics = {
         return this.findById(idUser).exec();
     },
     getListUser() {
-        return this.find({}).exec();
+        return this.find(
+            {},
+            "_id  username  fullname  email  gender  phone  address  avatar  role createAt  updateAt"
+        ).exec();
     },
     getQuanity() {
         return this.count({}).exec();
