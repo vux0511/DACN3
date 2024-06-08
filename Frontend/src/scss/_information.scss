@@ -1,6 +1,9 @@
 .container-infor {
     max-width: calc(100% - 20px);
     margin: 0 auto;
+    background-color: $white-color;
+    margin-top: 20px;
+    margin-bottom: 30px;
     @include md {
         max-width: 1100px;
     }

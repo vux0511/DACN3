@@ -65,8 +65,8 @@ function Invoice() {
                     </section>
                     <section className="store-user mt-5">
                         <div className="col-10">
-                            <div className="row bb pb-3">
-                                <div className="col-7">
+                            <div className=" row row-invoice bb pb-3">
+                                <div className="col-5">
                                     <p>Cửa hàng,</p>
                                     <h2>Vux Store</h2>
                                     <p className="address">
@@ -99,7 +99,7 @@ function Invoice() {
                                     ))}
                                 </div>
                             </div>
-                            <div className="row extra-info pt-3">
+                            <div className="row row-invoice extra-info pt-3">
                                 <div className="col-7">
                                     <p>
                                         Phương thức thanh toán: <span>COD</span>

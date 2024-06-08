@@ -1,5 +1,5 @@
 .small-container {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: auto;
     padding-left: 25px;
     padding-right: 20px;
@@ -87,10 +87,17 @@ select:focus-visible {
 }
 
 .single-product h4 {
-    margin-top: 20px;
-    margin-bottom: 10px;
+    margin-top: 30px;
+    margin-bottom: 0px;
     font-size: 22px;
     font-weight: bold;
+    color: $orange-color;
+}
+
+.about1 {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 20px 0;
+    margin-bottom: 20px;
 }
 
 a,
@@ -221,9 +228,11 @@ button.add-to-cart-detail-btn {
 }
 
 .about-product {
-    font-size: 15px;
+    font-size: 16px;
+    line-height: 1.8;
     color: #333;
-    padding-bottom: 20px;
+    padding: 20px 0;
+    padding-bottom: 40px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 

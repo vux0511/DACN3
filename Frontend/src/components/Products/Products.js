@@ -10,7 +10,6 @@ import { useNavigate, useParams, useLocation } from "react-router-dom";
 function Products({ headingText }) {
     const [products, setProducts] = useState([]);
     const location = useLocation();
-
     var { categoryId } = useParams();
 
     if (categoryId === undefined) {
@@ -55,6 +54,7 @@ function Products({ headingText }) {
                     </div>
                 </div>
             </div>
+
             {location.pathname === "/" ? "" : <Footer />}
         </>
     );
