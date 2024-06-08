@@ -1,9 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Category from "./components/Category/Category";
-// import Product from "./components/Products/Products";
 import DetailProduct from "./components/DetailProduct/DetailProduct";
-// import AppContext from "./utils/context";
 import Cart from "./components/Cart/Cart";
 import Payment from "./components/Payment/Payment";
 import Login from "./components/Login/Login";

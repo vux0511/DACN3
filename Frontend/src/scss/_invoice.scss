@@ -16,12 +16,18 @@
 // }
 
 .page {
-    background: var(--white);
+    background: $white-color;
     display: block;
     margin: 0 auto;
     position: relative;
-    box-shadow: var(--pageShadow);
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     width: 700px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    padding: 50px;
+    font-family: $font-primary;
+    line-height: 1.7;
 }
 
 .page[size="A4"] {
@@ -75,12 +81,12 @@
 }
 
 .top-left .graphic-path p {
-    color: var(--white);
+    color: $white-color;
     height: 40px;
     left: 0;
     right: -100px;
     text-transform: uppercase;
-    background-color: var(--themeColor);
+    background-color: $orange-color;
     font: 26px;
     z-index: 3;
     position: absolute;
@@ -102,8 +108,7 @@
 }
 
 .store-user h2 {
-    color: var(--themeColor);
-    font-family: "Rajdhani", sans-serif;
+    color: $orange-color;
 }
 
 .extra-info p span {
@@ -112,8 +117,8 @@
 
 /* Product Section */
 thead.invoice {
-    color: var(--white);
-    background: var(--themeColor);
+    color: $white-color;
+    background: $orange-color;
 }
 
 .table td,
@@ -149,10 +154,12 @@ tr td:first-child {
 }
 
 .balance-info tr td:first-child {
+    // color: $white-color;
     font-weight: 600;
 }
 
 tfoot {
+    color: $white-color;
     border-top: 2px solid var(--darkWhite);
 }
 
@@ -177,4 +184,9 @@ tfoot td {
 
 .signature {
     padding-top: 20px;
+}
+
+.row-invoice {
+    justify-content: space-between !important;
+    padding: 10px 0;
 }

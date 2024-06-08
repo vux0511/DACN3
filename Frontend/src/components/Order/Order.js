@@ -61,7 +61,7 @@ function Order() {
                         <>
                             <thead>
                                 <tr className="tr-order">
-                                    <th className="th_id_order">#</th>
+                                    <th className="th_id_order">STT</th>
                                     <th className="th_fullname_order">
                                         Họ tên
                                     </th>
