@@ -7,7 +7,7 @@
     left: 0;
     background-color: white;
     transform: translateY(100%);
-    animation: slideSearchWindow 0.5s ease forwards;
+    animation: slideSearchWindowOpen 0.5s ease forwards;
 
     .form-field {
         width: 100%;
@@ -55,7 +55,7 @@ div::state(webkit-scrollbar) {
     display: none;
 }
 
-@keyframes slideSearchWindow {
+@keyframes slideSearchWindowOpen {
     0% {
         transform: translateY(100%);
     }

@@ -10,7 +10,13 @@ import { useNavigate, useParams, useLocation } from "react-router-dom";
 function Products({ headingText }) {
     const [products, setProducts] = useState([]);
     const location = useLocation();
-    var { categoryId } = useParams();
+    const [items, setItems] = useState([]);
+    const [visible, setVisible] = useState(8);
+    var { categoryId } = useParams(1);
+
+    const showMoreItems = () => {
+        setVisible((prevValue) => prevValue + 4);
+    };
 
     if (categoryId === undefined) {
         categoryId = "allProduct";
@@ -43,7 +49,7 @@ function Products({ headingText }) {
                     </div>
                     {headingText ? "" : <Category />}
                     <div className="products">
-                        {products.map((itemProduct) => (
+                        {products.slice(0, visible).map((itemProduct) => (
                             <Product
                                 key={itemProduct.idProduct}
                                 data={itemProduct}
@@ -52,6 +58,12 @@ function Products({ headingText }) {
                             />
                         ))}
                     </div>
+                    <button
+                        className="button button-loadmore"
+                        onClick={showMoreItems}
+                    >
+                        Load More
+                    </button>
                 </div>
             </div>
 
