@@ -22,13 +22,17 @@ a:hover {
     color: #333;
 }
 
-// button {
-//     padding: 10px;
-//     border-radius: 8px;
-//     border: 1.5px solid $orange-color;
-//     font-size: 13px;
-//     text-align: center;
-//     display: flex;
-//     align-items: center;
-//     font-weight: 600;
-// }
+.button-loadmore {
+    background-color: $orange-color;
+    color: $white-color;
+    display: block;
+    margin: 0 auto;
+    font-weight: 600;
+    font-size: 14px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 12px 25px;
+    border: none;
+    color: #ea5e27;
+    cursor: pointer;
+}

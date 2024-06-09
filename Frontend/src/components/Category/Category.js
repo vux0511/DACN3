@@ -37,7 +37,6 @@ function Category() {
                     >
                         Tất Cả Sản Phẩm
                     </button>
-
                     {/* Map */}
                     {category.map((cate) => (
                         <button
@@ -60,7 +59,7 @@ function Category() {
                     ))}
 
                     {/* Button Sort */}
-                    {/* <button className="btn-sort">
+                    <button className="btn-sort button-dropdown-wrapper">
                         <div className="sort">
                             <ul className="nav">
                                 <li className="button-dropdown">
@@ -97,7 +96,7 @@ function Category() {
                                 </li>
                             </ul>
                         </div>
-                    </button> */}
+                    </button>
                 </div>
             </div>
         </div>
