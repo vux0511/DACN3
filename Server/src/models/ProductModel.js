@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 let Schema = mongoose.Schema;
 
 let ProductSchema = new Schema({
-    name: { type: String, default: null },
+    nameProduct: { type: String, default: null },
+    idUser: { type: String, default: null },
     idCategory: { type: String, default: null },
     image: {
         img1: { type: String, default: null },
@@ -38,10 +39,10 @@ ProductSchema.statics = {
         return this.where(filter).count();
     },
 
-    updateProduct(idShop, idProduct, item) {
+    updateProduct(idProduct, item) {
         return this.update(
             {
-                $and: [{ idShop: idShop }, { _id: idProduct }],
+                $and: [{ _id: idProduct }],
             },
             item
         ).exec();
@@ -59,9 +60,6 @@ ProductSchema.statics = {
 
     updateQuantity(idProduct, dataUpdate) {
         return this.findOneAndUpdate({ _id: idProduct }, dataUpdate).exec();
-    },
-    findProductByIdShop(skipNumber, product_limit, filter) {
-        return this.find(filter).skip(skipNumber).limit(product_limit).exec();
     },
 };
 

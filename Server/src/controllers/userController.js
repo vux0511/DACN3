@@ -37,9 +37,9 @@ let regissterUser = async (req, res) => {
     } else {
         let result = await user.createNew(req.body);
         if (result) {
-            res.status(200).send(transSuccess.register_user(req.body.username));
+            res.status(200).send(true);
         } else {
-            res.send(transError.register_user);
+            res.send(false);
         }
     }
 };
@@ -56,7 +56,7 @@ let loginUser = async (req, res) => {
                 });
                 res.status(200).send({ user: result, usrer_token: token });
             } else {
-                res.status(500).send(transError.login_user);
+                res.send(false);
             }
         } catch (error) {
             res.status(500).send(error);
@@ -68,20 +68,16 @@ let getNormalUser = async (req, res) => {
     if (_.isEmpty(req.params)) {
         res.send("lỗi");
     } else {
-        console.log(req.params.idUser);
         let result = await user.getNormalUser(req.params.idUser);
         if (result) {
-            res.status(200).send({ result: result, message: null });
+            res.status(200).send(result);
         } else {
-            res.send({ result: false, message: "không tìm thấy dữ liệu" });
+            res.send(false);
         }
     }
 };
 
 let updateImgUser = async (req, res) => {
-    // console.log(req);
-    // console.log(req.body);
-    // console.log(req.file);
     ImgAvatarUploadFile(req, res, async (error) => {
         if (error) {
             res.status(500).send("lỗi");
@@ -112,7 +108,7 @@ let updateUser = async (req, res) => {
         if (result) {
             res.status(200).send(transSuccess.updateUser);
         } else {
-            res.status(500).send(transError.updateUser);
+            res.send(transError.updateUser);
         }
     }
 };
@@ -125,7 +121,7 @@ let checkPassUser = async (req, res) => {
         if (result) {
             res.status(200).send(true);
         } else {
-            res.status(200).send(false);
+            res.send(false);
         }
     }
 };

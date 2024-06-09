@@ -26,7 +26,7 @@ CartSchema.statics = {
         return this.findById(id).exec();
     },
     removeProduct(idUser, idProduct) {
-        return this.remove({
+        return this.deleteOne({
             $and: [{ idUser: idUser }, { "product.idProduct": idProduct }],
         }).exec();
     },
