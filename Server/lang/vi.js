@@ -1,15 +1,12 @@
 export const transValidation = {
     data_empty: "Không nhận được dữ liều đầu vào. Vui lòng thử lại sau!",
-    category_exists: "Phân loại sản phẩm này đã tồn tại", 
-    search_empty: "Chúng tôi không biết bạn tìm kiếm gì"
-    
+    category_exists: "Phân loại sản phẩm này đã tồn tại",
+    search_empty: "Chúng tôi không biết bạn tìm kiếm gì",
 };
 
 export const transSuccess = {
-    login_user: "Đăng nhập thành công", 
-    register_user: (username) => {
-        return `Tài khoản <b>${username}</b> đã được tạo thành công`; 
-    },
+    login_user: "Đăng nhập thành công",
+    register_user: `success`,
     addNewCategory: (nameCategory) => {
         return `Phân loại <b> ${nameCategory}</b> đã được thêm thành công`;
     },
@@ -25,15 +22,14 @@ export const transSuccess = {
     orderCart: "Đơn hàng của bạn đã được tạo thành công",
     changeStatus: true,
     update: "Bạn đã cập nhật thành công",
-
-}; 
+};
 
 export const transError = {
-    login_user: "Đăng nhập thất bại.", 
+    login_user: "Đăng nhập thất bại.",
     register_user: "Đăng ký thất bại.",
 
     getCategory: "Không tìm thấy dữ liệu.",
-    upImage: "Lỗi không tải ảnh lên được.", 
+    upImage: "Lỗi không tải ảnh lên được.",
     addNewCategory: (nameCategory) => {
         return `Thêm phân loại </b>${nameCategory}</b> thất bại.`;
     },
@@ -46,12 +42,10 @@ export const transError = {
     not_page: "Rất tiếc, trang này không tồn tại!",
     createNewShop: "Tạo của hàng thất bại. Vui lòng thử lại sau :)",
     existShop: "Xin lỗi, Mỗi người dùng chỉ có thể tạo một cửa hàng duy nhất.",
-    getProductByIdCateogry: "Xin lỗi, chúng tôi không tìm thấy kết quả cần tìm. Vui lòng thử lại sau",
+    getProductByIdCateogry:
+        "Xin lỗi, chúng tôi không tìm thấy kết quả cần tìm. Vui lòng thử lại sau",
     orderCart: "Tạo đơn hàng thất bại. Vui lòng thử lại sau",
     outOfProduct: "Xin lỗi, một số sản phẩm đã hết:((",
-    changeStatus: false, 
-    update: "Rất tiếc, cập nhật thất bại. Vui lòng thử lại sau"
-
-
-
-}
+    changeStatus: false,
+    update: "Rất tiếc, cập nhật thất bại. Vui lòng thử lại sau",
+};
