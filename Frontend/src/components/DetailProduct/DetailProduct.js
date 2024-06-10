@@ -1,6 +1,5 @@
-import { FaShippingFast } from "react-icons/fa";
-import { TbTruckReturn } from "react-icons/tb";
-import { GoEye } from "react-icons/go";
+import { FaRegEye } from "react-icons/fa";
+import { AiOutlineClockCircle } from "react-icons/ai";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import CALL_URL from "../../api/CALL_URL";
@@ -10,6 +9,12 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { TbTruckDelivery } from "react-icons/tb";
+import { GiMoneyStack } from "react-icons/gi";
+import { AiOutlineSafetyCertificate } from "react-icons/ai";
+import { Rate } from "antd";
+import { Input } from "antd";
+const { TextArea } = Input;
 
 function DetailProduct(data) {
     const [productRelated, setProductRelated] = useState([]);
@@ -92,12 +97,14 @@ function DetailProduct(data) {
         ProductImg.src = SmallImg[0].src;
     };
 
+    const onSubmit = () => {};
+
     return (
         <>
             <Header />
             {detailProduct.map((detail, index) => (
-                <div className="small-container single-product" key={index}>
-                    <div className="col-2-detail">
+                <div className="small-container detail__wrapper" key={index}>
+                    <div className="detail__wrapper-image">
                         <img
                             id="imgProduct"
                             src={detail.imageProduct_1}
@@ -139,19 +146,25 @@ function DetailProduct(data) {
                             </div>
                         </div>
                     </div>
-                    <div className="col-2-detail margin_top">
-                        <h1 className="nameProduct">{detail.nameProduct}</h1>
-                        <p className="about-product">
+                    <div className="detail__wrapper-content">
+                        <div className="detail__wrapper-name">
+                            {detail.nameProduct}
+                        </div>
+                        <p className="detail__wrapper-about">
                             {detail.descriptionProduct}
                         </p>
-                        <h4 className="price">
+                        <h4 className="detail__wrapper-price">
                             {new Intl.NumberFormat("vn-VI", {
                                 style: "currency",
                                 currency: "VND",
                             }).format(detail.priceProduct)}
                         </h4>
-                        <p className="about1">
-                            Sản phẩm ở VuxStore có giá tốt nhất thị trường
+                        <p className="detail__wrapper-quantity">
+                            <p>Kho hàng còn 10 sản phẩm</p>
+                            <p>
+                                <FaRegEye className="detail__wrapper-icon" />{" "}
+                                100
+                            </p>
                         </p>
                         <div className="btn-detail">
                             <a
@@ -175,31 +188,173 @@ function DetailProduct(data) {
                                 </button>
                             </a>
                         </div>
-                        <div className="term-detail">
-                            <div className="delivery">
-                                <h3>
-                                    <FaShippingFast className="icon-ship" />{" "}
-                                    Free Delivery
-                                </h3>
-                                <p>
-                                    Miễn phí vận chuyển khi mua hàng tại
-                                    VuxStore
-                                </p>
+                        <div className="detail__wrapper-feature">
+                            <div className="detail__wrapper-feature-title">
+                                ƯU ĐÃI ĐI KÈM
                             </div>
-                            <div className="delivery d1">
-                                <h3>
-                                    <TbTruckReturn className="icon-ship" />{" "}
-                                    Returns Delivery
-                                </h3>
-                                <p>
-                                    Miễn phí đổi trả hàng khi không hài lòng về
-                                    sản phẩm
-                                </p>
+                            <div className="detail__wrapper-feature-wrapper">
+                                <div className="detail__wrapper-feature-items">
+                                    <TbTruckDelivery />
+                                    Giao hàng tiết kiệm
+                                </div>
+                                <div className="detail__wrapper-feature-items">
+                                    <GiMoneyStack />
+                                    Sản phẩm luôn có giá tốt nhất
+                                </div>
+                                <div className="detail__wrapper-feature-items">
+                                    <AiOutlineSafetyCertificate />
+                                    Bảo hành 12 tháng tại trung tâm bảo hành
+                                    Chính hãng.
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             ))}
+            <div className="detail__rating">
+                <div className="detail__rating-wrapper">
+                    <div className="detail__rating-view">
+                        <div className="detail__rating-view-wrapper">
+                            <div className="detail__rating-view-score">
+                                4.5<span>/5</span>
+                            </div>
+                            <Rate
+                                allowHalf
+                                defaultValue={3.6}
+                                disabled
+                                // style={{ color: "#fada15" }}
+                                className="detail__rating-view-star"
+                            />
+                            <div className="detail__rating-view-total">
+                                Được tính bởi 20 Đánh giá
+                            </div>
+                        </div>
+                    </div>
+                    <form className="detail__rating-form">
+                        <div className="detail__rating-form-heading">
+                            Đánh giá sản phẩm
+                        </div>
+                        <label
+                            htmlFor="star"
+                            className="detail__rating-form-label"
+                        >
+                            Điểm đánh giá
+                        </label>
+                        <Rate
+                            id="star"
+                            allowHalf
+                            defaultValue={5}
+                            onChange={(value) => {
+                                console.log(value);
+                            }}
+                            style={{
+                                size: "30px",
+                            }}
+                            className="detail__rating-form-star"
+                        />
+
+                        {/* <div className="detail__rating-form-wrapper">
+                            <div className="detail__rating-form-double">
+                                <div>
+                                    <label
+                                        htmlFor="name"
+                                        className="detail__rating-form-label"
+                                    >
+                                        Họ tên
+                                    </label>
+                                    <input
+                                        id="name"
+                                        type="text"
+                                        placeholder="Họ tên (bắt buộc)"
+                                        className="detail__rating-form-input"
+                                    />
+                                </div>
+                                <div>
+                                    <label
+                                        htmlFor="phone"
+                                        className="detail__rating-form-label"
+                                    >
+                                        Số điện thoại
+                                    </label>
+                                    <input
+                                        id="phone"
+                                        type="number"
+                                        placeholder="Số điện thoại (bắt buộc)"
+                                        className="detail__rating-form-input"
+                                    />
+                                </div>
+                            </div>
+                        </div> */}
+                        <label
+                            htmlFor="comment"
+                            className="detail__rating-form-label"
+                        >
+                            Đánh giá
+                        </label>
+                        <TextArea
+                            id="comment"
+                            placeholder="Đánh giá sản phẩm"
+                            style={{
+                                width: "100%",
+                                padding: "10px 20px",
+                                outline: "none",
+                                border: "1px solid #dfdddd",
+                                fontFamily: "Inter, sans-serif",
+                                fontSize: "15px",
+                            }}
+                            autoSize={{
+                                minRows: 3,
+                            }}
+                        />
+                        <button className="button-rating">Đánh giá</button>
+                    </form>
+                </div>
+                <div className="detail__rating-list">
+                    <div className="detail__rating-list-heading">
+                        Danh sách đánh giá
+                    </div>
+                    <div className="detail__rating-list-wrapper">
+                        <div className="detail__rating-list-items">
+                            <div className="detail__rating-list-user">
+                                <img
+                                    src="https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745"
+                                    alt=""
+                                    className="detail__rating-user-avatar"
+                                />
+                                <div>
+                                    <div className="detail__rating-list-user-right">
+                                        <div className="detail__rating-list-user-name">
+                                            Hoàng Văn Vũ
+                                        </div>
+                                        <div className="detail__rating-list-user-time">
+                                            <AiOutlineClockCircle />
+                                            16/5/2024 <span>14:28</span>
+                                        </div>
+                                    </div>
+                                    <div className="detail__rating-list-star">
+                                        <Rate
+                                            allowHalf
+                                            defaultValue={5}
+                                            disabled
+                                            style={{ fontSize: "15px" }}
+                                            className="detail__rating-view-star"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="detail__rating-list-review">
+                                Sản phẩm mua rất ưng ý với sở thích, thiết kế
+                                sang trọng đẹp mắt...rất xứng đáng với đồng tiền
+                                Nhiều tính năng mới đang và khám phá Trải nghiệm
+                                mua hàng rất hài lòng, anh Quốc Khại tư vấn rất
+                                nhiệt tình, vui vẻ, đáng tin cậy, và an tâm hơn
+                                khi mua hàng ở Cellphones Và sẽ giới thiệu cho
+                                người thân khi mua sản phẩm tại đây ! ❤️
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div className="products-container">
                 <div className="layout">
                     <div className="sec-heading">SẢN PHẨM LIÊN QUAN</div>
