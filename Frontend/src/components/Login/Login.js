@@ -29,9 +29,11 @@ function Login() {
             username: username,
             password: password,
         };
+        console.log(data);
 
         try {
             axios.post(CALL_URL.URL_getUser, data).then((response) => {
+                console.log(response);
                 if (response.data.user === null) {
                     toast.error(
                         "Tài khoản hoặc mật khẩu không đúng. Vui lòng thử lại",
@@ -48,6 +50,7 @@ function Login() {
                     );
                 } else {
                     cookies.set("user", response.data.user, {});
+                    cookies.set("usrer_token", response.data.usrer_token, {});
                     toast.success("Đăng nhập thành công! Chuyển hướng sau 3s", {
                         position: "top-right",
                         autoClose: 3000,

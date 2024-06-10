@@ -1,3 +1,4 @@
+// const URL = "http://localhost:5001";
 const URL = "http://localhost/DACN1_API/api";
 
 export default {
@@ -15,9 +16,9 @@ export default {
     URL_setCart: URL + "/setCart.php",
     URL_setOrder: URL + "/setOrder.php",
     URL_setNewPass: URL + "/setNewPass.php",
-    URL_setNewUser: URL + "/setNewUser.php",
+    URL_setNewUser: URL + "/user/register",
     URL_setViewProduct: URL + "/setViewProduct.php",
-    URL_getUser: URL + "/getUser.php",
+    URL_getUser: URL + "/user/login-user",
     URL_getDetailOrder: URL + "/getDetailOrder.php",
     URL_getClientOrder: URL + "/getClientOrder.php",
     URL_getOrderByUser: URL + "/getOrderByUser.php",
