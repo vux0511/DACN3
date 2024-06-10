@@ -8,24 +8,33 @@ import Footer from "../../Footer/Footer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CALL_URL from "~/api/CALL_URL";
+import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
+import { Button, Upload, Input } from "antd";
+const { TextArea } = Input;
 
 function AddCategory() {
     const notify = () => toast();
     const [nameCategory, setNameCategory] = useState("");
+    const [imageCategory, setImageCategory] = useState("");
 
     const handleChangeNameCategory = (e) => {
         setNameCategory(e.target.value);
+    };
+
+    const handleChangeImageCategory = (e) => {
+        setImageCategory(e.target.value);
     };
 
     const handleAddCategory = (e) => {
         e.preventDefault();
         let data = {
             nameCategory: nameCategory,
+            imageCategory: imageCategory,
         };
-
+        console.log(data);
         axios.post(CALL_URL.URL_addNewCategory, data).then((response) => {
             console.log(response.data);
-            if (response.data.status === "success") {
+            if (response.data) {
                 toast.success("Thêm danh mục thành công", {
                     position: "top-right",
                     autoClose: 3000,
@@ -60,29 +69,47 @@ function AddCategory() {
                         <div className="col-75">
                             <div className="container">
                                 <form onSubmit={handleAddCategory}>
-                                    <div className="row">
-                                        <div className="col-50">
-                                            <label htmlFor="nameprod">
-                                                <i className="fa fa-user" /> Tên
-                                                danh mục
-                                            </label>
-                                            <input
-                                                required
-                                                type="text"
-                                                id="nameprod"
-                                                name="nameprod"
-                                                placeholder="Nhập tên danh mục"
-                                                value={nameCategory}
-                                                onChange={
-                                                    handleChangeNameCategory
-                                                }
-                                            />
-                                        </div>
-                                        <div className="col-50">
-                                            <div className="row"></div>
+                                    <div className="detail__rating-form-wrapper">
+                                        <div className="detail__rating-form-double">
+                                            <div>
+                                                <label
+                                                    htmlFor="name"
+                                                    className="detail__rating-form-label"
+                                                >
+                                                    Tên danh mục
+                                                </label>
+                                                <input
+                                                    id="name"
+                                                    value={nameCategory}
+                                                    type="text"
+                                                    required
+                                                    onChange={
+                                                        handleChangeNameCategory
+                                                    }
+                                                    placeholder="Tên danh mục (bắt buộc)"
+                                                    className="detail__rating-form-input"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label
+                                                    htmlFor="file"
+                                                    className="detail__rating-form-label"
+                                                >
+                                                    Ảnh danh mục
+                                                </label>
+                                                <input
+                                                    id="file"
+                                                    value={imageCategory}
+                                                    type="file"
+                                                    // required
+                                                    onChange={
+                                                        handleChangeImageCategory
+                                                    }
+                                                    className="detail__rating-form-input"
+                                                />
+                                            </div>
                                         </div>
                                     </div>
-
                                     <button className="save-btn">
                                         Thêm danh mục
                                     </button>

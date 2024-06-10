@@ -54,9 +54,10 @@ function Register() {
     const handleRegister = (e) => {
         e.preventDefault();
         let data = {
-            username: username,
+            email: username,
             password: password,
         };
+        console.log(data);
 
         if (password === "" || username === "") {
             handleToastifyError(
@@ -69,7 +70,7 @@ function Register() {
         } else {
             axios.post(CALL_URL.URL_setNewUser, data).then((response) => {
                 console.log(response.data);
-                if (response.data.message === "success") {
+                if (response.data === true) {
                     handleToastifySucces(
                         "Đăng ký thành công! Vui lòng đăng nhập lại "
                     );
@@ -100,13 +101,13 @@ function Register() {
                     </div>
                     <form className="register-form" onSubmit={handleRegister}>
                         <label htmlFor="username" className="register-label">
-                            User name
+                            Email
                         </label>
                         <input
                             type="text"
                             id="username"
                             className="register-input"
-                            placeholder="Nhập tài khoản của bạn..."
+                            placeholder="Nhập email của bạn..."
                             autoComplete="off"
                             onChange={handleChangeUsername}
                         />

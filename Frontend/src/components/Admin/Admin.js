@@ -9,17 +9,17 @@ import "boxicons";
 
 function App() {
     const cookies = new Cookies();
-    const [idAdmin, setIdAdmin] = useState("");
+    const [admin, setAdmin] = useState("");
 
     useEffect(() => {
-        if (cookies.get("idAdmin")) {
-            setIdAdmin(cookies.get("idAdmin").idAdmin);
+        if (cookies.get("admin")) {
+            setAdmin(cookies.get("admin").idAdmin);
         }
     });
 
     return (
         <>
-            {idAdmin === "" ? (
+            {admin === "" ? (
                 <div className="main-container">
                     <LoginAdmin />
                 </div>

@@ -1,9 +1,9 @@
-// const URL = "http://localhost:5001";
-const URL = "http://localhost/DACN1_API/api";
+const URL = "http://localhost:5001";
+// const URL = "http://localhost/DACN1_API/api";
 
 export default {
     URL_getProduct: URL + "/getProduct.php",
-    URL_getCategory: URL + "/getCategory.php",
+    URL_getCategory: URL + "/category/get-list",
     URL_getProductCategory: URL + "/getProductCategory.php",
     URL_getProductDetail: URL + "/getProductDetail.php",
     URL_getProductRelated: URL + "/getProductRelated.php",
@@ -32,7 +32,7 @@ export default {
     URL_deleteProduct: URL + "/deleteProduct.php",
     URL_deleteOrder: URL + "/deleteOrder.php",
     URL_editStatus: URL + "/editStatus.php",
-    URL_addNewCategory: URL + "/addNewCategory.php",
+    URL_addNewCategory: URL + "/category/add-new",
     URL_deleteCategory: URL + "/deleteCategory.php",
     URL_editCategory: URL + "/editCategory.php",
     URL_getCategoryEdit: URL + "/getCategoryEdit.php",

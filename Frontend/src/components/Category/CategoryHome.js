@@ -5,8 +5,20 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import CategoryCard from "./CategoryCard";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import CALL_URL from "../../api/CALL_URL";
 
 const CategoryHome = () => {
+    const [categoryList, setCategoryList] = useState([]);
+
+    useEffect(() => {
+        axios.get(CALL_URL.URL_getCategory).then((response) => {
+            setCategoryList(response.data);
+            console.log(response.data);
+        });
+    }, []);
+
     return (
         <div className="categoryhome__wrapper">
             <div className="layout">

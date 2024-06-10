@@ -15,16 +15,14 @@ function Sidebar() {
 
     //Check login
     useEffect(() => {
-        if (cookies.get("idAdmin") === undefined) {
+        if (cookies.get("admin") === undefined) {
             navigate("/admin");
-        } else {
-            console.log("Đã đăng nhập");
-            console.log(cookies.get("idAdmin"));
+            console.log(cookies.get("admin"));
         }
     }, []);
 
     const handleLogOutAdmin = () => {
-        document.cookie = "idAdmin" + "=; Max-Age=0;";
+        document.cookie = "admin" + "=; Max-Age=0;";
         window.location.reload();
     };
     return (

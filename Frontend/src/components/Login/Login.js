@@ -22,19 +22,18 @@ function Login() {
     const handleChangePassword = (e) => {
         setPassword(e.target.value);
     };
-    console.log(CALL_URL.URL_getUser);
     const handleLogin = (e) => {
         e.preventDefault();
         let data = {
-            username: username,
+            email: username,
             password: password,
         };
         console.log(data);
 
         try {
             axios.post(CALL_URL.URL_getUser, data).then((response) => {
-                console.log(response);
-                if (response.data.user === null) {
+                console.log("res", response.data);
+                if (response.data === false) {
                     toast.error(
                         "Tài khoản hoặc mật khẩu không đúng. Vui lòng thử lại",
                         {
@@ -50,7 +49,7 @@ function Login() {
                     );
                 } else {
                     cookies.set("user", response.data.user, {});
-                    cookies.set("usrer_token", response.data.usrer_token, {});
+                    cookies.set("user_token", response.data.user_token, {});
                     toast.success("Đăng nhập thành công! Chuyển hướng sau 3s", {
                         position: "top-right",
                         autoClose: 3000,
@@ -61,10 +60,9 @@ function Login() {
                         progress: undefined,
                         theme: "colored",
                     });
-                    console.log(response.data.user);
                     setTimeout(() => {
                         navigate("/");
-                    }, 3500);
+                    }, 3000);
                 }
             });
         } catch (error) {
@@ -89,7 +87,7 @@ function Login() {
                     </div>
                     <form className="login-form" onSubmit={handleLogin}>
                         <label htmlFor="username" className="login-label">
-                            User name
+                            Email
                         </label>
                         <input
                             type="text"
