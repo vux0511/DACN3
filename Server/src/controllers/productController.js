@@ -42,7 +42,6 @@ let createNewProduct = (req, res) => {
             return res.send(transError.upImage);
         } else {
             let req_user = jwt.verify(req.body.user_token, process.env.JWT_KEY);
-            console.log(req.files.imgProduct1);
             let newItem = {
                 nameProduct: req.body.nameProduct,
                 idUser: req_user.idUser,
@@ -160,6 +159,25 @@ let getProductByIdCategory = async (req, res) => {
         res.send(false);
     }
 };
+let removeProduct = async (req, res) => {
+    try {
+        if (!_.isEmpty(req.body)) {
+            let req_user = jwt.verify(req.body.user_token, process.env.JWT_KEY);
+
+            let idUser = req_user.idUser;
+            let idProduct = req.body.idProduct;
+            let result = await product.removeProduct(idUser, idProduct);
+            if (result) {
+                res.status(200).send(true);
+            } else {
+                res.send(false);
+            }
+        }
+    } catch (error) {
+        console.log(error);
+        res.send(false);
+    }
+};
 
 export default {
     createNewProduct,
@@ -170,4 +188,5 @@ export default {
     countProduct,
     // searchProduct,
     getProductByIdCategory,
+    removeProduct,
 };

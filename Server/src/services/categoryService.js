@@ -1,4 +1,6 @@
 import categoryModel from "../models/CategoryModel";
+import fs from "fs-extra";
+import { app } from "../config/app";
 
 let addNewCategory = (newItem) => {
     console.log("category service ");
@@ -6,7 +8,6 @@ let addNewCategory = (newItem) => {
     return new Promise(async (resolve, reject) => {
         try {
             let result = await categoryModel.createNew(newItem);
-            console.log(result);
             if (result) {
                 resolve(true);
             } else {
@@ -47,9 +48,13 @@ let getNormalCategoies = () => {
 let removeCategory = (idUser, idCategory) => {
     return new Promise(async (resolve, reject) => {
         try {
+            let category = await categoryModel.getCategoryById(idCategory);
+
             let result = await categoryModel.removeCategory(idUser, idCategory);
-            console.log(result);
             if (result) {
+                await fs.remove(
+                    `${app.image_category_directory}/${category.imageCategory}`
+                );
                 resolve(result);
             } else {
                 resolve(false);

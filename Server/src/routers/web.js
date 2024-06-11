@@ -43,6 +43,7 @@ let initRouter = (app) => {
         "/product/get-by-idcategory/:idCategory",
         product.getProductByIdCategory
     ); // lấy danh sách sản phẩm theo id hàng hóa
+    router.post("/product/remove-by-idProduct", product.removeProduct); // xóa một sản phẩm nào đó trong giỏ hàng
 
     // Cart ----------
     router.post("/cart/add-new", cart.addItemCart); // thêm một sản phẩm vào trong giỏ hàng

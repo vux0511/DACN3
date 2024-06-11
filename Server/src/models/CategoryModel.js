@@ -16,7 +16,7 @@ CategorySchema.statics = {
         return this.create(item);
     },
     getCategoryById(id) {
-        return this.findById(id).exec();
+        return this.findOne({ _id: id }).exec();
     },
     getCategoryByName(nameCategory) {
         return this.findOne({ nameCategory: nameCategory }).exec();

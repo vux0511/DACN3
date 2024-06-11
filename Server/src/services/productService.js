@@ -220,6 +220,37 @@ let checkQuanity = (idProduct, quanity) => {
     });
 };
 
+let removeProduct = (idUser, idProduct) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let product = await ProductModel.findProductById(idProduct);
+
+            let result = await ProductModel.removeProduct(idUser, idProduct);
+            if (result) {
+                await fs.remove(
+                    `${app.image_product_directory}/${product.image.img1}`
+                );
+                await fs.remove(
+                    `${app.image_product_directory}/${product.image.img2}`
+                );
+                await fs.remove(
+                    `${app.image_product_directory}/${product.image.img3}`
+                );
+                await fs.remove(
+                    `${app.image_product_directory}/${product.image.img4}`
+                );
+                resolve(result);
+            } else {
+                resolve(false);
+            }
+        } catch (error) {
+            console.log(error);
+
+            resolve(false);
+        }
+    });
+};
+
 export default {
     addNewProduct,
     getProductById,
@@ -233,4 +264,5 @@ export default {
     // checkListProductSoldOut,
     updateQuantity,
     checkQuanity,
+    removeProduct,
 };

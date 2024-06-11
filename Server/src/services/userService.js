@@ -42,6 +42,7 @@ let loginUser = (item) => {
                 if (checkPass) {
                     let userInfor = {
                         idUser: userItem._id,
+                        fullname: userItem.fullname,
                         username: userItem.username,
                         email: userItem.email,
                         address: userItem.address,
