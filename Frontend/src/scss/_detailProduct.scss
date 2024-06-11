@@ -26,11 +26,6 @@
     height: 400px;
 }
 
-img {
-    width: 100%;
-    border-radius: 4px;
-}
-
 .col-2-detail img {
     max-width: 100%;
     padding: 50px 0;
@@ -39,10 +34,19 @@ img {
 .nameProduct {
     font-weight: 600;
 }
+img {
+    width: 100%;
+}
 
 .small-img-col {
     flex-basis: 24%;
     cursor: pointer;
+    height: 128px;
+    img {
+        border-radius: 4px;
+        height: 128px;
+        object-fit: cover;
+    }
 }
 
 // .single-product .col-2-detail img {
@@ -321,7 +325,7 @@ button.add-to-cart-detail-btn {
         &-double {
             width: 100%;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
             gap: 10px;
             div {
@@ -340,6 +344,7 @@ button.add-to-cart-detail-btn {
             border: 1px solid rgb(223, 221, 221);
             font-family: $font-primary;
             font-size: 15px;
+            background-color: $white-color;
         }
         &-star {
             font-size: 25px;

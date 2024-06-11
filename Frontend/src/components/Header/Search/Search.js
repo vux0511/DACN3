@@ -16,7 +16,7 @@ function Search({ setShowSearch }) {
     useEffect(() => {
         const timer = setTimeout(() => {
             axios
-                .get(`${CALL_URL.URL_searchProduct}?key=${query}`)
+                .get(`${CALL_URL.URL_searchProduct}?search=${query}`)
                 .then((response) => {
                     setProductSearch(response.data);
                 });
@@ -46,15 +46,17 @@ function Search({ setShowSearch }) {
                 <div className="search-results">
                     {productSearch.map((productSearch) => (
                         <div
-                            key={productSearch.idProduct}
+                            key={productSearch._id}
                             className="search-result-item"
                             onClick={() => {
-                                navigate(`/product/${productSearch.idProduct}`);
+                                navigate(`/product/${productSearch._id}`);
                                 setShowSearch(false);
                             }}
                         >
                             <div className="img-container">
-                                <img src={productSearch.imageProduct_1} />
+                                <img
+                                    src={`http://localhost:5001/images/products/${productSearch.image?.img1}`}
+                                />
                             </div>
                             <div className="prod-details">
                                 <span className="name">

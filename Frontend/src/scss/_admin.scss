@@ -790,7 +790,7 @@ p.okkk {
         width: 100%;
         margin-bottom: 20px;
         padding: 12px;
-        border: 1px solid #ccc;
+        // border: 1px solid #ccc;
         border-radius: 3px;
     }
 }
@@ -849,14 +849,14 @@ span.price {
     width: 100%;
     margin-bottom: 20px;
     padding: 12px;
-    border: 1px solid #ccc;
+    // border: 1px solid #ccc;
     border-radius: 3px;
 }
 
 .select-order {
     width: 150px;
     padding: 12px;
-    border: 1px solid #ccc;
+    // border: 1px solid #ccc;
     border-radius: 3px;
     margin-right: 20px;
 }
@@ -865,7 +865,7 @@ span.price {
     .select-order {
         width: 100%;
         padding: 12px;
-        border: 1px solid #ccc;
+        // border: 1px solid #ccc;
         border-radius: 3px;
         margin-right: 20px;
     }
@@ -956,4 +956,33 @@ th.th-subtotal-product-order {
 
 .th-total-order {
     width: 15%;
+}
+
+.admin__product {
+    &-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    &-row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        width: 100%;
+        gap: 10px;
+    }
+    &-left {
+        width: 50%;
+    }
+    &-right {
+        width: 50%;
+    }
+    &-row {
+        &textare {
+            display: flex;
+            align-items: flex-start;
+            flex-direction: column;
+            width: 100%;
+        }
+    }
 }

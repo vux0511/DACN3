@@ -8,7 +8,7 @@ import Product from "../Products/Product/Product";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { useParams } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { TbTruckDelivery } from "react-icons/tb";
 import { GiMoneyStack } from "react-icons/gi";
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
@@ -21,43 +21,53 @@ function DetailProduct(data) {
     const [detailProduct, setDetailProduct] = useState([]);
     const [checked, setChecked] = useState();
     const cookies = new Cookies();
-    const [username, setUsername] = useState("");
+    const [userName, setUsername] = useState("");
     const { productId } = useParams();
 
     useEffect(() => {
         if (cookies.get("user")) {
-            setUsername(cookies.get("user").username);
+            setUsername(cookies.get("user").email);
+        } else {
+            setUsername("empty");
         }
+        // console.log(cookies.get("user_token"));
     }, []);
 
     // Chi tiết SP
     useEffect(() => {
         axios
-            .get(`${CALL_URL.URL_getProductDetail}?idproduct=${productId}`)
+            .get(`${CALL_URL.URL_getProductDetail}/?idProduct=${productId}`)
             .then((response) => {
                 setDetailProduct(response.data);
             });
     }, [productId]);
 
-    // View Product
-    useEffect(() => {
-        axios
-            .get(`${CALL_URL.URL_setViewProduct}?idproduct=${productId}`)
-            .then((response) => {});
-    }, []);
+    const numberFormat = (number) => {
+        return new Intl.NumberFormat("vi-VN", {
+            style: "currency",
+            currency: "VND",
+        }).format(number);
+    };
+
+    // // View Product
+    // useEffect(() => {
+    //     axios
+    //         .get(`${CALL_URL.URL_setViewProduct}?idproduct=${productId}`)
+    //         .then((response) => {});
+    // }, []);
 
     // SP liên quan
-    useEffect(() => {
-        axios
-            .get(`${CALL_URL.URL_getProductRelated}?idproduct=${productId}`)
-            .then((response) => {
-                setProductRelated(response.data);
-            });
-    }, [productId]);
+    // useEffect(() => {
+    //     axios
+    //         .get(`${CALL_URL.URL_getProductRelated}?idproduct=${productId}`)
+    //         .then((response) => {
+    //             setProductRelated(response.data);
+    //         });
+    // }, [productId]);
 
     const handleAddToCartDetail = (e) => {
         e.preventDefault();
-        if (username === "") {
+        if (userName === "empty") {
             toast.error(
                 "Bạn phải đăng nhập trước khi thêm sản phẩm vào giỏ hàng",
                 {
@@ -73,20 +83,18 @@ function DetailProduct(data) {
             );
         } else {
             var data = {
-                idUser: cookies.get("user").idUser,
-                idProduct: e.target.id,
-                size: checked,
+                user_token: cookies.get("user_token"),
+                idProduct: detailProduct._id,
+                nameProduct: detailProduct.nameProduct,
+                imgProduct: detailProduct.image.img1,
+                quantity: 1,
+                unit_price: detailProduct.price,
             };
 
             axios.post(CALL_URL.URL_setCart, data).then((response) => {
                 console.log(response.data);
             });
         }
-    };
-
-    const handleCheck = (e) => {
-        console.log(e);
-        setChecked(e);
     };
 
     const ref = useRef(null);
@@ -97,120 +105,112 @@ function DetailProduct(data) {
         ProductImg.src = SmallImg[0].src;
     };
 
-    const onSubmit = () => {};
+    // const onSubmit = () => {};
 
     return (
         <>
             <Header />
-            {detailProduct.map((detail, index) => (
-                <div className="small-container detail__wrapper" key={index}>
-                    <div className="detail__wrapper-image">
-                        <img
-                            id="imgProduct"
-                            src={detail.imageProduct_1}
-                            alt="Image Product"
-                            ref={ref}
-                        />
-                        <div className="small-img-row">
-                            <div className="small-img-col">
-                                <img
-                                    src={detail.imageProduct_1}
-                                    alt=""
-                                    className="small-img1"
-                                    onClick={handleImage}
-                                />
-                            </div>
-                            <div className="small-img-col">
-                                <img
-                                    src={detail.imageProduct_2}
-                                    alt=""
-                                    className="small-img2"
-                                    onClick={handleImage}
-                                />
-                            </div>
-                            <div className="small-img-col">
-                                <img
-                                    src={detail.imageProduct_3}
-                                    alt=""
-                                    className="small-img3"
-                                    onClick={handleImage}
-                                />
-                            </div>
-                            <div className="small-img-col">
-                                <img
-                                    src={detail.imageProduct_4}
-                                    alt=""
-                                    className="small-img4"
-                                    onClick={handleImage}
-                                />
-                            </div>
+            <div className="small-container detail__wrapper">
+                <div className="detail__wrapper-image">
+                    <img
+                        id="imgProduct"
+                        src={`http://localhost:5001/images/products/${detailProduct.image?.img1}`}
+                        alt="Image Product"
+                        ref={ref}
+                    />
+                    <div className="small-img-row">
+                        <div className="small-img-col">
+                            <img
+                                src={`http://localhost:5001/images/products/${detailProduct.image?.img1}`}
+                                alt=""
+                                className="small-img1"
+                                onClick={handleImage}
+                            />
+                        </div>
+                        <div className="small-img-col">
+                            <img
+                                src={`http://localhost:5001/images/products/${detailProduct.image?.img2}`}
+                                alt=""
+                                className="small-img2"
+                                onClick={handleImage}
+                            />
+                        </div>
+                        <div className="small-img-col">
+                            <img
+                                src={`http://localhost:5001/images/products/${detailProduct.image?.img3}`}
+                                alt=""
+                                className="small-img3"
+                                onClick={handleImage}
+                            />
+                        </div>
+                        <div className="small-img-col">
+                            <img
+                                src={`http://localhost:5001/images/products/${detailProduct.image?.img4}`}
+                                alt=""
+                                className="small-img4"
+                                onClick={handleImage}
+                            />
                         </div>
                     </div>
-                    <div className="detail__wrapper-content">
-                        <div className="detail__wrapper-name">
-                            {detail.nameProduct}
-                        </div>
-                        <p className="detail__wrapper-about">
-                            {detail.descriptionProduct}
+                </div>
+                <div className="detail__wrapper-content">
+                    <div className="detail__wrapper-name">
+                        {detailProduct.nameProduct}
+                    </div>
+                    <p className="detail__wrapper-about">
+                        {detailProduct.description}
+                    </p>
+                    <h4 className="detail__wrapper-price">
+                        {numberFormat(detailProduct.price)}
+                    </h4>
+                    <p className="detail__wrapper-quantity">
+                        <p>Kho hàng còn {detailProduct.quantity} sản phẩm</p>
+                        <p>
+                            <FaRegEye className="detail__wrapper-icon" /> 100
                         </p>
-                        <h4 className="detail__wrapper-price">
-                            {new Intl.NumberFormat("vn-VI", {
-                                style: "currency",
-                                currency: "VND",
-                            }).format(detail.priceProduct)}
-                        </h4>
-                        <p className="detail__wrapper-quantity">
-                            <p>Kho hàng còn 10 sản phẩm</p>
-                            <p>
-                                <FaRegEye className="detail__wrapper-icon" />{" "}
-                                100
-                            </p>
-                        </p>
-                        <div className="btn-detail">
-                            <a
-                                href="/payment"
-                                className="btn-buy-detail buy-now"
+                    </p>
+                    <div className="btn-detail">
+                        <a href="/payment" className="btn-buy-detail buy-now">
+                            <button
+                                className="buy-now-detail-btn"
+                                onClick={handleAddToCartDetail}
                             >
-                                <button
-                                    className="buy-now-detail-btn"
-                                    onClick={handleAddToCartDetail}
-                                >
-                                    Mua Ngay
-                                </button>
-                            </a>
-                            <a href="" className="btn-buy-detail add-to-cart">
-                                <button
-                                    className="add-to-cart-detail-btn"
-                                    id={detail.idProduct}
-                                    onClick={handleAddToCartDetail}
-                                >
-                                    Thêm Giỏ Hàng
-                                </button>
-                            </a>
+                                Mua Ngay
+                            </button>
+                        </a>
+                        <a href="#" className="btn-buy-detail add-to-cart">
+                            <button
+                                className="add-to-cart-detail-btn"
+                                id={detailProduct._id}
+                                onClick={handleAddToCartDetail}
+                            >
+                                Thêm Giỏ Hàng
+                            </button>
+                        </a>
+                        <ToastContainer />
+                    </div>
+                    <div className="detail__wrapper-feature">
+                        <div className="detail__wrapper-feature-title">
+                            ƯU ĐÃI ĐI KÈM
                         </div>
-                        <div className="detail__wrapper-feature">
-                            <div className="detail__wrapper-feature-title">
-                                ƯU ĐÃI ĐI KÈM
+                        <div className="detail__wrapper-feature-wrapper">
+                            <div className="detail__wrapper-feature-items">
+                                <TbTruckDelivery />
+                                Giao hàng tiết kiệm
                             </div>
-                            <div className="detail__wrapper-feature-wrapper">
-                                <div className="detail__wrapper-feature-items">
-                                    <TbTruckDelivery />
-                                    Giao hàng tiết kiệm
-                                </div>
-                                <div className="detail__wrapper-feature-items">
-                                    <GiMoneyStack />
-                                    Sản phẩm luôn có giá tốt nhất
-                                </div>
-                                <div className="detail__wrapper-feature-items">
-                                    <AiOutlineSafetyCertificate />
-                                    Bảo hành 12 tháng tại trung tâm bảo hành
-                                    Chính hãng.
-                                </div>
+                            <div className="detail__wrapper-feature-items">
+                                <GiMoneyStack />
+                                Sản phẩm luôn có giá tốt nhất
+                            </div>
+                            <div className="detail__wrapper-feature-items">
+                                <AiOutlineSafetyCertificate />
+                                Bảo hành 12 tháng tại trung tâm bảo hành Chính
+                                hãng.
                             </div>
                         </div>
                     </div>
                 </div>
-            ))}
+            </div>
             <div className="detail__rating">
                 <div className="detail__rating-wrapper">
                     <div className="detail__rating-view">
@@ -220,7 +220,7 @@ function DetailProduct(data) {
                             </div>
                             <Rate
                                 allowHalf
-                                defaultValue={3.6}
+                                defaultValue={4}
                                 disabled
                                 // style={{ color: "#fada15" }}
                                 className="detail__rating-view-star"
@@ -252,39 +252,6 @@ function DetailProduct(data) {
                             }}
                             className="detail__rating-form-star"
                         />
-
-                        {/* <div className="detail__rating-form-wrapper">
-                            <div className="detail__rating-form-double">
-                                <div>
-                                    <label
-                                        htmlFor="name"
-                                        className="detail__rating-form-label"
-                                    >
-                                        Họ tên
-                                    </label>
-                                    <input
-                                        id="name"
-                                        type="text"
-                                        placeholder="Họ tên (bắt buộc)"
-                                        className="detail__rating-form-input"
-                                    />
-                                </div>
-                                <div>
-                                    <label
-                                        htmlFor="phone"
-                                        className="detail__rating-form-label"
-                                    >
-                                        Số điện thoại
-                                    </label>
-                                    <input
-                                        id="phone"
-                                        type="number"
-                                        placeholder="Số điện thoại (bắt buộc)"
-                                        className="detail__rating-form-input"
-                                    />
-                                </div>
-                            </div>
-                        </div> */}
                         <label
                             htmlFor="comment"
                             className="detail__rating-form-label"

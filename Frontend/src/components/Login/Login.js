@@ -49,7 +49,7 @@ function Login() {
                     );
                 } else {
                     cookies.set("user", response.data.user, {});
-                    cookies.set("user_token", response.data.user_token, {});
+                    cookies.set("user_token", response.data.usrer_token, {});
                     toast.success("Đăng nhập thành công! Chuyển hướng sau 3s", {
                         position: "top-right",
                         autoClose: 3000,

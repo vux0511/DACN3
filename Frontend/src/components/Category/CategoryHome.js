@@ -15,7 +15,6 @@ const CategoryHome = () => {
     useEffect(() => {
         axios.get(CALL_URL.URL_getCategory).then((response) => {
             setCategoryList(response.data);
-            console.log(response.data);
         });
     }, []);
 
@@ -50,36 +49,11 @@ const CategoryHome = () => {
                                 },
                             }}
                         >
-                            <SwiperSlide>
-                                <CategoryCard />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <CategoryCard />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <CategoryCard />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <CategoryCard />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <CategoryCard />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <CategoryCard />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <CategoryCard />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <CategoryCard />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <CategoryCard />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <CategoryCard />
-                            </SwiperSlide>
+                            {categoryList.map((category) => (
+                                <SwiperSlide>
+                                    <CategoryCard categoryList={category} />
+                                </SwiperSlide>
+                            ))}
                         </Swiper>
                     </div>
                 </div>

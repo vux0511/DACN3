@@ -22,17 +22,20 @@
                 padding-top: 10px;
                 text-align: center;
                 img {
-                    border-radius: 100%;
+                    // border-radius: 100%;
                     width: 130px;
                     height: 130px;
                     display: inline-block;
-                    border: 2px solid rgb(246, 95, 1);
+                    // border: 2px solid rgb(246, 95, 1);
                 }
             }
 
             .decs-infor {
                 text-align: center;
-                padding-top: 30px;
+                padding-top: 10px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
                 p {
                     padding: 5px 0;
                     font-size: 17px;

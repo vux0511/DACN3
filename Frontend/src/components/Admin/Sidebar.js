@@ -25,6 +25,7 @@ function Sidebar() {
         document.cookie = "admin" + "=; Max-Age=0;";
         window.location.reload();
     };
+
     return (
         <section id="sidebar">
             <div className="brand-logo">

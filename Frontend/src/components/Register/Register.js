@@ -9,20 +9,24 @@ import "react-toastify/dist/ReactToastify.css";
 import CALL_URL from "../../api/CALL_URL";
 
 function Register() {
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [repassword, setRePassword] = useState("");
+    const [fullname, setFullname] = useState("");
     const navigate = useNavigate();
     const notify = () => toast();
 
     const handleChangeUsername = (e) => {
-        setUsername(e.target.value);
+        setEmail(e.target.value);
     };
     const handleChangePassword = (e) => {
         setPassword(e.target.value);
     };
     const handleChangeRePassword = (e) => {
         setRePassword(e.target.value);
+    };
+    const handleChangeFullname = (e) => {
+        setFullname(e.target.value);
     };
 
     const handleToastifyError = (message) => {
@@ -54,16 +58,17 @@ function Register() {
     const handleRegister = (e) => {
         e.preventDefault();
         let data = {
-            email: username,
+            email: email,
+            fullname: fullname,
             password: password,
         };
         console.log(data);
 
-        if (password === "" || username === "") {
+        if (password === "" || email === "") {
             handleToastifyError(
                 "Không được để trống trường tài khoản hoặc mật khẩu!"
             );
-        } else if (password.length < 6 || username.length < 6) {
+        } else if (password.length < 6 || email.length < 6) {
             handleToastifyError("Độ dài của các trường phải lớn hơn 6 ký tự!");
         } else if (password !== repassword) {
             handleToastifyError("Vui lòng nhập mật khẩu trùng nhau!");
@@ -100,8 +105,20 @@ function Register() {
                         <span>hoặc</span>
                     </div>
                     <form className="register-form" onSubmit={handleRegister}>
+                        <label htmlFor="fullname" className="register-label">
+                            Họ và Tên *
+                        </label>
+                        <input
+                            type="text"
+                            id="fullname"
+                            className="register-input"
+                            placeholder="Nhập tên của bạn.."
+                            autoComplete="off"
+                            onChange={handleChangeFullname}
+                            required
+                        />
                         <label htmlFor="username" className="register-label">
-                            Email
+                            Email *
                         </label>
                         <input
                             type="text"
@@ -110,10 +127,11 @@ function Register() {
                             placeholder="Nhập email của bạn..."
                             autoComplete="off"
                             onChange={handleChangeUsername}
+                            required
                         />
 
                         <label htmlFor="password" className="register-label">
-                            Password
+                            Password *
                         </label>
                         <input
                             type="password"
@@ -121,10 +139,11 @@ function Register() {
                             className="register-input"
                             placeholder="Nhập mật khẩu của bạn..."
                             autoComplete="off"
+                            required
                             onChange={handleChangePassword}
                         />
                         <label htmlFor="repassword" className="register-label">
-                            Password
+                            Password *
                         </label>
                         <input
                             type="password"
@@ -133,6 +152,7 @@ function Register() {
                             placeholder="Nhập lại mật khẩu của bạn..."
                             autoComplete="off"
                             onChange={handleChangeRePassword}
+                            required
                         />
                         <button className="register-submit" onClick={notify}>
                             Đăng Ký

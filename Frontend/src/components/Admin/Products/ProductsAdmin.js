@@ -12,6 +12,7 @@ function ProductAdmin() {
     useEffect(() => {
         axios.get(CALL_URL.URL_getProduct).then((response) => {
             setItemProducts(response.data);
+            console.log(itemProducts);
         });
     }, []);
 
@@ -58,7 +59,7 @@ function ProductAdmin() {
                                 <th className="th-name-product">Tên</th>
                                 <th className="th-image-product">Ảnh</th>
                                 <th className="th-price-product">Giá</th>
-                                <th className="th-decs-product">Thông Tin</th>
+                                <th className="th-decs-product">Số lượng</th>
                                 <th className="th-act-product">Thao Tác</th>
                             </tr>
                         </thead>
@@ -69,14 +70,14 @@ function ProductAdmin() {
                                     <td>{item.nameProduct}</td>
                                     <td>
                                         <img
-                                            src={item.imageProduct_1}
+                                            src={`http://localhost:5001/images/products/${item.image.img1}`}
                                             alt="Image Product"
                                         />
                                     </td>
-                                    <td>{item.priceProduct}</td>
+                                    <td>{item.price}</td>
                                     <td>
                                         <div className="desc-product-admin">
-                                            {item.descriptionProduct}
+                                            {item.quantity}
                                         </div>
                                     </td>
                                     <td>

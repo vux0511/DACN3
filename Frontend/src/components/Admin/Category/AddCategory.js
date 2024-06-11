@@ -10,53 +10,61 @@ import "react-toastify/dist/ReactToastify.css";
 import CALL_URL from "~/api/CALL_URL";
 import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
 import { Button, Upload, Input } from "antd";
-const { TextArea } = Input;
+import Cookies from "universal-cookie";
 
 function AddCategory() {
     const notify = () => toast();
     const [nameCategory, setNameCategory] = useState("");
-    const [imageCategory, setImageCategory] = useState("");
+    const [imageFormData, setImageFormData] = useState("");
+    const cookies = new Cookies();
 
     const handleChangeNameCategory = (e) => {
         setNameCategory(e.target.value);
     };
 
     const handleChangeImageCategory = (e) => {
-        setImageCategory(e.target.value);
+        setImageFormData(e.target.files[0]);
     };
 
     const handleAddCategory = (e) => {
         e.preventDefault();
-        let data = {
-            nameCategory: nameCategory,
-            imageCategory: imageCategory,
+        const formData = new FormData();
+        formData.append("nameCategory", nameCategory);
+        formData.append("user_token", cookies.get("usertoken"));
+        formData.append("image_category", imageFormData);
+
+        const config = {
+            headers: {
+                "Content-Type": false,
+            },
         };
-        console.log(data);
-        axios.post(CALL_URL.URL_addNewCategory, data).then((response) => {
-            console.log(response.data);
-            if (response.data) {
-                toast.success("Thêm danh mục thành công", {
-                    position: "top-right",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                });
-                setNameCategory("");
-            } else {
-                toast.error("Thêm danh mục thất bại", {
-                    position: "top-right",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                });
-            }
-        });
+        axios
+            .post(CALL_URL.URL_addNewCategory, formData, config)
+            .then((response) => {
+                console.log(response.data);
+                if (response.data) {
+                    toast.success("Thêm thành công", {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
+                    setNameCategory("");
+                } else {
+                    toast.error("Thêm thất bại", {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
+                }
+            });
     };
 
     return (
@@ -69,7 +77,7 @@ function AddCategory() {
                         <div className="col-75">
                             <div className="container">
                                 <form onSubmit={handleAddCategory}>
-                                    <div className="detail__rating-form-wrapper">
+                                    <div className="admin__product-row">
                                         <div className="detail__rating-form-double">
                                             <div>
                                                 <label
@@ -99,7 +107,7 @@ function AddCategory() {
                                                 </label>
                                                 <input
                                                     id="file"
-                                                    value={imageCategory}
+                                                    // value={imageCategory}
                                                     type="file"
                                                     // required
                                                     onChange={

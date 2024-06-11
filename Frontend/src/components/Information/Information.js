@@ -106,7 +106,7 @@ function Information() {
                         <div className="avatar-infor">
                             <img
                                 className="avatar"
-                                src={information.avatar}
+                                src="https://cdn.vectorstock.com/i/750p/74/53/orange-user-icon-vector-42797453.avif"
                                 alt="Avatar"
                             />
                         </div>

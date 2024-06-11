@@ -80,17 +80,20 @@ div::state(webkit-scrollbar) {
         .search-result-item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 10px 0;
+            gap: 15px;
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
             cursor: pointer;
 
             .img-container {
+                margin: 10px 0;
                 width: 60px;
+                height: 80px;
                 flex-shrink: 0;
                 img {
                     width: 100%;
                     height: 100%;
+                    border-radius: 4px;
+                    object-fit: cover;
                 }
             }
             .prod-details {
@@ -104,7 +107,6 @@ div::state(webkit-scrollbar) {
                     overflow: hidden;
                     font-size: 16px;
                     line-height: 1;
-                    margin-bottom: 10px;
                     font-weight: 600;
                     display: block;
                 }

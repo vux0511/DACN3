@@ -17,12 +17,13 @@ function Header({ cartCount }) {
 
     useEffect(() => {
         if (cookies.get("user")) {
-            setUsername(cookies.get("user").username);
+            setUsername(cookies.get("user").email);
         }
     }, []);
 
     const handleLogout = () => {
         document.cookie = "user" + "=; Max-Age=0;";
+        document.cookie = "user_token" + "=; Max-Age=0;";
         navigate("/login");
     };
 
@@ -92,7 +93,7 @@ function Header({ cartCount }) {
                                     <span className="account">
                                         <img
                                             className="avatarUser"
-                                            src="https://static.vecteezy.com/system/resources/previews/013/042/571/original/default-avatar-profile-icon-social-media-user-photo-in-flat-style-vector.jpg"
+                                            src="https://cdn.vectorstock.com/i/750p/74/53/orange-user-icon-vector-42797453.avif"
                                             alt="Avatar"
                                         />
                                         <div className="userName">

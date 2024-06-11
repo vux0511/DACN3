@@ -14,9 +14,16 @@ function TopProducts({ topProduct }) {
 
     useEffect(() => {
         if (cookies.get("user")) {
-            setUsername(cookies.get("user").username);
+            setUsername(cookies.get("user").email);
         }
     }, []);
+
+    const numberFormat = (number) => {
+        return new Intl.NumberFormat("vi-VN", {
+            style: "currency",
+            currency: "VND",
+        }).format(number);
+    };
 
     const handleAddToCart = (e) => {
         if (username === "") {
@@ -36,9 +43,8 @@ function TopProducts({ topProduct }) {
         } else {
             var data = {
                 idUser: cookies.get("user").idUser,
-                idProduct: e.target.id,
+                idProduct: e.target._id,
             };
-            console.log(data);
             axios.post(CALL_URL.URL_setCart, data).then((response) => {
                 console.log(response.data);
             });
@@ -51,21 +57,18 @@ function TopProducts({ topProduct }) {
                 <div className="layout">
                     <div className="sec-heading">Sản phẩm nổi bật</div>
                     <div className="products">
-                        {topProduct.map((topProduct, index) => (
+                        {topProduct.slice(0, 4).map((topProduct, index) => (
                             <div className="product-card" key={index}>
                                 <div
                                     className="thumbnail"
                                     onClick={() =>
-                                        navigate(
-                                            `/product/${topProduct.idProduct}`,
-                                            {
-                                                idProduct: topProduct,
-                                            }
-                                        )
+                                        navigate(`/product/${topProduct._id}`, {
+                                            idProduct: topProduct,
+                                        })
                                     }
                                 >
                                     <img
-                                        src={topProduct.imageProduct_1}
+                                        src={`http://localhost:5001/images/products/${topProduct.image.img1}`}
                                         alt="Image Product"
                                     />
                                 </div>
@@ -74,7 +77,7 @@ function TopProducts({ topProduct }) {
                                         className="name"
                                         onClick={() =>
                                             navigate(
-                                                `/product/${topProduct.idProduct}`,
+                                                `/product/${topProduct._id}`,
                                                 {
                                                     idProduct: topProduct,
                                                 }
@@ -87,7 +90,7 @@ function TopProducts({ topProduct }) {
                                         className="product-bottom"
                                         onClick={() =>
                                             navigate(
-                                                `/product/${topProduct.idProduct}`,
+                                                `/product/${topProduct._id}`,
                                                 {
                                                     idProduct: topProduct,
                                                 }
@@ -108,7 +111,7 @@ function TopProducts({ topProduct }) {
                                                 className="price"
                                                 onClick={() =>
                                                     navigate(
-                                                        `/product/${topProduct.idProduct}`,
+                                                        `/product/${topProduct._id}`,
                                                         {
                                                             idProduct:
                                                                 topProduct,
@@ -116,14 +119,14 @@ function TopProducts({ topProduct }) {
                                                     )
                                                 }
                                             >
-                                                {topProduct.priceProduct}đ
+                                                {numberFormat(topProduct.price)}
                                             </span>
                                             <button
                                                 className="add-to-cart-btn"
-                                                id={topProduct.idProduct}
+                                                id={topProduct._id}
                                                 onClick={() =>
                                                     navigate(
-                                                        `/product/${topProduct.idProduct}`,
+                                                        `/product/${topProduct._id}`,
                                                         {
                                                             idProduct:
                                                                 topProduct,
