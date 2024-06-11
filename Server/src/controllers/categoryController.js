@@ -32,6 +32,7 @@ let avatarUploadFile = multer({
 
 let createNewCategory = (req, res) => {
     avatarUploadFile(req, res, async (error) => {
+        console.log(req.file);
         if (error) {
             console.log(error);
             return res.send(transError.upImage);
