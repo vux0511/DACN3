@@ -29,6 +29,7 @@ let initRouter = (app) => {
     // category ---------
     router.get("/category/get-list", category.getNormalCategoies);
     router.post("/category/add-new", category.createNewCategory);
+    router.post("/category/remove-by-idCategory", category.removeCategoryById);
 
     //product -------
     router.post("/product/add-new", product.createNewProduct); // thêm sản phẩm

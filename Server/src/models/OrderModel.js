@@ -23,8 +23,7 @@ let OrderSchema = new Schema({
     message: { type: String, default: "" },
     // orderDate: {type: Date, default: null},         // ngày đặt hàng
     createAt: { type: Number, default: Date.now }, // ngày tạo đơn hàng
-    updateAt: { type: Number, default: null },
-    deleteAt: { type: Number, default: null },
+    updateAt: { type: Number, default: Date.now },
 });
 
 OrderSchema.statics = {

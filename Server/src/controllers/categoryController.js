@@ -75,4 +75,23 @@ let getNormalCategoies = async (req, res) => {
     }
 };
 
-export default { createNewCategory, getNormalCategoies };
+let removeCategoryById = async (req, res) => {
+    try {
+        if (!_.isEmpty(req.body)) {
+            let req_user = jwt.verify(req.body.user_token, process.env.JWT_KEY);
+
+            let idUser = req_user.idUser;
+            let idCategory = req.body.idCategory;
+            let result = await category.removeCategory(idUser, idCategory);
+            if (result) {
+                res.status(200).send(true);
+            } else {
+                res.send(false);
+            }
+        }
+    } catch (error) {
+        console.log(error);
+        res.send(false);
+    }
+};
+export default { createNewCategory, getNormalCategoies, removeCategoryById };

@@ -1,19 +1,29 @@
 import _ from "lodash";
+import jwt from "jsonwebtoken";
 
 import { transError, transSuccess, transValidation } from "../../lang/vi";
 import { order, product } from "../services/index";
 
 let orderCart = async (req, res) => {
-    if (!_.isEmpty(req.body)) {
-        let cartUser = req.body.shippintInfor;
-        cartUser.productItems = req.body.cartItems;
-        let result = await order.orderCart(cartUser);
-        if (result) {
-            res.status(200).send(result);
+    try {
+        if (!_.isEmpty(req.body)) {
+            console.log(req.body.user_token);
+            let req_user = jwt.verify(req.body.user_token, process.env.JWT_KEY);
+
+            let cartUser = req.body.shippintInfor;
+            cartUser.productItems = req.body.cartItems;
+            cartUser.idUser = req_user.idUser;
+            let result = await order.orderCart(cartUser);
+            if (result) {
+                res.status(200).send(result);
+            } else {
+                res.send(false);
+            }
         } else {
             res.send(false);
         }
-    } else {
+    } catch (error) {
+        console.log(error);
         res.send(false);
     }
 };
