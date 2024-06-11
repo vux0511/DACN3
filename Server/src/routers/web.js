@@ -1,5 +1,13 @@
 import express from "express";
-import { user, product, cart, category } from "../controllers/index";
+import {
+    user,
+    product,
+    cart,
+    category,
+    feedback,
+    order,
+} from "../controllers/index";
+import getFileImage from "../helpers/getFile";
 
 let router = express.Router();
 
@@ -7,6 +15,7 @@ let initRouter = (app) => {
     router.get("/", function (req, res) {
         res.send("hello");
     });
+    //user ----------
     router.post("/user/register", user.regissterUser);
     router.post("/user/login-user", user.loginUser);
     router.post("/user/update-user", user.updateUser);
@@ -17,9 +26,11 @@ let initRouter = (app) => {
     router.get("/user/getQuanityUser", user.getQuanity);
     router.get("/user/get-list-user", user.getListUser);
 
+    // category ---------
     router.get("/category/get-list", category.getNormalCategoies);
     router.post("/category/add-new", category.createNewCategory);
 
+    //product -------
     router.post("/product/add-new", product.createNewProduct); // thêm sản phẩm
     router.get("/product/detail", product.getProductById); // lấy thông tin chi tiết một sản phẩm theo id
     router.get("/product/get-all/:page", product.getAllProduct); // lấy sản phẩm theo tìm kiếm hoặc ko và có phân trang
@@ -39,6 +50,22 @@ let initRouter = (app) => {
         cart.getItemCartByIdUser
     ); // lấy danh sách giỏ hàng theo id người dùng
     router.post("/cart/remove-product-cart", cart.removeCart); // xóa một sản phẩm nào đó trong giỏ hàng
+    // feedback ( comment, rate star)
+    router.post("/feedback/add-new", feedback.createNew);
+    router.get("/feedback/get-list/:idProduct/:page", feedback.getFeedback);
+    router.get(
+        "/feedback/get-statistical-idproduct/:idProduct",
+        feedback.getStatiFeedBackByIdProduct
+    );
+
+    // Order
+    router.post("/order/create-new", order.orderCart);
+    router.get("/order/getall/:idUser", order.getOrderByIdUser);
+    router.get("/order/get-id/:idOrder", order.getOrderById);
+    router.post("/order/change-status-order", order.changeStatus);
+
+    router.get("/images/:path/:name_image", getFileImage); // lấy ảnh từ server
+
     return app.use("/", router);
 };
 export default initRouter;

@@ -39,7 +39,6 @@ let loginUser = (item) => {
                     item.password + "",
                     userItem.password + ""
                 );
-                console.log(checkPass);
                 if (checkPass) {
                     let userInfor = {
                         idUser: userItem._id,
