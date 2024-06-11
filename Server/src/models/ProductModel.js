@@ -61,6 +61,11 @@ ProductSchema.statics = {
     updateQuantity(idProduct, dataUpdate) {
         return this.findOneAndUpdate({ _id: idProduct }, dataUpdate).exec();
     },
+    removeProduct(idUser, idProduct) {
+        return this.deleteOne({
+            $and: [{ idUser: idUser }, { _id: idProduct }],
+        }).exec();
+    },
 };
 
 export default mongoose.model("product", ProductSchema);
