@@ -7,8 +7,8 @@ export const app = {
     image_shop_directory: "src/public/images/shops",
 
     image_type: ["image/png", "image/jpg", "image/jpeg"],
-    limit_product: 8,
-    limit_feedback: 4,
+    limit_product: 100,
+    limit_feedback: 100,
     status_order: [
         "Đang chờ xác nhận",
         "Xác nhận thành công, đang chuẩn bị hàng",

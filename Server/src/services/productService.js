@@ -11,7 +11,7 @@ let addNewProduct = (newItem) => {
         if (result) {
             resolve(true);
         } else {
-            reject(false);
+            resolve(false);
         }
     });
 };
@@ -24,7 +24,7 @@ let getProductById = (idProduct) => {
                 resolve(result);
             } else resolve(false);
         } catch (error) {
-            reject(false);
+            resolve(false);
         }
     });
 };
@@ -78,7 +78,7 @@ let getAllProduct = (page, key_search) => {
                 resolve(false);
             }
         } catch (error) {
-            reject(false);
+            resolve(false);
         }
     });
 };
@@ -103,7 +103,7 @@ let updateProduct = (idProduct, item) => {
             if (result.matchedCount == 1) resolve(true);
             else resolve(false);
         } catch (error) {
-            reject(error);
+            resolve(error);
         }
     });
 };
@@ -127,7 +127,7 @@ let updateImage = (idProduct, nameImage) => {
             if (result.matchedCount == 1) resolve(true);
             else reject(false);
         } catch (error) {
-            reject(error);
+            resolve(false);
         }
     });
 };
@@ -142,7 +142,7 @@ let getQuantityAllProduct = () => {
             };
             resolve(result);
         } catch (error) {
-            reject(false);
+            resolve(false);
         }
     });
 };
