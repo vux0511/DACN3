@@ -22,15 +22,16 @@ let addItemCart = async (req, res) => {
         }
     }
 };
-let decreaseCart = async (req, res) => {
+let updateQuantity = async (req, res) => {
     if (!_.isEmpty(req.body)) {
         let req_user = jwt.verify(req.body.user_token, process.env.JWT_KEY);
 
         let data = {
             idUser: req_user.idUser,
             idProduct: req.body.idProduct,
+            quantity: req.body.quantity,
         };
-        let result = await cart.decreaseCart(data);
+        let result = await cart.updateQuantity(data);
         if (result) {
             res.status(200).send(true);
         } else {
@@ -70,7 +71,7 @@ let removeCart = async (req, res) => {
 
 export default {
     addItemCart,
-    decreaseCart,
+    updateQuantity,
     getItemCartByIdUser,
     removeCart,
 };

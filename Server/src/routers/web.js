@@ -47,7 +47,7 @@ let initRouter = (app) => {
 
     // Cart ----------
     router.post("/cart/add-new", cart.addItemCart); // thêm một sản phẩm vào trong giỏ hàng
-    router.post("/cart/decrease-cart", cart.decreaseCart);
+    router.post("/cart/update-quantity-cart", cart.updateQuantity);
     router.get(
         "/cart/get-cart-by-idUser/:user_token",
         cart.getItemCartByIdUser

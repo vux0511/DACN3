@@ -33,7 +33,7 @@ let addItemCart = (data) => {
     });
 };
 
-let decreaseCart = (data) => {
+let updateQuantity = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
             let cart = await CartModel.getCartByIdUserAndIdProduct(
@@ -41,19 +41,17 @@ let decreaseCart = (data) => {
                 data.idProduct
             );
             if (cart) {
-                if (cart.quantity === 1) {
+                if (cart.quantity === 0) {
                     let resultRemove = await CartModel.removeProduct(
                         data.idUser,
                         data.idProduct
                     );
                     resultRemove ? resolve(true) : resolve(false);
                 }
-
-                let quantity = cart.quantity - 1;
                 let result = await CartModel.updateQuantity(
                     data.idUser,
                     data.idProduct,
-                    quantity
+                    data.quantity
                 );
                 result ? resolve(true) : resolve(false);
             } else {
@@ -88,7 +86,7 @@ let removeCart = (idUser, idProduct) => {
 };
 export default {
     addItemCart,
-    decreaseCart,
+    updateQuantity,
     getItemCartByIdUser,
     removeCart,
 };

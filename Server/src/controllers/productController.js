@@ -41,27 +41,34 @@ let createNewProduct = (req, res) => {
             console.log(error);
             return res.send(transError.upImage);
         } else {
-            let req_user = jwt.verify(req.body.user_token, process.env.JWT_KEY);
-            let newItem = {
-                nameProduct: req.body.nameProduct,
-                idUser: req_user.idUser,
-                idCategory: req.body.idCategory,
-                image: {
-                    img1: req.files.imgProduct1[0].filename,
-                    img2: req.files.imgProduct2[0].filename,
-                    img3: req.files.imgProduct3[0].filename,
-                    img4: req.files.imgProduct4[0].filename,
-                },
-                price: req.body.price,
-                quantity: req.body.quantity,
-                description: req.body.description,
-            };
+            try {
+                let req_user = jwt.verify(
+                    req.body.user_token,
+                    process.env.JWT_KEY
+                );
+                let newItem = {
+                    nameProduct: req.body.nameProduct,
+                    idUser: req_user.idUser,
+                    idCategory: req.body.idCategory,
+                    image: {
+                        img1: req.files.imgProduct1[0].filename,
+                        img2: req.files.imgProduct2[0].filename,
+                        img3: req.files.imgProduct3[0].filename,
+                        img4: req.files.imgProduct4[0].filename,
+                    },
+                    price: req.body.price,
+                    quantity: req.body.quantity,
+                    description: req.body.description,
+                };
 
-            let result = await product.addNewProduct(newItem);
-            if (result) {
-                res.status(200).send(true);
-            } else {
-                res.send(false);
+                let result = await product.addNewProduct(newItem);
+                if (result) {
+                    res.status(200).send(true);
+                } else {
+                    res.send(false);
+                }
+            } catch (error) {
+                resolve(false);
             }
         }
     });
@@ -116,15 +123,21 @@ let updateProduct = async (req, res) => {
 
 let updateImage = async (req, res) => {
     ImgProductUploadFile(req, res, async (error) => {
-        if (error) {
-            res.status(500).send("lỗi");
-        } else {
-            let nameImage = req.file.filename;
-            let idProduct = req.params.idproduct;
-            let result = await product.updateImage(idProduct, nameImage);
-            if (result) res.status(200).send(true);
-            else res.send({ result: false, message: transError.upImage });
+        try {
+            console.log(req.files);
+        } catch (error) {
+            console.log(error);
         }
+        res.send("oke");
+        // if (error) {
+        //     res.status(500).send("lỗi");
+        // } else {
+        //     let nameImage = req.file.filename;
+        //     let idProduct = req.params.idproduct;
+        //     let result = await product.updateImage(idProduct, nameImage);
+        //     if (result) res.status(200).send(true);
+        //     else res.send({ result: false, message: transError.upImage });
+        // }
     });
 };
 

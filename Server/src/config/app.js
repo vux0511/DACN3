@@ -6,7 +6,7 @@ export const app = {
     image_user_directory: "src/public/images/users",
     image_shop_directory: "src/public/images/shops",
 
-    image_type: ["image/png", "image/jpg", "image/jpeg"],
+    image_type: ["image/png", "image/jpg", "image/jpeg", "image/"],
     limit_product: 100,
     limit_feedback: 100,
     status_order: [
