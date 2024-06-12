@@ -10,9 +10,9 @@ export default {
     URL_searchProduct: URL + "/product/get-all/1",
     URL_getInformation: URL + "/getInformation.php",
     URL_getProductCategory: URL + "/getProductCategory.php",
-    URL_updateCart: URL + "/updateCart.php",
-    URL_deleteCart: URL + "/deleteCart.php",
-    URL_getCart: URL + "/getCart.php",
+    URL_updateCart: URL + "/cart/update-quantity-cart",
+    URL_deleteCart: URL + "/cart/remove-product-cart",
+    URL_getCart: URL + "/cart/get-cart-by-idUser/",
     URL_setCart: URL + "/cart/add-new",
     URL_setOrder: URL + "/setOrder.php",
     URL_setNewPass: URL + "/setNewPass.php",
@@ -39,7 +39,7 @@ export default {
     URL_editProduct: URL + "/editProduct.php",
     URL_getTopProduct: URL + "/product/get-all/1",
     URL_getNewProduct: URL + "/getNewProduct.php",
-    URL_setInfor: URL + "/setInfor.php",
+    URL_setInfor: URL + "/user/update-user",
 
     // setInfor.php
 };

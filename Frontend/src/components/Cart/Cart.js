@@ -14,44 +14,63 @@ function Cart() {
     const [itemCarts, setItemCarts] = useState([]);
     const [isDisable, setDisable] = useState(true);
     const [subTotal, setSubTotal] = useState(0);
+    const [priceOfProduct, setPriceOfProduct] = useState(0);
     const [quantity, setQuantity] = useState(0);
-    const [size, setSize] = useState(0);
     const navigate = useNavigate();
 
     // Check login
     useEffect(() => {
         if (cookies.get("user") === undefined) {
-            navigate("/requiredlogin");
+            navigate("/login");
         }
     }, []);
 
     useEffect(() => {
         if (cookies.get("user")) {
-            setUsername(cookies.get("user").username);
+            setUsername(cookies.get("user").email);
+        } else {
+            setUsername("empty");
         }
     }, []);
 
+    // useEffect(() => {
+    //     if (cookies.get("user")) {
+    //         setUsername(cookies.get("user").username);
+    //     }
+    // }, []);
+
+    const numberFormat = (number) => {
+        return new Intl.NumberFormat("vi-VN", {
+            style: "currency",
+            currency: "VND",
+        }).format(number);
+    };
+
+    // Update product quantity
     const handlerQuantity = (e) => {
         var data = {
-            idCart: e.target.id,
-            quantityProductCart: e.target.value,
+            idProduct: e.target.id,
+            user_token: cookies.get("user_token"),
+            quantity: e.target.value,
         };
+
         axios.post(CALL_URL.URL_updateCart, data).then((response) => {
             var tongTien = 0;
             const updatedCartItems = itemCarts.map((item) => {
-                if (item.idCart === data.idCart) {
-                    tongTien = tongTien + e.target.value * item.priceProduct;
+                if (item.idProduct === data.idProduct) {
+                    tongTien = tongTien + e.target.value * item.unit_price;
                     return {
                         ...item,
-                        price: e.target.value * item.priceProduct,
+                        quantity: e.target.value,
+                        price: e.target.value * item.unit_price,
                     };
                 } else {
-                    tongTien =
-                        tongTien + item.quantityProductCart * item.priceProduct;
+                    tongTien = tongTien + item.quantity * item.unit_price;
                     return item;
                 }
             });
             setSubTotal(tongTien);
+            console.log(updatedCartItems);
             setItemCarts(updatedCartItems);
         });
     };
@@ -59,16 +78,15 @@ function Cart() {
     const handleDeleteItemCart = (e) => {
         e.preventDefault();
         var data = {
-            idCart: e.target.value,
+            idProduct: e.target.value,
+            user_token: cookies.get("user_token"),
         };
         axios.post(CALL_URL.URL_deleteCart, data).then((response) => {
             const updatedCartItems = itemCarts.filter((item) => {
-                if (item.idCart === data.idCart) {
-                    setSubTotal(
-                        subTotal - item.quantityProductCart * item.priceProduct
-                    );
+                if (item.idProduct === data.idProduct) {
+                    setSubTotal(subTotal - item.quantity * item.unit_price);
                 }
-                return item.idCart !== data.idCart;
+                return item.idProduct !== data.idProduct;
             });
             setItemCarts(updatedCartItems);
         });
@@ -76,19 +94,20 @@ function Cart() {
 
     useEffect(() => {
         var data = {
-            idUser: cookies.get("user").idUser,
+            user_token: cookies.get("user_token"),
         };
         setItemCarts([]);
-        axios.post(CALL_URL.URL_getCart, data).then((response) => {
-            setItemCarts(response.data);
-            var totalCart = 0;
-            response.data.map((itemCart, index) => {
-                totalCart =
-                    totalCart +
-                    itemCart.quantityProductCart * itemCart.priceProduct;
+        axios
+            .get(`${CALL_URL.URL_getCart}${data.user_token}`, data)
+            .then((response) => {
+                setItemCarts(response.data);
+                var totalCart = 0;
+                response.data.map((itemCart, index) => {
+                    totalCart =
+                        totalCart + itemCart.quantity * itemCart.unit_price;
+                });
+                setSubTotal(totalCart);
             });
-            setSubTotal(totalCart);
-        });
     }, []);
 
     return (
@@ -135,51 +154,43 @@ function Cart() {
                                     <td>
                                         <div className="cart-info">
                                             <img
-                                                src={itemCart.imageProduct_1}
+                                                src={`http://localhost:5001/images/products/${itemCart.imgProduct}`}
                                                 alt="Image Product"
                                             />
+
                                             <div>
                                                 <p className="name-product-cart">
                                                     {itemCart.nameProduct}
                                                 </p>
                                                 <div className="small-price">
-                                                    {new Intl.NumberFormat(
-                                                        "vn-VI",
-                                                        {
-                                                            style: "currency",
-                                                            currency: "VND",
-                                                        }
-                                                    ).format(
-                                                        itemCart.priceProduct
-                                                    )}{" "}
-                                                    - Size {itemCart.size}
+                                                    {numberFormat(
+                                                        itemCart.unit_price
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>
                                     </td>
                                     <td className="css__input">
                                         <input
-                                            id={itemCart.idCart}
+                                            id={itemCart.idProduct}
                                             type="number"
                                             className="input__cart"
-                                            defaultValue={
-                                                itemCart.quantityProductCart
-                                            }
+                                            defaultValue={itemCart.quantity}
                                             min={1}
                                             onChange={handlerQuantity}
                                         />
                                     </td>
                                     <td className="price">
-                                        {new Intl.NumberFormat("vn-VI", {
-                                            style: "currency",
-                                            currency: "VND",
-                                        }).format(itemCart.price)}
+                                        {numberFormat(
+                                            itemCart.quantity *
+                                                itemCart.unit_price
+                                        )}
                                     </td>
                                     <td>
                                         <button
                                             className="delete-item-cart-btn"
                                             onClick={handleDeleteItemCart}
-                                            value={itemCart.idCart}
+                                            value={itemCart.idProduct}
                                         >
                                             {/* <MdOutlineClear /> */} x
                                         </button>
@@ -196,12 +207,7 @@ function Cart() {
                                 <>
                                     <tr>
                                         <td>Tổng giá</td>
-                                        <td>
-                                            {new Intl.NumberFormat("vn-VI", {
-                                                style: "currency",
-                                                currency: "VND",
-                                            }).format(subTotal)}
-                                        </td>
+                                        <td>{numberFormat(subTotal)}</td>
                                     </tr>
                                     <tr>
                                         <td></td>
