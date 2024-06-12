@@ -13,10 +13,10 @@ import axios from "axios";
 
 function Information() {
     const cookies = new Cookies();
-    const [information, setInformation] = useState({});
     const idUser = cookies.get("user").idUser;
     const notify = () => toast();
     const navigate = useNavigate();
+    const [infoUser, setInfoUser] = useState([]);
 
     // Check login
     useEffect(() => {
@@ -26,34 +26,43 @@ function Information() {
     }, []);
 
     useEffect(() => {
-        axios
-            .post(`${CALL_URL.URL_getInformation}?idUser=${idUser}`)
-            .then((response) => {
-                setInformation(response.data[0]);
-            });
+        if (cookies.get("user")) {
+            setInfoUser(cookies.get("user"));
+        } else {
+            setInfoUser("empty");
+        }
+        console.log(cookies.get("user"));
     }, []);
 
+    // useEffect(() => {
+    //     axios
+    //         .post(`${CALL_URL.URL_getInformation}?idUser=${idUser}`)
+    //         .then((response) => {
+    //             setInformation(response.data[0]);
+    //         });
+    // }, []);
+
     const handleChangeFullname = (e) => {
-        setInformation({
-            ...information,
+        setInfoUser({
+            ...infoUser,
             fullname: e.target.value,
         });
     };
     const handleChangeEmail = (e) => {
-        setInformation({
-            ...information,
+        setInfoUser({
+            ...infoUser,
             email: e.target.value,
         });
     };
     const handleChangePhone = (e) => {
-        setInformation({
-            ...information,
+        setInfoUser({
+            ...infoUser,
             phone: e.target.value,
         });
     };
     const handleChangeAddress = (e) => {
-        setInformation({
-            ...information,
+        setInfoUser({
+            ...infoUser,
             address: e.target.value,
         });
     };
@@ -86,13 +95,19 @@ function Information() {
 
     const handleSubmitChangeInfor = (e) => {
         e.preventDefault();
-
-        axios.post(CALL_URL.URL_setInfor, information).then((response) => {
+        let data = {
+            ...infoUser,
+            user_token: cookies.get("user_token"),
+        };
+        axios.post(CALL_URL.URL_setInfor, data).then((response) => {
             if (response.data === null) {
                 handleToastifyError("Cập nhật nhất bại");
             } else {
+                document.cookie = "user" + "=; Max-Age=0;";
+                cookies.set("user", data, {});
                 handleToastifySucces("Cập nhật thành công");
             }
+            console.log(response.data);
         });
     };
 
@@ -112,12 +127,16 @@ function Information() {
                         </div>
                         <div className="decs-infor">
                             <p className="fullname-infor">
-                                {information.fullname}
+                                Họ tên: {infoUser.fullname}
                             </p>
-                            <p className="email-infor">{information.email}</p>
-                            <p className="phone-infor">{information.phone}</p>
+                            <p className="email-infor">
+                                Email: {infoUser.email}
+                            </p>
+                            <p className="phone-infor">
+                                Số điện thoại: {infoUser.phone}
+                            </p>
                             <p className="address-infor">
-                                {information.address}
+                                Địa chỉ: {infoUser.address}
                             </p>
                         </div>
                     </Col>
@@ -140,7 +159,7 @@ function Information() {
                                 placeholder="Nhập họ tên của bạn..."
                                 autoComplete="off"
                                 onChange={handleChangeFullname}
-                                defaultValue={information.fullname}
+                                defaultValue={infoUser.fullname}
                             />
 
                             <label
@@ -151,12 +170,13 @@ function Information() {
                             </label>
                             <input
                                 type="text"
+                                disabled
                                 id="email"
                                 className="information-input"
                                 placeholder="Nhập Email của bạn..."
                                 autoComplete="off"
                                 onChange={handleChangeEmail}
-                                defaultValue={information.email}
+                                defaultValue={infoUser.email}
                             />
                             <label
                                 htmlFor="phone"
@@ -170,7 +190,7 @@ function Information() {
                                 className="information-input"
                                 placeholder="Nhập số điện thoại của bạn..."
                                 autoComplete="off"
-                                defaultValue={information.phone}
+                                defaultValue={infoUser.phone}
                                 onChange={handleChangePhone}
                             />
                             <label
@@ -185,7 +205,7 @@ function Information() {
                                 className="information-input"
                                 placeholder="Nhập địa chỉ của bạn..."
                                 autoComplete="off"
-                                defaultValue={information.address}
+                                defaultValue={infoUser.address}
                                 onChange={handleChangeAddress}
                             />
                             <button
