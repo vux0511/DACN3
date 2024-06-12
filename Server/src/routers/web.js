@@ -36,7 +36,7 @@ let initRouter = (app) => {
     router.get("/product/detail", product.getProductById);
     router.get("/product/get-all/:page", product.getAllProduct);
     router.post("/product/updae-image/:idproduct", product.updateImage); // cập nhật hình ảnh sản phẩm
-    router.post("/product/update-infor/:idproduct", product.updateProduct); // cập nhật thông tin sản phẩm
+    router.post("/product/update-infor", product.updateProduct); // cập nhật thông tin sản phẩm
     router.get("/product/count-all-product", product.countProduct);
     // router.get("/product-search/", product.searchProduct);
     router.get(

@@ -68,7 +68,7 @@ let createNewProduct = (req, res) => {
                     res.send(false);
                 }
             } catch (error) {
-                resolve(false);
+                res.send(false);
             }
         }
     });
@@ -104,40 +104,38 @@ let getAllProduct = async (req, res) => {
 };
 
 let updateProduct = async (req, res) => {
-    console.log("update product");
-    if (_.isEmpty(req.body)) {
-        res.send(transValidation.data_empty);
-    } else {
-        console.log(req.body);
-        let result = await product.updateProduct(
-            req.params.idproduct,
-            req.body
-        );
-        if (result) {
-            res.status(200).send(true);
-        } else {
+    ImgProductUploadFile(req, res, async (error) => {
+        try {
+            let req_user = jwt.verify(req.body.user_token, process.env.JWT_KEY);
+            let result = await product.updateProduct(
+                req_user.idUser,
+                req.body.idProduct,
+                req.body,
+                req.files
+            );
+            console.log(result);
+            if (result) {
+                res.status(200).send(true);
+            } else {
+                console.log("xìn chào");
+                res.send(false);
+            }
+        } catch (error) {
+            console.log(error);
             res.send(false);
         }
-    }
+    });
 };
 
 let updateImage = async (req, res) => {
     ImgProductUploadFile(req, res, async (error) => {
         try {
-            console.log(req.files);
+            console.log(result);
+            res.send("oke");
         } catch (error) {
             console.log(error);
         }
         res.send("oke");
-        // if (error) {
-        //     res.status(500).send("lỗi");
-        // } else {
-        //     let nameImage = req.file.filename;
-        //     let idProduct = req.params.idproduct;
-        //     let result = await product.updateImage(idProduct, nameImage);
-        //     if (result) res.status(200).send(true);
-        //     else res.send({ result: false, message: transError.upImage });
-        // }
     });
 };
 

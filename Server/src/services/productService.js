@@ -83,27 +83,62 @@ let getAllProduct = (page, key_search) => {
     });
 };
 
-let updateProduct = (idProduct, item) => {
+let updateProduct = (idUser, idProduct, item, fileImage) => {
     return new Promise(async (resolve, reject) => {
         try {
+            let product = await ProductModel.findProductById(idProduct);
+            console.log(product);
             let data_update = {
                 nameProduct: item.nameProduct,
+                image: {
+                    img1: fileImage.imgProduct1
+                        ? fileImage.imgProduct1[0].filename
+                        : product.image.img1,
+                    img2: fileImage.imgProduct2
+                        ? fileImage.imgProduct2[0].filename
+                        : product.image.img2,
+                    img3: fileImage.imgProduct3
+                        ? fileImage.imgProduct3[0].filename
+                        : product.image.img3,
+                    img4: fileImage.imgProduct4
+                        ? fileImage.imgProduct4[0].filename
+                        : product.image.img4,
+                },
                 idCategory: item.idCategory,
                 price: item.price,
                 quantity: item.quantity,
                 description: item.description,
                 updateAt: Date.now(),
             };
-            // console.log(data_update);
             let result = await ProductModel.updateProduct(
+                idUser,
                 idProduct,
                 data_update
             );
-            // console.log(result);
-            if (result.matchedCount == 1) resolve(true);
-            else resolve(false);
+            if (result) {
+                if (fileImage.imgProduct1)
+                    await fs.remove(
+                        `${app.image_product_directory}/${product.image.img1}`
+                    );
+                if (fileImage.imgProduct2)
+                    await fs.remove(
+                        `${app.image_product_directory}/${product.image.img2}`
+                    );
+                if (fileImage.imgProduct3)
+                    await fs.remove(
+                        `${app.image_product_directory}/${product.image.img3}`
+                    );
+                if (fileImage.imgProduct4)
+                    await fs.remove(
+                        `${app.image_product_directory}/${product.image.img4}`
+                    );
+
+                resolve(true);
+            } else resolve(false);
         } catch (error) {
-            resolve(error);
+            console.log(error);
+            console.log("qqqq ");
+            resolve(false);
         }
     });
 };

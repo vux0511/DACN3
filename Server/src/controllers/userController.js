@@ -52,7 +52,7 @@ let loginUser = async (req, res) => {
             let result = await user.loginUser(req.body);
             if (result) {
                 let token = jwt.sign(result, process.env.JWT_KEY, {
-                    expiresIn: "5h",
+                    expiresIn: "24h",
                 });
                 res.status(200).send({ user: result, usrer_token: token });
             } else {

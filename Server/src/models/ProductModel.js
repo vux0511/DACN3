@@ -39,11 +39,9 @@ ProductSchema.statics = {
         return this.where(filter).count();
     },
 
-    updateProduct(idProduct, item) {
-        return this.update(
-            {
-                $and: [{ _id: idProduct }],
-            },
+    updateProduct(idUser, idProduct, item) {
+        return this.findOneAndUpdate(
+            { $and: [{ _id: idProduct, idUser: idUser }] },
             item
         ).exec();
     },
