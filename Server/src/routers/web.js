@@ -32,26 +32,28 @@ let initRouter = (app) => {
     router.post("/category/remove-by-idCategory", category.removeCategoryById);
 
     //product -------
-    router.post("/product/add-new", product.createNewProduct); // thêm sản phẩm
-    router.get("/product/detail", product.getProductById); // lấy thông tin chi tiết một sản phẩm theo id
-    router.get("/product/get-all/:page", product.getAllProduct); // lấy sản phẩm theo tìm kiếm hoặc ko và có phân trang
+    router.post("/product/add-new", product.createNewProduct);
+    router.get("/product/detail", product.getProductById);
+    router.get("/product/get-all/:page", product.getAllProduct);
     router.post("/product/updae-image/:idproduct", product.updateImage); // cập nhật hình ảnh sản phẩm
     router.post("/product/update-infor/:idproduct", product.updateProduct); // cập nhật thông tin sản phẩm
-    router.get("/product/count-all-product", product.countProduct); // đếm số lượng sản phẩm
+    router.get("/product/count-all-product", product.countProduct);
     // router.get("/product-search/", product.searchProduct);
     router.get(
         "/product/get-by-idcategory/:idCategory",
         product.getProductByIdCategory
-    ); // lấy danh sách sản phẩm theo id hàng hóa
-    router.post("/product/remove-by-idProduct", product.removeProduct); // xóa một sản phẩm nào đó trong giỏ hàng
+    );
+    router.post("/product/remove-by-idProduct", product.removeProduct);
 
     // Cart ----------
     router.post("/cart/add-new", cart.addItemCart); // thêm một sản phẩm vào trong giỏ hàng
+    router.post("/cart/decrease-cart", cart.decreaseCart);
     router.get(
         "/cart/get-cart-by-idUser/:user_token",
         cart.getItemCartByIdUser
     ); // lấy danh sách giỏ hàng theo id người dùng
     router.post("/cart/remove-product-cart", cart.removeCart); // xóa một sản phẩm nào đó trong giỏ hàng
+
     // feedback ( comment, rate star)
     router.post("/feedback/add-new", feedback.createNew);
     router.get("/feedback/get-list/:idProduct/:page", feedback.getFeedback);
