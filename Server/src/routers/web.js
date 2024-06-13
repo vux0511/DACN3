@@ -30,6 +30,7 @@ let initRouter = (app) => {
     router.get("/category/get-list", category.getNormalCategoies);
     router.post("/category/add-new", category.createNewCategory);
     router.post("/category/remove-by-idCategory", category.removeCategoryById);
+    router.post("/category/update", category.updateCategory);
 
     //product -------
     router.post("/product/add-new", product.createNewProduct);
