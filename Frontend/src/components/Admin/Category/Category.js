@@ -5,25 +5,30 @@ import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CALL_URL from "~/api/CALL_URL";
+import Cookies from "universal-cookie";
 
 function CategoryAdmin() {
     const [itemCategory, setItemCategory] = useState([]);
     const notify = () => toast();
+    const cookies = new Cookies();
 
     useEffect(() => {
         axios.get(CALL_URL.URL_getCategory).then((response) => {
             setItemCategory(response.data);
         });
+        console.log(itemCategory);
     }, []);
 
     const handleDeleteCategory = (e) => {
         e.preventDefault();
         var data = {
             idCategory: e.target.value,
+            user_token: cookies.get("usertoken"),
         };
+        console.log(data);
         axios.post(CALL_URL.URL_deleteCategory, data).then((response) => {
             const updatedItemsCategory = itemCategory.filter((item) => {
-                if (item.idCategory === data.idCategory) {
+                if (item._id === data.idCategory) {
                     toast.success("Xoá danh mục thành công", {
                         position: "top-right",
                         autoClose: 3000,
@@ -35,7 +40,7 @@ function CategoryAdmin() {
                         theme: "colored",
                     });
                 }
-                return item.idCategory !== data.idCategory;
+                return item._id !== data.idCategory;
             });
             setItemCategory(updatedItemsCategory);
         });
@@ -56,6 +61,7 @@ function CategoryAdmin() {
                         <thead>
                             <tr>
                                 <th className="th-id-product">#</th>
+                                <th className="th-image-product">Ảnh</th>
                                 <th className="th-name-product">
                                     Tên Danh Mục
                                 </th>
@@ -66,11 +72,17 @@ function CategoryAdmin() {
                             {itemCategory.map((item, index) => (
                                 <tr key={index}>
                                     <td>{index + 1}</td>
+                                    <td>
+                                        <img
+                                            src={`http://localhost:5001/images/categories/${item.imageCategory}`}
+                                            alt=""
+                                            className="small-img1"
+                                        />
+                                    </td>
                                     <td>{item.nameCategory}</td>
-
                                     <td>
                                         <Link
-                                            to={`/admin/category/edit/${item.idCategory}`}
+                                            to={`/admin/category/edit/${item._id}`}
                                         >
                                             <button className="delete-item-product-btn">
                                                 Sửa
@@ -80,7 +92,7 @@ function CategoryAdmin() {
                                         <a href="">
                                             <button
                                                 className="delete-item-product-btn"
-                                                value={item.idCategory}
+                                                value={item._id}
                                                 onClick={handleDeleteCategory}
                                             >
                                                 Xoá
