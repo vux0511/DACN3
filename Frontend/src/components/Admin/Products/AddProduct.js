@@ -72,7 +72,6 @@ function AddProduct() {
         formData.append("imgProduct3", imageFormData3);
         formData.append("imgProduct4", imageFormData4);
         formData.append("user_token", cookies.get("usertoken"));
-
         const config = {
             headers: {
                 "Content-Type": false,
@@ -293,6 +292,7 @@ function AddProduct() {
                                 </div>
                             </div>
                         </div>
+                        {/* Row 3 */}
                         <div className="admin__product-row-textarea">
                             <label
                                 htmlFor="name"

@@ -5,14 +5,18 @@ import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CALL_URL from "~/api/CALL_URL";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { FaPencilAlt } from "react-icons/fa";
+import Cookies from "universal-cookie";
+import Table from "react-bootstrap/Table";
 
 function ProductAdmin() {
     const [itemProducts, setItemProducts] = useState([]);
+    const cookies = new Cookies();
     const notify = () => toast();
     useEffect(() => {
         axios.get(CALL_URL.URL_getProduct).then((response) => {
             setItemProducts(response.data);
-            console.log(itemProducts);
         });
     }, []);
 
@@ -20,13 +24,14 @@ function ProductAdmin() {
         e.preventDefault();
         var data = {
             idProduct: e.target.value,
+            user_token: cookies.get("user_token"),
         };
         axios.post(CALL_URL.URL_deleteProduct, data).then((response) => {
             const updatedItemsProducts = itemProducts.filter((item) => {
-                if (item.idProduct === data.idProduct) {
+                if (item._id === data.idProduct) {
                     toast.success("Xoá thành công", {
                         position: "top-right",
-                        autoClose: 3000,
+                        autoClose: 2000,
                         hideProgressBar: false,
                         closeOnClick: true,
                         pauseOnHover: true,
@@ -35,7 +40,7 @@ function ProductAdmin() {
                         theme: "colored",
                     });
                 }
-                return item.idProduct !== data.idProduct;
+                return item._id !== data.idProduct;
             });
             setItemProducts(updatedItemsProducts);
         });
@@ -46,21 +51,21 @@ function ProductAdmin() {
             <Sidebar />
             <div className="listProducts">
                 <div className="title-products-list">
-                    <h3>Danh Sách Sản Phẩm</h3>
+                    <div class="admin__heading">Danh sách sản phẩm</div>
                     <a href="/admin/product/add">
                         <button className="save-btn">Thêm sản phẩm</button>
                     </a>
                 </div>
                 <div className="product-list">
-                    <table>
+                    <Table striped>
                         <thead>
                             <tr>
-                                <th className="th-id-product">ID</th>
-                                <th className="th-name-product">Tên</th>
-                                <th className="th-image-product">Ảnh</th>
-                                <th className="th-price-product">Giá</th>
-                                <th className="th-decs-product">Số lượng</th>
-                                <th className="th-act-product">Thao Tác</th>
+                                <th>#</th>
+                                <th>Tên</th>
+                                <th>Ảnh </th>
+                                <th>Giá</th>
+                                <th>Số Lượng</th>
+                                <th>Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -82,17 +87,17 @@ function ProductAdmin() {
                                     </td>
                                     <td>
                                         <Link
-                                            to={`/admin/product/edit/${item.idProduct}`}
+                                            to={`/admin/product/edit/${item._id}`}
                                         >
                                             <button className="delete-item-product-btn">
                                                 Sửa
                                             </button>
-                                        </Link>{" "}
-                                        -{" "}
+                                        </Link>
+                                        {""} - {""}
                                         <a href="">
                                             <button
                                                 className="delete-item-product-btn"
-                                                value={item.idProduct}
+                                                value={item._id}
                                                 onClick={handleDeleteProduct}
                                             >
                                                 Xoá
@@ -103,7 +108,7 @@ function ProductAdmin() {
                                 </tr>
                             ))}
                         </tbody>
-                    </table>
+                    </Table>
                 </div>
             </div>
         </div>

@@ -7,15 +7,24 @@ import Header from "../../Header/Header";
 import Footer from "../../Footer/Footer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Cookies from "universal-cookie";
 import CALL_URL from "~/api/CALL_URL";
+import { Input } from "antd";
+const { TextArea } = Input;
 
 function EditProduct() {
-    const navigate = useNavigate();
-    const notify = () => toast();
-    const { idProduct } = useParams();
+    const cookies = new Cookies();
+    const idProduct = useParams();
     const [idCategory, setIdCategory] = useState([]);
-
+    const [nameProduct, setNameProduct] = useState("");
+    const [priceProduct, setPriceProduct] = useState("");
+    const [descProduct, setDescProduct] = useState("");
+    const [quantityProduct, setQuantityProduct] = useState("");
     const [itemProductEdit, setItemProductEdit] = useState({});
+    const [imageFormData1, setImageFormData1] = useState("");
+    const [imageFormData2, setImageFormData2] = useState("");
+    const [imageFormData3, setImageFormData3] = useState("");
+    const [imageFormData4, setImageFormData4] = useState("");
 
     const handleChangeNameProduct = (e) => {
         setItemProductEdit({ ...itemProductEdit, nameProduct: e.target.value });
@@ -23,109 +32,88 @@ function EditProduct() {
     const handleChangeIdCate = (e) => {
         setItemProductEdit({ ...itemProductEdit, idCategory: e.target.value });
     };
+
     const handleChangePriceProduct = (e) => {
-        setItemProductEdit({
-            ...itemProductEdit,
-            priceProduct: e.target.value,
-        });
+        setPriceProduct(e.target.value);
     };
-    const handleChangeDescriptionProduct = (e) => {
-        setItemProductEdit({
-            ...itemProductEdit,
-            descriptionProduct: e.target.value,
-        });
+    const handleChangeQuantityProduct = (e) => {
+        setQuantityProduct(e.target.value);
     };
-    const handleChangeViewProduct = (e) => {
-        setItemProductEdit({ ...itemProductEdit, viewProduct: e.target.value });
-    };
-    const handleChangeSize37 = (e) => {
-        setItemProductEdit({ ...itemProductEdit, siz37: e.target.value });
-    };
-    const handleChangeSize38 = (e) => {
-        setItemProductEdit({ ...itemProductEdit, siz38: e.target.value });
-    };
-    const handleChangeSize39 = (e) => {
-        setItemProductEdit({ ...itemProductEdit, siz39: e.target.value });
-    };
-    const handleChangeSize40 = (e) => {
-        setItemProductEdit({ ...itemProductEdit, siz40: e.target.value });
-    };
-    const handleChangeSize41 = (e) => {
-        setItemProductEdit({ ...itemProductEdit, siz41: e.target.value });
-    };
-    const handleChangeSize42 = (e) => {
-        setItemProductEdit({ ...itemProductEdit, siz42: e.target.value });
-    };
-    const handleChangeSize43 = (e) => {
-        setItemProductEdit({ ...itemProductEdit, siz43: e.target.value });
-    };
-    const handleChangeSize44 = (e) => {
-        setItemProductEdit({ ...itemProductEdit, siz44: e.target.value });
-    };
-    const handleChangeSize45 = (e) => {
-        setItemProductEdit({ ...itemProductEdit, size45: e.target.value });
-    };
-    const handleChangeImageProduct_1 = (e) => {
-        setItemProductEdit({
-            ...itemProductEdit,
-            imageProduct_1: e.target.value,
-        });
-    };
-    const handleChangeImageProduct_2 = (e) => {
-        setItemProductEdit({
-            ...itemProductEdit,
-            imageProduct_2: e.target.value,
-        });
-    };
-    const handleChangeImageProduct_3 = (e) => {
-        setItemProductEdit({
-            ...itemProductEdit,
-            imageProduct_3: e.target.value,
-        });
-    };
-    const handleChangeImageProduct_4 = (e) => {
-        setItemProductEdit({
-            ...itemProductEdit,
-            imageProduct_4: e.target.value,
-        });
+    const handleChangeDescProduct = (e) => {
+        setDescProduct(e.target.value);
     };
 
-    const handleAddProduct = (e) => {
+    const handleChangeImageCategory1 = (e) => {
+        setImageFormData1(e.target.files[0]);
+    };
+
+    const handleChangeImageCategory2 = (e) => {
+        setImageFormData2(e.target.files[0]);
+    };
+
+    const handleChangeImageCategory3 = (e) => {
+        setImageFormData3(e.target.files[0]);
+    };
+
+    const handleChangeImageCategory4 = (e) => {
+        setImageFormData4(e.target.files[0]);
+    };
+
+    const handleEditProduct = (e) => {
         e.preventDefault();
         let data = itemProductEdit;
-        data.id = idProduct;
+        data.idProduct = idProduct;
+        const formData = new FormData();
+        formData.append("idProduct", idProduct.idProduct);
+        formData.append("nameProduct", itemProductEdit.nameProduct);
+        formData.append("idCategory", itemProductEdit.idCategory);
+        formData.append("price", priceProduct);
+        formData.append("quantity", quantityProduct);
+        formData.append("description", descProduct);
+        formData.append("imgProduct1", imageFormData1);
+        formData.append("imgProduct2", imageFormData2);
+        formData.append("imgProduct3", imageFormData3);
+        formData.append("imgProduct4", imageFormData4);
+        formData.append("user_token", cookies.get("usertoken"));
+        const config = {
+            headers: {
+                "Content-Type": false,
+            },
+        };
 
-        axios.post(CALL_URL.URL_editProduct, data).then((response) => {
-            console.log(response.data);
-            if (response.data.status === "success") {
-                toast.success("Sửa thành công", {
-                    position: "top-right",
-                    autoClose: 4000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                });
-            } else {
-                toast.success("Sửa thất bại", {
-                    position: "top-right",
-                    autoClose: 4000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                });
-            }
-        });
+        axios
+            .post(CALL_URL.URL_editProduct, formData, config)
+            .then((response) => {
+                console.log(response.data);
+                if (response.data) {
+                    toast.success("Sửa thành công", {
+                        position: "top-right",
+                        autoClose: 4000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
+                } else {
+                    toast.success("Sửa thất bại", {
+                        position: "top-right",
+                        autoClose: 4000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
+                }
+            });
     };
 
     // Get Category
     useEffect(() => {
-        axios.get(CALL_URL.URL_editCategory).then((response) => {
+        axios.get(CALL_URL.URL_getCategory).then((response) => {
             setIdCategory(response.data);
         });
     }, []);
@@ -133,9 +121,12 @@ function EditProduct() {
     // Get Product
     useEffect(() => {
         axios
-            .get(`${CALL_URL.URL_getProductDetail}?idproduct=${idProduct}`)
+            .get(
+                `${CALL_URL.URL_getProductDetail}/?idProduct=${idProduct.idProduct}`
+            )
             .then((response) => {
-                setItemProductEdit(response.data[0]);
+                setItemProductEdit(response.data);
+                console.log(itemProductEdit);
             });
     }, []);
 
@@ -145,379 +136,212 @@ function EditProduct() {
             <div className="listProducts">
                 <div className="title-products-list">
                     <h3>Sửa Sản Phẩm</h3>
-                    <div className="row">
-                        <div className="col-75">
-                            <div className="container">
-                                <form onSubmit={handleAddProduct}>
-                                    <div className="row">
-                                        <div className="col-50">
-                                            <label htmlFor="nameprod">
-                                                <i className="fa fa-user" /> Tên
-                                                sản phẩm
-                                            </label>
-                                            <input
-                                                required
-                                                type="text"
-                                                id="nameprod"
-                                                name="nameprod"
-                                                placeholder="Nhập tên sản phẩm"
-                                                defaultValue={
-                                                    itemProductEdit.nameProduct
-                                                }
-                                                onChange={
-                                                    handleChangeNameProduct
-                                                }
-                                            />
-
-                                            <div className="row">
-                                                <div className="col-50">
-                                                    <label htmlFor="price">
-                                                        Giá
-                                                    </label>
-                                                    <input
-                                                        defaultValue={
-                                                            itemProductEdit.priceProduct
-                                                        }
-                                                        required
-                                                        type="number"
-                                                        id="price"
-                                                        name="price"
-                                                        placeholder="VD: 2.000.000 đ"
-                                                        onChange={
-                                                            handleChangePriceProduct
-                                                        }
-                                                    />
-                                                </div>
-                                                <div className="col-50">
-                                                    <label htmlFor="size37">
-                                                        Số lượng Size 37
-                                                    </label>
-                                                    <input
-                                                        defaultValue={
-                                                            itemProductEdit.size37
-                                                        }
-                                                        type="number"
-                                                        required
-                                                        id="size37"
-                                                        name="size37"
-                                                        placeholder="VD: 10"
-                                                        onChange={
-                                                            handleChangeSize37
-                                                        }
-                                                    />
-                                                </div>
-                                            </div>
-
-                                            <div className="row">
-                                                <div className="col-50">
-                                                    <label htmlFor="size38">
-                                                        Số lượng Size 38
-                                                    </label>
-                                                    <input
-                                                        defaultValue={
-                                                            itemProductEdit.size38
-                                                        }
-                                                        type="number"
-                                                        required
-                                                        id="size38"
-                                                        name="size38"
-                                                        placeholder="VD: 10"
-                                                        onChange={
-                                                            handleChangeSize38
-                                                        }
-                                                    />
-                                                </div>
-                                                <div className="col-50">
-                                                    <label htmlFor="size39">
-                                                        Số lượng Size 39
-                                                    </label>
-                                                    <input
-                                                        defaultValue={
-                                                            itemProductEdit.size39
-                                                        }
-                                                        type="number"
-                                                        required
-                                                        id="size39"
-                                                        name="size39"
-                                                        placeholder="VD: 10"
-                                                        onChange={
-                                                            handleChangeSize39
-                                                        }
-                                                    />
-                                                </div>
-                                            </div>
-
-                                            <div className="row">
-                                                <div className="col-50">
-                                                    <label htmlFor="size40">
-                                                        Số lượng Size 40
-                                                    </label>
-                                                    <input
-                                                        defaultValue={
-                                                            itemProductEdit.size40
-                                                        }
-                                                        type="number"
-                                                        required
-                                                        id="size40"
-                                                        name="size40"
-                                                        placeholder="VD: 10"
-                                                        onChange={
-                                                            handleChangeSize40
-                                                        }
-                                                    />
-                                                </div>
-                                                <div className="col-50">
-                                                    <label htmlFor="size41">
-                                                        Số lượng Size 41
-                                                    </label>
-                                                    <input
-                                                        defaultValue={
-                                                            itemProductEdit.size41
-                                                        }
-                                                        type="number"
-                                                        required
-                                                        id="size41"
-                                                        name="size41"
-                                                        placeholder="VD: 10"
-                                                        onChange={
-                                                            handleChangeSize41
-                                                        }
-                                                    />
-                                                </div>
-                                            </div>
-
-                                            <div className="row">
-                                                <div className="col-50">
-                                                    <label htmlFor="size42">
-                                                        Số lượng Size 42
-                                                    </label>
-                                                    <input
-                                                        defaultValue={
-                                                            itemProductEdit.size42
-                                                        }
-                                                        type="number"
-                                                        required
-                                                        id="size42"
-                                                        name="size42"
-                                                        onChange={
-                                                            handleChangeSize42
-                                                        }
-                                                        placeholder="VD: 10"
-                                                    />
-                                                </div>
-                                                <div className="col-50">
-                                                    <label htmlFor="size43">
-                                                        Số lượng Size 43
-                                                    </label>
-                                                    <input
-                                                        defaultValue={
-                                                            itemProductEdit.size43
-                                                        }
-                                                        type="number"
-                                                        required
-                                                        id="size43"
-                                                        name="size43"
-                                                        onChange={
-                                                            handleChangeSize43
-                                                        }
-                                                        placeholder="VD: 10"
-                                                    />
-                                                </div>
-                                            </div>
-
-                                            <div className="row">
-                                                <div className="col-50">
-                                                    <label htmlFor="size44">
-                                                        Số lượng Size 44
-                                                    </label>
-                                                    <input
-                                                        defaultValue={
-                                                            itemProductEdit.size44
-                                                        }
-                                                        type="number"
-                                                        required
-                                                        id="size44"
-                                                        name="size44"
-                                                        onChange={
-                                                            handleChangeSize44
-                                                        }
-                                                        placeholder="VD: 10"
-                                                    />
-                                                </div>
-                                                <div className="col-50">
-                                                    <label htmlFor="size45">
-                                                        Số lượng Size 45
-                                                    </label>
-                                                    <input
-                                                        defaultValue={
-                                                            itemProductEdit.size45
-                                                        }
-                                                        type="number"
-                                                        required
-                                                        id="size45"
-                                                        name="size45"
-                                                        onChange={
-                                                            handleChangeSize45
-                                                        }
-                                                        placeholder="VD: 10"
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-50">
-                                            <div className="row">
-                                                <div className="col-50">
-                                                    <label htmlFor="select-category">
-                                                        Danh mục
-                                                    </label>
-                                                    <select
-                                                        onChange={
-                                                            handleChangeIdCate
-                                                        }
-                                                        name="select-category"
-                                                        id="select-category"
-                                                        className="select-category"
-                                                        value={
-                                                            itemProductEdit.idCategory
-                                                        }
-                                                    >
-                                                        {idCategory.map(
-                                                            (idCategory) => (
-                                                                <option
-                                                                    value={
-                                                                        idCategory.idCategory
-                                                                    }
-                                                                    key={
-                                                                        idCategory.idCategory
-                                                                    }
-                                                                >
-                                                                    {
-                                                                        idCategory.nameCategory
-                                                                    }
-                                                                </option>
-                                                            )
-                                                        )}
-                                                    </select>
-                                                </div>
-                                                <div className="col-50">
-                                                    <label htmlFor="view">
-                                                        Số lượt xem
-                                                    </label>
-                                                    <input
-                                                        defaultValue={
-                                                            itemProductEdit.viewProduct
-                                                        }
-                                                        onChange={
-                                                            handleChangeViewProduct
-                                                        }
-                                                        type="number"
-                                                        required
-                                                        id="view"
-                                                        name="view"
-                                                        placeholder="VD: 100"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <label htmlFor="link-1">
-                                                <i className="fa fa-user" />{" "}
-                                                Link ảnh 1
-                                            </label>
-                                            <input
-                                                defaultValue={
-                                                    itemProductEdit.imageProduct_1
-                                                }
-                                                required
-                                                type="text"
-                                                id="link-1"
-                                                name="link-1"
-                                                placeholder="Nhập đường dẫn ảnh sản phẩm..."
-                                                onChange={
-                                                    handleChangeImageProduct_1
-                                                }
-                                            />
-                                            <label htmlFor="link-2">
-                                                <i className="fa fa-envelope" />{" "}
-                                                Link ảnh 2
-                                            </label>
-                                            <input
-                                                defaultValue={
-                                                    itemProductEdit.imageProduct_2
-                                                }
-                                                required
-                                                type="text"
-                                                id="link-2"
-                                                name="link-2"
-                                                placeholder="Nhập đường dẫn ảnh sản phẩm..."
-                                                onChange={
-                                                    handleChangeImageProduct_2
-                                                }
-                                            />
-                                            <label htmlFor="link-3">
-                                                <i className="fa fa-address-card-o" />{" "}
-                                                Link ảnh 3
-                                            </label>
-                                            <input
-                                                defaultValue={
-                                                    itemProductEdit.imageProduct_3
-                                                }
-                                                required
-                                                type="text"
-                                                id="link-3"
-                                                name="link-1"
-                                                placeholder="Nhập đường dẫn ảnh sản phẩm..."
-                                                onChange={
-                                                    handleChangeImageProduct_3
-                                                }
-                                            />
-                                            <label htmlFor="link-4">
-                                                <i className="fa fa-institution" />{" "}
-                                                Link ảnh 4
-                                            </label>
-                                            <input
-                                                defaultValue={
-                                                    itemProductEdit.imageProduct_4
-                                                }
-                                                required
-                                                type="text"
-                                                id="link-4"
-                                                name="link-4"
-                                                placeholder="Nhập đường dẫn ảnh sản phẩm..."
-                                                onChange={
-                                                    handleChangeImageProduct_4
-                                                }
-                                            />
-
-                                            <label htmlFor="city">
-                                                <i className="fa fa-institution" />{" "}
-                                                Mô tả
-                                            </label>
-                                            <input
-                                                defaultValue={
-                                                    itemProductEdit.descriptionProduct
-                                                }
-                                                required
-                                                type="text"
-                                                id="city"
-                                                name="city"
-                                                placeholder="Nhập mô tả sản phẩm..."
-                                                onChange={
-                                                    handleChangeDescriptionProduct
-                                                }
-                                            />
-                                        </div>
+                    <form
+                        className="admin__product-wrapper"
+                        onSubmit={handleEditProduct}
+                    >
+                        {/* Row 1 */}
+                        <div className="admin__product-row">
+                            <div className="admin__product-left">
+                                <div className="detail__rating-form-double">
+                                    <div>
+                                        <label
+                                            htmlFor="name"
+                                            className="detail__rating-form-label"
+                                        >
+                                            Tên sản phẩm
+                                        </label>
+                                        <input
+                                            required
+                                            id="name"
+                                            type="text"
+                                            placeholder="Nhập tên sản phẩm (bắt buộc)"
+                                            className="detail__rating-form-input"
+                                            onChange={handleChangeNameProduct}
+                                            defaultValue={
+                                                itemProductEdit.nameProduct
+                                            }
+                                        />
                                     </div>
-
-                                    <button className="save-btn">
-                                        Lưu thay đổi
-                                    </button>
-                                    <ToastContainer />
-                                </form>
+                                    <div>
+                                        <label
+                                            htmlFor="phone"
+                                            className="detail__rating-form-label"
+                                        >
+                                            Giá sản phẩm
+                                        </label>
+                                        <input
+                                            id="phone"
+                                            onChange={handleChangePriceProduct}
+                                            type="number"
+                                            required
+                                            placeholder="Giá sản phẩm (bắt buộc)"
+                                            className="detail__rating-form-input"
+                                            defaultValue={itemProductEdit.price}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="admin__product-right">
+                                <div className="detail__rating-form-double">
+                                    <div>
+                                        <label
+                                            htmlFor="name"
+                                            className="detail__rating-form-label"
+                                        >
+                                            Danh mục
+                                        </label>
+                                        <select
+                                            onChange={handleChangeIdCate}
+                                            name="select-category"
+                                            id="select-category"
+                                            className="detail__rating-form-input"
+                                        >
+                                            {idCategory.map((value) => (
+                                                <option
+                                                    value={value.idCategory}
+                                                    key={value.idCategory}
+                                                >
+                                                    {value.nameCategory}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label
+                                            htmlFor="phone"
+                                            className="detail__rating-form-label"
+                                        >
+                                            Số lượng
+                                        </label>
+                                        <input
+                                            id="phone"
+                                            required
+                                            type="number"
+                                            placeholder="Số lượng (bắt buộc)"
+                                            className="detail__rating-form-input"
+                                            onChange={
+                                                handleChangeQuantityProduct
+                                            }
+                                            defaultValue={
+                                                itemProductEdit.quantity
+                                            }
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        {/* Row 2 */}
+                        <div className="admin__product-row">
+                            <div className="admin__product-left">
+                                <div className="detail__rating-form-double">
+                                    <div>
+                                        <label
+                                            htmlFor="name"
+                                            className="detail__rating-form-label"
+                                        >
+                                            Ảnh sản phẩm
+                                        </label>
+                                        <input
+                                            id="name"
+                                            type="file"
+                                            placeholder="Ảnh sản phẩm"
+                                            onChange={
+                                                handleChangeImageCategory1
+                                            }
+                                            className="detail__rating-form-input"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label
+                                            htmlFor="name"
+                                            className="detail__rating-form-label"
+                                        >
+                                            Ảnh sản phẩm
+                                        </label>
+                                        <input
+                                            id="name"
+                                            type="file"
+                                            placeholder="Ảnh sản phẩm"
+                                            onChange={
+                                                handleChangeImageCategory2
+                                            }
+                                            className="detail__rating-form-input"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="admin__product-right">
+                                <div className="detail__rating-form-double">
+                                    <div>
+                                        <label
+                                            htmlFor="name"
+                                            className="detail__rating-form-label"
+                                        >
+                                            Ảnh sản phẩm
+                                        </label>
+                                        <input
+                                            id="name"
+                                            type="file"
+                                            placeholder="Ảnh sản phẩm"
+                                            className="detail__rating-form-input"
+                                            onChange={
+                                                handleChangeImageCategory3
+                                            }
+                                        />
+                                    </div>
+                                    <div>
+                                        <label
+                                            htmlFor="name"
+                                            className="detail__rating-form-label"
+                                        >
+                                            Ảnh sản phẩm
+                                        </label>
+                                        <input
+                                            id="name"
+                                            type="file"
+                                            placeholder="Ảnh sản phẩm"
+                                            onChange={
+                                                handleChangeImageCategory4
+                                            }
+                                            className="detail__rating-form-input"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/* Row 3 */}
+                        <div className="admin__product-row-textarea">
+                            <label
+                                htmlFor="name"
+                                className="detail__rating-form-label"
+                            >
+                                Mô tả sản phẩm
+                            </label>
+                            <TextArea
+                                id="comment"
+                                placeholder="Mô tả sản phẩm"
+                                defaultValue={itemProductEdit.description}
+                                style={{
+                                    width: "100%",
+                                    padding: "10px 20px",
+                                    outline: "none",
+                                    border: "1px solid #dfdddd",
+                                    fontFamily: "Inter, sans-serif",
+                                    fontSize: "15px",
+                                }}
+                                onChange={handleChangeDescProduct}
+                                autoSize={{
+                                    minRows: 3,
+                                }}
+                            />
+                        </div>
+                        <button className="button-rating">Sửa sản phẩm</button>
+                        <ToastContainer />
+                    </form>
                 </div>
-                <div className="product-list"></div>
             </div>
+            <div className="product-list"></div>
         </div>
     );
 }
