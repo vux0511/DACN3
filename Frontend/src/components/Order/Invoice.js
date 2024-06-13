@@ -26,28 +26,28 @@ function Invoice() {
 
     useEffect(() => {
         axios
-            .get(`${CALL_URL.URL_getDetailOrder}?idorder=${idOrder}`)
+            .get(`${CALL_URL.URL_getDetailOrder}${idOrder}`)
             .then((response) => {
                 setDetailOrder(response.data);
-
+                console.log("detailOrder", detailOrder);
                 var priceProduct = 0;
-                response.data.map((itemCart, index) => {
+                response.data.productItems.map((itemInvoice, index) => {
                     priceProduct =
                         priceProduct +
-                        itemCart.quantityProduct * itemCart.priceProduct;
+                        itemInvoice.quantity * itemInvoice.unit_price;
                 });
                 setSubTotal(priceProduct);
             });
     }, []);
 
-    // Select Clients
-    useEffect(() => {
-        axios
-            .get(`${CALL_URL.URL_getClientOrder}?idorder=${idOrder}`)
-            .then((response) => {
-                setClientOrder(response.data);
-            });
-    }, []);
+    // Get Clients
+    // useEffect(() => {
+    //     axios
+    //         .get(`${CALL_URL.URL_getClientOrder}?idorder=${idOrder}`)
+    //         .then((response) => {
+    //             setClientOrder(response.data);
+    //         });
+    // }, []);
 
     return (
         <>
@@ -82,21 +82,25 @@ function Invoice() {
                                     </div>
                                 </div>
                                 <div className="col-5">
-                                    {clientOrder.map((client, index) => (
-                                        <div key={index}>
-                                            <p>Khách hàng,</p>
-                                            <h2>{client.fullname}</h2>
-                                            <p className="address">
-                                                {client.address}
-                                            </p>
-                                            <div className="txn mt-2">
-                                                {client.phone}
-                                            </div>
-                                            <div className="txn mt-2">
-                                                {client.email}
-                                            </div>
+                                    <div>
+                                        <p>Khách hàng,</p>
+                                        <h2>{detailOrder.namedReceiver}</h2>
+                                        <p className="address">
+                                            {detailOrder.address}
+                                        </p>
+                                        <div className="txn mt-2">
+                                            {detailOrder.phoneReceiver}
                                         </div>
-                                    ))}
+                                        <div className="txn mt-2">
+                                            {detailOrder.status}
+                                        </div>
+                                        <div className="txn mt-2">
+                                            {detailOrder.payment}
+                                        </div>
+                                        <div className="txn mt-2">
+                                            {detailOrder.totalPrice}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div className="row row-invoice extra-info pt-3">
@@ -109,12 +113,12 @@ function Invoice() {
                                     </p>
                                 </div>
                                 <div className="col-5">
-                                    {clientOrder.map((client, index) => (
+                                    {/* {clientOrder.map((client, index) => (
                                         <p key={index}>
                                             Ngày đặt hàng:{" "}
                                             <span>{client.dateOrder}</span>
                                         </p>
-                                    ))}
+                                    ))} */}
                                 </div>
                             </div>
                         </div>
@@ -125,51 +129,61 @@ function Invoice() {
                                 <tr>
                                     <td>Sản Phẩm</td>
                                     <td>Đơn Giá</td>
-                                    <td>Size</td>
                                     <td>Số Lượng</td>
                                     <td>Thành Tiền</td>
                                 </tr>
                             </thead>
                             <tbody>
-                                {detailOrder.map((detailOrder, index) => (
-                                    <tr key={index}>
-                                        <td>
-                                            <div className="media">
-                                                <img
-                                                    className="mr-3 img-fluid"
-                                                    src={
-                                                        detailOrder.imageProduct_1
-                                                    }
-                                                    alt="Product"
-                                                />
-                                                <div className="media-body">
-                                                    <p className="mt-0 title">
-                                                        {
-                                                            detailOrder.nameProduct
-                                                        }
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            {new Intl.NumberFormat("vn-VI", {
-                                                style: "currency",
-                                                currency: "VND",
-                                            }).format(detailOrder.priceProduct)}
-                                        </td>
-                                        <td>{detailOrder.size}</td>
-                                        <td>{detailOrder.quantityProduct}</td>
-                                        <td>
-                                            {new Intl.NumberFormat("vn-VI", {
-                                                style: "currency",
-                                                currency: "VND",
-                                            }).format(
-                                                detailOrder.priceProduct *
-                                                    detailOrder.quantityProduct
-                                            )}
-                                        </td>
-                                    </tr>
-                                ))}
+                                {detailOrder.productItems
+                                    ? detailOrder.productItems.map(
+                                          (detailOrder, index) => (
+                                              <tr key={index}>
+                                                  <td>
+                                                      <div className="media">
+                                                          <img
+                                                              className="mr-3 img-fluid"
+                                                              src={`http://localhost:5001/images/products/${detailOrder.imgProduct}`}
+                                                              alt="Image Product"
+                                                          />
+                                                          <div className="media-body">
+                                                              <p className="mt-0 title">
+                                                                  {
+                                                                      detailOrder.nameProduct
+                                                                  }
+                                                              </p>
+                                                          </div>
+                                                      </div>
+                                                  </td>
+                                                  <td>
+                                                      {new Intl.NumberFormat(
+                                                          "vn-VI",
+                                                          {
+                                                              style: "currency",
+                                                              currency: "VND",
+                                                          }
+                                                      ).format(
+                                                          detailOrder.unit_price
+                                                      )}
+                                                  </td>
+                                                  <td>
+                                                      {detailOrder.quantity}
+                                                  </td>
+                                                  <td>
+                                                      {new Intl.NumberFormat(
+                                                          "vn-VI",
+                                                          {
+                                                              style: "currency",
+                                                              currency: "VND",
+                                                          }
+                                                      ).format(
+                                                          detailOrder.unit_price *
+                                                              detailOrder.quantity
+                                                      )}
+                                                  </td>
+                                              </tr>
+                                          )
+                                      )
+                                    : "k"}
                             </tbody>
                         </table>
                     </section>

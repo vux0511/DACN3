@@ -9,13 +9,9 @@ import { Navigate, useNavigate } from "react-router-dom";
 import CALL_URL from "../../api/CALL_URL";
 
 function Order() {
-    const [username, setUsername] = useState("");
+    const [idUser, setIdUser] = useState("");
     const [itemCarts, setItemCarts] = useState([]);
     const [order, setOrder] = useState([]);
-    const [isDisable, setDisable] = useState(true);
-    const [subTotal, setSubTotal] = useState(0);
-    const [quantity, setQuantity] = useState(0);
-    const [size, setSize] = useState(0);
     const navigate = useNavigate();
     const cookies = new Cookies();
 
@@ -27,27 +23,19 @@ function Order() {
     }, []);
 
     useEffect(() => {
-        if (cookies.get("user")) {
-            setUsername(cookies.get("user").username);
-        }
-    }, []);
-
-    useEffect(() => {
         var data = {
-            idUser: cookies.get("user").idUser,
+            idUser: idUser,
         };
         setItemCarts([]);
-        axios.post(CALL_URL.URL_getOrderByUser, data).then((response) => {
-            setOrder(response.data);
-        });
+        axios
+            .get(
+                `${CALL_URL.URL_getOrderByUser}${cookies.get("user").idUser}`,
+                data
+            )
+            .then((response) => {
+                setOrder(response.data);
+            });
     }, []);
-
-    const handleViewOrder = (e) => {
-        e.preventDefault();
-        var data = {
-            idOrder: e.target.value,
-        };
-    };
 
     return (
         <div>
@@ -105,12 +93,14 @@ function Order() {
                                 <tr className="tr-order" key={index}>
                                     <td className="td-order">{index + 1}</td>
                                     <td className="td-order">
-                                        {order.fullname}
+                                        {order.namedReceiver}
                                     </td>
-                                    <td className="td-order">{order.phone}</td>
+                                    <td className="td-order">
+                                        {order.phoneReceiver}
+                                    </td>
                                     <td className="td-order">
                                         <div className="td-address">
-                                            {order.address}
+                                            {order.addressReceiver}
                                         </div>
                                     </td>
                                     <td className="td-order">
@@ -121,9 +111,7 @@ function Order() {
                                     </td>
                                     <td className="td-order">{order.status}</td>
                                     <td className="td-order">
-                                        <a
-                                            href={`/order/invoice/${order.idOrder}`}
-                                        >
+                                        <a href={`/order/invoice/${order._id}`}>
                                             {/* <button
                                                 className="view-invoice"
                                                 onClick={handleViewOrder}
