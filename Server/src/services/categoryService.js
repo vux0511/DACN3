@@ -66,9 +66,40 @@ let removeCategory = (idUser, idCategory) => {
         }
     });
 };
+
+let updateCategory = (idUser, idCategory, item) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let category = await categoryModel.getCategoryById(idCategory);
+            let dataUpdate = {
+                nameCategory: item.nameCategory,
+                imageCategory: item.fileImage
+                    ? item.fileImage.filename
+                    : category.imageCategory,
+                updateAt: Date.now(),
+            };
+            let result = await categoryModel.updateCategory(
+                idCategory,
+                idUser,
+                dataUpdate
+            );
+            if (result) {
+                if (item.fileImage)
+                    await fs.remove(
+                        `${app.image_category_directory}/${category.imageCategory}`
+                    );
+                resolve(true);
+            } else resolve(false);
+        } catch (error) {
+            console.log(error);
+            resolve(false);
+        }
+    });
+};
 export default {
     addNewCategory,
     getNormalCategoies,
     getCategoryByName,
     removeCategory,
+    updateCategory,
 };

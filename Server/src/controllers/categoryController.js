@@ -94,4 +94,27 @@ let removeCategoryById = async (req, res) => {
         res.send(false);
     }
 };
-export default { createNewCategory, getNormalCategoies, removeCategoryById };
+
+let updateCategory = async (req, res) => {
+    avatarUploadFile(req, res, async (error) => {
+        try {
+            let req_user = jwt.verify(req.body.user_token, process.env.JWT_KEY);
+            console.log(req.file);
+            let result = await category.updateCategory(
+                req_user.idUser,
+                req.body.idCategory,
+                { fileImage: req.file, nameCategory: req.body.nameCategory }
+            );
+            result ? res.status(200).send(true) : res.send(false);
+        } catch (error) {
+            console.log(error);
+            res.send(false);
+        }
+    });
+};
+export default {
+    createNewCategory,
+    getNormalCategoies,
+    removeCategoryById,
+    updateCategory,
+};

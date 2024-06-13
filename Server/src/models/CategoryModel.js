@@ -29,6 +29,12 @@ CategorySchema.statics = {
             $and: [{ idUser: idUser }, { _id: idCategory }],
         }).exec();
     },
+    updateCategory(idCategory, idUser, item) {
+        return this.findOneAndUpdate(
+            { $and: [{ _id: idCategory, idUser: idUser }] },
+            item
+        ).exec();
+    },
 };
 
 export default mongoose.model("category", CategorySchema);
