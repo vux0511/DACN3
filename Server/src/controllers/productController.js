@@ -92,6 +92,9 @@ let getProductById = async (req, res) => {
 let getAllProduct = async (req, res) => {
     if (req.params.page) {
         let key_search = "";
+        // 0: tăng dần , 1: giảm dần, 2 : dưới 500, 3: 500-1tr, 4: 1tr-2tr, 5: 1tr-2tr, 6: 2tr-5tr, 7: trên 5tr
+        let sort = "desc";
+
         if (req.query.search) key_search = req.query.search;
         if (req.query.idcategory) key_idCategory = req.query.idcategory;
         let result = await product.getAllProduct(req.params.page, key_search);

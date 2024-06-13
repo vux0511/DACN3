@@ -12,18 +12,22 @@ let createNew = (item) => {
         try {
             let saltRounds = 7;
             const salt = bcrypt.genSaltSync(saltRounds);
-
-            let data = {
-                username: item.username,
-                fullname: item.fullname,
-                gender: item.gender,
-                phone: item.phone,
-                address: item.address,
-                email: item.email,
-                password: bcrypt.hashSync(item.password + "", salt),
-            };
-            let result = await userModel.createNew(data);
-            resolve(result);
+            let checkEmail = await userModel.findByEmail(item.email);
+            if (checkEmail) {
+                let data = {
+                    username: item.username,
+                    fullname: item.fullname,
+                    gender: item.gender,
+                    phone: item.phone,
+                    address: item.address,
+                    email: item.email,
+                    password: bcrypt.hashSync(item.password + "", salt),
+                };
+                let result = await userModel.createNew(data);
+                resolve(result);
+            } else {
+                resolve(false);
+            }
         } catch (err) {
             reject(err);
         }

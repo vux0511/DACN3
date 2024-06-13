@@ -46,6 +46,16 @@ OrderSchema.statics = {
     getListOrderByIdShop(idShop) {
         return this.find({ idShop: idShop }).sort({ updatedAt: -1 });
     },
+    checkOrder(idUser, idProduct) {
+        return this.find({
+            $and: [
+                {
+                    idUser: idUser,
+                    productItems: { $elemMatch: { idProduct: idProduct } },
+                },
+            ],
+        }).exec();
+    },
 };
 
 export default mongoose.model("order", OrderSchema);

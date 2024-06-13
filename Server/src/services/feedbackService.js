@@ -2,6 +2,7 @@ import feedbackModel from "../models/FeedbackModel";
 import { app } from "../config/app";
 import userModel from "../models/userModel";
 import ProductModel from "../models/ProductModel";
+import OrderModel from "../models/OrderModel";
 import jwt from "jsonwebtoken";
 
 const limit_feedback = app.limit_feedback;
@@ -9,17 +10,22 @@ let createNew = (item) => {
     return new Promise(async (resolve, reject) => {
         try {
             let req_user = jwt.verify(item.user_token, process.env.JWT_KEY);
-
-            let data1 = await ProductModel.findProductById(item.idProduct);
-            let data = {
-                idUser: req_user.idUser,
-                idProduct: item.idProduct,
-                rate: item.rate,
-                comment: item.comment,
-            };
-            let result = await feedbackModel.createNew(data);
-            if (result) {
-                resolve(result);
+            console.log(req_user.idUser);
+            console.log(item.idProduct);
+            let result_check = await OrderModel.checkOrder(
+                req_user.idUser,
+                item.idProduct
+            );
+            if (result_check.length > 0) {
+                let data1 = await ProductModel.findProductById(item.idProduct);
+                let data = {
+                    idUser: req_user.idUser,
+                    idProduct: item.idProduct,
+                    rate: item.rate,
+                    comment: item.comment,
+                };
+                let result = await feedbackModel.createNew(data);
+                result ? resolve(result) : resolve(false);
             } else {
                 resolve(false);
             }
