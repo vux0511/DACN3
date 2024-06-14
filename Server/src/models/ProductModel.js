@@ -28,8 +28,9 @@ ProductSchema.statics = {
         return this.findById(idProduct).exec();
     },
 
-    findAllProduct(skipNumber, product_limit, search = "") {
-        return this.find({ nameProduct: { $regex: new RegExp(search, "i") } })
+    findAllProduct(skipNumber, product_limit, filter, sort) {
+        return this.find(filter)
+            .sort(sort)
             .skip(skipNumber)
             .limit(product_limit)
             .exec();

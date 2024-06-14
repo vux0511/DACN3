@@ -154,6 +154,18 @@ let getStatisticalOrderByIdShop = (idShop) => {
     });
 };
 
+let checkOrder = (idUser, idProduct) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let result = await OrderModel.checkOrder(idUser, idProduct);
+            result.length > 0 ? resolve(true) : resolve(false);
+        } catch (error) {
+            console.log(error);
+            resolve(false);
+        }
+    });
+};
+
 export default {
     orderCart,
     getOrderByIdUser,
@@ -161,4 +173,5 @@ export default {
     changeStatus,
     getStatisticalOrderByIdShop,
     getListOrderByIdShop,
+    checkOrder,
 };
