@@ -40,9 +40,9 @@ function Information() {
         toast.error(message, {
             position: "top-right",
             autoClose: 3000,
-            hideProgressBar: false,
+            hideProgressBar: true,
             closeOnClick: true,
-            pauseOnHover: true,
+            pauseOnHover: false,
             draggable: true,
             progress: undefined,
             theme: "colored",
@@ -53,9 +53,9 @@ function Information() {
         toast.success(message, {
             position: "top-right",
             autoClose: 3000,
-            hideProgressBar: false,
+            hideProgressBar: true,
             closeOnClick: true,
-            pauseOnHover: true,
+            pauseOnHover: false,
             draggable: true,
             progress: undefined,
             theme: "colored",

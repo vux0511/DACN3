@@ -46,15 +46,12 @@ function AddProduct() {
     const handleChangeImageCategory1 = (e) => {
         setImageFormData1(e.target.files[0]);
     };
-
     const handleChangeImageCategory2 = (e) => {
         setImageFormData2(e.target.files[0]);
     };
-
     const handleChangeImageCategory3 = (e) => {
         setImageFormData3(e.target.files[0]);
     };
-
     const handleChangeImageCategory4 = (e) => {
         setImageFormData4(e.target.files[0]);
     };
@@ -82,7 +79,7 @@ function AddProduct() {
             .then((response) => {
                 if (response.data) {
                     toast.success("Thêm thành công", {
-                        position: "top-right",
+                        position: "bottom-right",
                         autoClose: 3000,
                         hideProgressBar: false,
                         closeOnClick: true,
@@ -110,6 +107,8 @@ function AddProduct() {
     useEffect(() => {
         axios.get(CALL_URL.URL_getCategory).then((response) => {
             setIdCategory(response.data);
+            setIdCate(response.data[0]._id);
+            // setIdCate()
         });
     }, []);
 
@@ -176,14 +175,12 @@ function AddProduct() {
                                             id="select-category"
                                             className="detail__rating-form-input"
                                         >
-                                            {idCategory.map((idCategory) => (
+                                            {idCategory.map((idCate) => (
                                                 <option
-                                                    value={
-                                                        idCategory.idCategory
-                                                    }
-                                                    key={idCategory.idCategory}
+                                                    value={idCate._id}
+                                                    key={idCate._id}
                                                 >
-                                                    {idCategory.nameCategory}
+                                                    {idCate.nameCategory}
                                                 </option>
                                             ))}
                                         </select>

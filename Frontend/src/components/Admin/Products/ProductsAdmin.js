@@ -24,17 +24,18 @@ function ProductAdmin() {
         e.preventDefault();
         var data = {
             idProduct: e.target.value,
-            user_token: cookies.get("user_token"),
+            user_token: cookies.get("usertoken"),
         };
+
         axios.post(CALL_URL.URL_deleteProduct, data).then((response) => {
             const updatedItemsProducts = itemProducts.filter((item) => {
                 if (item._id === data.idProduct) {
                     toast.success("Xoá thành công", {
                         position: "top-right",
                         autoClose: 2000,
-                        hideProgressBar: false,
+                        hideProgressBar: true,
                         closeOnClick: true,
-                        pauseOnHover: true,
+                        pauseOnHover: false,
                         draggable: true,
                         progress: undefined,
                         theme: "colored",

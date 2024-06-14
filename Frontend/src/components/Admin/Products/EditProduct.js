@@ -88,10 +88,10 @@ function EditProduct() {
                 if (response.data) {
                     toast.success("Sửa thành công", {
                         position: "top-right",
-                        autoClose: 4000,
+                        autoClose: 3000,
                         hideProgressBar: true,
                         closeOnClick: true,
-                        pauseOnHover: true,
+                        pauseOnHover: false,
                         draggable: true,
                         progress: undefined,
                         theme: "colored",
@@ -99,10 +99,10 @@ function EditProduct() {
                 } else {
                     toast.success("Sửa thất bại", {
                         position: "top-right",
-                        autoClose: 4000,
+                        autoClose: 3000,
                         hideProgressBar: true,
                         closeOnClick: true,
-                        pauseOnHover: true,
+                        pauseOnHover: false,
                         draggable: true,
                         progress: undefined,
                         theme: "colored",

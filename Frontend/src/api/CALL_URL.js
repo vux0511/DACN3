@@ -4,12 +4,11 @@ const URL = "http://localhost:5001";
 export default {
     URL_getProduct: URL + "/product/get-all/1",
     URL_getCategory: URL + "/category/get-list",
-    URL_getProductCategory: URL + "/getProductCategory.php",
+    URL_getProductCategory: URL + "/product/get-all/all",
     URL_getProductDetail: URL + "/product/detail",
     URL_getProductRelated: URL + "/getProductRelated.php",
     URL_searchProduct: URL + "/product/get-all/1",
     URL_getInformation: URL + "/getInformation.php",
-    URL_getProductCategory: URL + "/getProductCategory.php",
     URL_updateCart: URL + "/cart/update-quantity-cart",
     URL_deleteCart: URL + "/cart/remove-product-cart",
     URL_getCart: URL + "/cart/get-cart-by-idUser/",
@@ -40,6 +39,8 @@ export default {
     URL_getTopProduct: URL + "/product/get-all/1",
     URL_getNewProduct: URL + "/getNewProduct.php",
     URL_setInfor: URL + "/user/update-user",
-
+    URL_checkOrdered: URL + "/order/check-order",
+    URL_setFeedback: URL + "/feedback/add-new",
+    URL_getFeedbackByIdProduct: URL + "/feedback/get-list/",
     // setInfor.php
 };

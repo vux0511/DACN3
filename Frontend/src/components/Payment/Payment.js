@@ -94,7 +94,7 @@ function Payment() {
                 autoClose: 4000,
                 hideProgressBar: true,
                 closeOnClick: true,
-                pauseOnHover: true,
+                pauseOnHover: false,
                 draggable: true,
                 progress: undefined,
                 theme: "colored",
