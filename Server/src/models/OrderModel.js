@@ -46,6 +46,9 @@ OrderSchema.statics = {
     getListOrderByIdShop(idShop) {
         return this.find({ idShop: idShop }).sort({ updatedAt: -1 });
     },
+    getListOrder() {
+        return this.find().sort({ updatedAt: -1 });
+    },
     checkOrder(idUser, idProduct) {
         return this.find({
             $and: [
