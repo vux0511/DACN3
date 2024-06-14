@@ -12,6 +12,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { TbTruckDelivery } from "react-icons/tb";
 import { GiMoneyStack } from "react-icons/gi";
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
+import { RiAlarmWarningLine } from "react-icons/ri";
 import { Rate } from "antd";
 import { Input } from "antd";
 const { TextArea } = Input;
@@ -20,9 +21,22 @@ function DetailProduct(data) {
     const [productRelated, setProductRelated] = useState([]);
     const [detailProduct, setDetailProduct] = useState([]);
     const [checked, setChecked] = useState();
+    const [checkOrder, setCheckOrder] = useState();
+    const [feedBack, setFeedBack] = useState("");
+    const [averageRating, setAverageRating] = useState();
+    const [listFeedBack, setListFeedBack] = useState([]);
+    const [rate, setRate] = useState(5);
     const cookies = new Cookies();
     const [userName, setUsername] = useState("");
     const { productId } = useParams();
+
+    const handleChangeRating = (value) => {
+        setRate(value);
+    };
+
+    const handleChangeFeedback = (e) => {
+        setFeedBack(e.target.value);
+    };
 
     useEffect(() => {
         if (cookies.get("user")) {
@@ -42,6 +56,51 @@ function DetailProduct(data) {
             });
     }, [productId]);
 
+    // Check đã mua hàng chưa
+    useEffect(() => {
+        var data = {
+            user_token: cookies.get("user_token"),
+            idProduct: productId,
+        };
+        axios.post(CALL_URL.URL_checkOrdered, data).then((response) => {
+            setCheckOrder(response.data);
+        });
+    }, []);
+
+    // Đánh giá
+    const handleSetFeedBack = (e) => {
+        e.preventDefault();
+        var data = {
+            user_token: cookies.get("user_token"),
+            idProduct: productId,
+            rate: rate,
+            comment: feedBack,
+        };
+        if (data.comment !== "") {
+            axios.post(CALL_URL.URL_setFeedback, data).then((response) => {
+                toast.success("Đánh giá thành công", {
+                    position: "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+            });
+        } else {
+            toast.warning("Bạn phải điền đủ các trường", {
+                position: "bottom-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: false,
+                // draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+        }
+    };
+
     const numberFormat = (number) => {
         return new Intl.NumberFormat("vi-VN", {
             style: "currency",
@@ -49,12 +108,27 @@ function DetailProduct(data) {
         }).format(number);
     };
 
-    // // View Product
-    // useEffect(() => {
-    //     axios
-    //         .get(`${CALL_URL.URL_setViewProduct}?idproduct=${productId}`)
-    //         .then((response) => {});
-    // }, []);
+    // Get feedback
+    useEffect(() => {
+        var data = {
+            idProduct: productId,
+        };
+        axios
+            .get(`${CALL_URL.URL_getFeedbackByIdProduct}${productId}/1`)
+            .then((response) => {
+                setListFeedBack(response.data);
+                const ratings = response.data.map((rate) => rate.rate);
+                const totalRating = ratings.reduce(
+                    (acc, rate) => acc + rate,
+                    0
+                );
+                setAverageRating(
+                    ratings.length > 0
+                        ? (totalRating / ratings.length).toFixed(2)
+                        : 0
+                );
+            });
+    }, []);
 
     // SP liên quan
     // useEffect(() => {
@@ -73,9 +147,7 @@ function DetailProduct(data) {
                 {
                     position: "top-right",
                     autoClose: 5000,
-                    hideProgressBar: false,
                     closeOnClick: true,
-                    pauseOnHover: true,
                     draggable: true,
                     progress: undefined,
                     theme: "colored",
@@ -93,11 +165,9 @@ function DetailProduct(data) {
 
             axios.post(CALL_URL.URL_setCart, data).then((response) => {
                 toast.info("Thêm thành công", {
-                    position: "top-right",
+                    position: "bottom-right",
                     autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
+                    pauseOnHover: false,
                     draggable: true,
                     progress: undefined,
                     theme: "colored",
@@ -113,8 +183,6 @@ function DetailProduct(data) {
         var SmallImg = document.getElementsByClassName(event.target.className);
         ProductImg.src = SmallImg[0].src;
     };
-
-    // const onSubmit = () => {};
 
     return (
         <>
@@ -225,21 +293,26 @@ function DetailProduct(data) {
                     <div className="detail__rating-view">
                         <div className="detail__rating-view-wrapper">
                             <div className="detail__rating-view-score">
-                                4.5<span>/5</span>
+                                {averageRating ? averageRating : "loading"}
+                                <span>/5</span>
                             </div>
                             <Rate
                                 allowHalf
-                                defaultValue={4}
+                                value={
+                                    averageRating ? averageRating : "loading"
+                                }
                                 disabled
-                                // style={{ color: "#fada15" }}
                                 className="detail__rating-view-star"
                             />
                             <div className="detail__rating-view-total">
-                                Được tính bởi 20 Đánh giá
+                                điểm đánh giá trung bình
                             </div>
                         </div>
                     </div>
-                    <form className="detail__rating-form">
+                    <form
+                        className="detail__rating-form"
+                        onSubmit={handleSetFeedBack}
+                    >
                         <div className="detail__rating-form-heading">
                             Đánh giá sản phẩm
                         </div>
@@ -251,11 +324,8 @@ function DetailProduct(data) {
                         </label>
                         <Rate
                             id="star"
-                            allowHalf
                             defaultValue={5}
-                            onChange={(value) => {
-                                console.log(value);
-                            }}
+                            onChange={handleChangeRating}
                             style={{
                                 size: "30px",
                             }}
@@ -270,6 +340,7 @@ function DetailProduct(data) {
                         <TextArea
                             id="comment"
                             placeholder="Đánh giá sản phẩm"
+                            onChange={handleChangeFeedback}
                             style={{
                                 width: "100%",
                                 padding: "10px 20px",
@@ -282,7 +353,14 @@ function DetailProduct(data) {
                                 minRows: 3,
                             }}
                         />
-                        <button className="button-rating">Đánh giá</button>
+                        {checkOrder === true ? (
+                            <button className="button-rating">Đánh giá</button>
+                        ) : (
+                            <div className="detail__title-error">
+                                <RiAlarmWarningLine />{" "}
+                                <p>Bạn phải mua sản phẩm trước khi đánh giá!</p>
+                            </div>
+                        )}
                     </form>
                 </div>
                 <div className="detail__rating-list">
@@ -290,44 +368,52 @@ function DetailProduct(data) {
                         Danh sách đánh giá
                     </div>
                     <div className="detail__rating-list-wrapper">
-                        <div className="detail__rating-list-items">
-                            <div className="detail__rating-list-user">
-                                <img
-                                    src="https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745"
-                                    alt=""
-                                    className="detail__rating-user-avatar"
-                                />
-                                <div>
-                                    <div className="detail__rating-list-user-right">
-                                        <div className="detail__rating-list-user-name">
-                                            Hoàng Văn Vũ
-                                        </div>
-                                        <div className="detail__rating-list-user-time">
-                                            <AiOutlineClockCircle />
-                                            16/5/2024 <span>14:28</span>
+                        {listFeedBack.length > 0 ? (
+                            listFeedBack.map((list, index) => (
+                                <div
+                                    className="detail__rating-list-items"
+                                    key={index}
+                                >
+                                    <div className="detail__rating-list-user">
+                                        <img
+                                            src="https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745"
+                                            alt=""
+                                            className="detail__rating-user-avatar"
+                                        />
+                                        <div>
+                                            <div className="detail__rating-list-user-right">
+                                                <div className="detail__rating-list-user-name">
+                                                    {list.user.email}
+                                                </div>
+                                                <div className="detail__rating-list-user-time">
+                                                    <AiOutlineClockCircle />
+                                                    16/5/2024 <span>14:28</span>
+                                                </div>
+                                            </div>
+                                            <div className="detail__rating-list-star">
+                                                <Rate
+                                                    allowHalf
+                                                    value={list.rate}
+                                                    disabled
+                                                    style={{
+                                                        fontSize: "15px",
+                                                    }}
+                                                    className="detail__rating-view-star"
+                                                />
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="detail__rating-list-star">
-                                        <Rate
-                                            allowHalf
-                                            defaultValue={5}
-                                            disabled
-                                            style={{ fontSize: "15px" }}
-                                            className="detail__rating-view-star"
-                                        />
+                                    <div className="detail__rating-list-review">
+                                        {list.comment}
                                     </div>
                                 </div>
+                            ))
+                        ) : (
+                            <div className="detail__title-error">
+                                <RiAlarmWarningLine />{" "}
+                                <p>Sản phẩm chưa có đánh giá!</p>
                             </div>
-                            <div className="detail__rating-list-review">
-                                Sản phẩm mua rất ưng ý với sở thích, thiết kế
-                                sang trọng đẹp mắt...rất xứng đáng với đồng tiền
-                                Nhiều tính năng mới đang và khám phá Trải nghiệm
-                                mua hàng rất hài lòng, anh Quốc Khại tư vấn rất
-                                nhiệt tình, vui vẻ, đáng tin cậy, và an tâm hơn
-                                khi mua hàng ở Cellphones Và sẽ giới thiệu cho
-                                người thân khi mua sản phẩm tại đây ! ❤️
-                            </div>
-                        </div>
+                        )}
                     </div>
                 </div>
             </div>

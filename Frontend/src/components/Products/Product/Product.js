@@ -10,39 +10,21 @@ import CALL_URL from "../../../api/CALL_URL";
 function Product({ setCartCount, cartCount, idProduct, data, productRelated }) {
     const cookies = new Cookies();
     const navigate = useNavigate();
-    const [username, setUsername] = useState("");
+    const [userName, setUsername] = useState("");
 
     useEffect(() => {
         if (cookies.get("user")) {
-            setUsername(cookies.get("user").username);
+            setUsername(cookies.get("user").email);
+        } else {
+            setUsername("empty");
         }
     }, []);
 
-    const handleAddToCart = (e) => {
-        if (username === "") {
-            toast.error(
-                "Bạn phải đăng nhập trước khi thêm sản phẩm vào giỏ hàng",
-                {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                }
-            );
-        } else {
-            var data = {
-                idUser: cookies.get("user").idUser,
-                idProduct: e.target.id,
-            };
-            console.log(data);
-            axios.post(CALL_URL.URL_setCart, data).then((response) => {
-                console.log(response.data);
-            });
-        }
+    const numberFormat = (number) => {
+        return new Intl.NumberFormat("vi-VN", {
+            style: "currency",
+            currency: "VND",
+        }).format(number);
     };
 
     return (
@@ -55,7 +37,10 @@ function Product({ setCartCount, cartCount, idProduct, data, productRelated }) {
                     })
                 }
             >
-                <img src={data.imageProduct_1} alt="" />
+                <img
+                    src={`http://localhost:5001/images/products/${data.image?.img1}`}
+                    className="small-img1"
+                />
             </div>
             <div className="product-detail">
                 <a href="/product/1" className="clear">
@@ -74,11 +59,19 @@ function Product({ setCartCount, cartCount, idProduct, data, productRelated }) {
                         </div>
                     </a>
                     <div className="add-cart-btn">
-                        <span className="price">{data.priceProduct}đ</span>
+                        <span className="price">
+                            {numberFormat(data.price)}
+                        </span>
                         <button
                             className="add-to-cart-btn"
-                            id={data.idProduct}
-                            onClick={handleAddToCart}
+                            // id={data.idProduct}
+                            // onClick={handleAddToCart}
+                            id={data._id}
+                            onClick={() =>
+                                navigate(`/product/${data._id}`, {
+                                    idProduct: data,
+                                })
+                            }
                         >
                             Thêm giỏ hàng
                         </button>

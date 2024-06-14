@@ -1,7 +1,7 @@
 .products-container {
-    margin: 50px 0;
+    margin: 20px 0;
     @include md {
-        margin: 75px 0;
+        margin: 20px 0;
     }
     .sec-heading {
         margin-bottom: 20px;
@@ -44,4 +44,10 @@
 
 .Toastify__toast {
     box-shadow: 0px 0px #888888 !important;
+}
+
+.products-wrappper {
+    background-color: $white-color;
+    border-radius: 6px;
+    padding: 25px 20px;
 }

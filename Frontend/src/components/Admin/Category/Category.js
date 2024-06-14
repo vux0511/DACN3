@@ -32,9 +32,9 @@ function CategoryAdmin() {
                     toast.success("Xoá danh mục thành công", {
                         position: "top-right",
                         autoClose: 3000,
-                        hideProgressBar: false,
+                        hideProgressBar: true,
                         closeOnClick: true,
-                        pauseOnHover: true,
+                        pauseOnHover: false,
                         draggable: true,
                         progress: undefined,
                         theme: "colored",

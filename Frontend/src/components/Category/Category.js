@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import $ from "jquery";
-import { FiChevronDown } from "react-icons/fi";
 import CALL_URL from "../../api/CALL_URL";
 
 function Category() {
@@ -14,7 +13,7 @@ function Category() {
 
     const handleClick = (id, idCategory) => {
         setActiveCategoryId(id);
-        navigate(`/product/category/${idCategory}`);
+        navigate(`/product/category/${idCategory}?sort_price=1`);
     };
 
     useEffect(() => {
@@ -38,20 +37,17 @@ function Category() {
                         Tất Cả Sản Phẩm
                     </button>
                     {/* Map */}
-                    {category.map((cate) => (
+                    {category.map((cate, index) => (
                         <button
-                            key={cate.idCategory}
-                            id={`button${cate.idCategory}`}
+                            key={index}
+                            id={`button${cate._id}`}
                             className={
-                                activeCategoryId === `button${cate.idCategory}`
+                                activeCategoryId === `button${cate._id}`
                                     ? "active"
                                     : ""
                             }
                             onClick={() =>
-                                handleClick(
-                                    `button${cate.idCategory}`,
-                                    cate.idCategory
-                                )
+                                handleClick(`button${cate._id}`, cate._id)
                             }
                         >
                             {cate.nameCategory}

@@ -44,7 +44,7 @@ function AddCategory() {
                 console.log(response.data);
                 if (response.data) {
                     toast.success("Thêm thành công", {
-                        position: "top-right",
+                        position: "bottom-right",
                         autoClose: 3000,
                         hideProgressBar: false,
                         closeOnClick: true,

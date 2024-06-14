@@ -29,12 +29,16 @@ a:hover {
     margin: 0 auto;
     font-weight: 600;
     font-size: 14px;
-    background-color: #ffffff;
     border-radius: 8px;
     padding: 12px 25px;
     border: none;
-    color: #ea5e27;
     cursor: pointer;
 }
 
 // border-bottom: 1px solid #ebf0f9;
+// <img
+//     src={`http://localhost:5001/images/products/${detailProduct.image?.img1}`}
+//     alt=""
+//     className="small-img1"
+//     onClick={handleImage}
+// />
