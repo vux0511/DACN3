@@ -29,24 +29,35 @@ let getProductById = (idProduct) => {
     });
 };
 
-let getAllProduct = (page, key_search) => {
+let getAllProduct = (
+    page,
+    key_search,
+    filter_price,
+    key_idCategory = "",
+    sort_price,
+    sort_createAt
+) => {
     return new Promise(async (resolve, reject) => {
         try {
             let filter = {
                 nameProduct: { $regex: new RegExp(key_search, "i") },
+                ...filter_price,
             };
+            let sort = {};
+            if (sort_price !== 0) sort.price = Number(sort_price);
+            if (sort_createAt !== 0) sort.createAt = Number(sort_createAt);
+            if (key_idCategory !== "") filter.idCategory = key_idCategory;
             let count_product = await ProductModel.getCountProduct(filter);
-            // console.log(count_product)  ;
             if (count_product == 0) {
                 // nếu ko tìm tháy sản phẩmphẩm
-                resolve([]); // muốn tra về như thế này ko a
+                resolve([]);
             } else if (page == "all") {
                 let result = await ProductModel.findAllProduct(
                     1,
                     count_product,
-                    key_search
+                    filter,
+                    sort
                 );
-                // console.log(result) ;
 
                 resolve(result);
             } else if (!isNaN(page)) {
@@ -63,9 +74,9 @@ let getAllProduct = (page, key_search) => {
                     let result = await ProductModel.findAllProduct(
                         skipNumber,
                         product_limit,
-                        key_search
+                        filter,
+                        sort
                     );
-                    // console.log(result) ;
                     if (result) {
                         resolve(result);
                     } else {
@@ -78,6 +89,7 @@ let getAllProduct = (page, key_search) => {
                 resolve(false);
             }
         } catch (error) {
+            console.log(error);
             resolve(false);
         }
     });

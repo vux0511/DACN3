@@ -92,12 +92,35 @@ let getProductById = async (req, res) => {
 let getAllProduct = async (req, res) => {
     if (req.params.page) {
         let key_search = "";
-        // 0: tăng dần , 1: giảm dần, 2 : dưới 500, 3: 500-1tr, 4: 1tr-2tr, 5: 1tr-2tr, 6: 2tr-5tr, 7: trên 5tr
-        let sort = "desc";
+        let key_idCategory = "";
+        let sort_price = 0;
+        let sort_createAt = 0;
 
+        // 0: tăng dần , 1: giảm dần, 2 : dưới 500, 3: 500-1tr, 4: 1tr-2tr, 5: 1tr-2tr, 6: 2tr-5tr, 7: trên 5tr
+        let filtePrice_data = [
+            { price: { $lt: 500 } }, //0
+            { $and: [{ price: { $gte: 500 } }, { price: { $lt: 1000 } }] }, //1
+            { $and: [{ price: { $gte: 1000 } }, { price: { $lt: 2000 } }] }, //2
+            { $and: [{ price: { $gte: 2000 } }, { price: { $lt: 5000 } }] }, //3
+            { price: { $gte: 5000 } }, //4
+        ];
+        let filter_price = { price: { $gte: 0 } };
+        if (req.query.filter_price)
+            filter_price = filtePrice_data[req.query.filter_price];
         if (req.query.search) key_search = req.query.search;
         if (req.query.idcategory) key_idCategory = req.query.idcategory;
-        let result = await product.getAllProduct(req.params.page, key_search);
+        if (req.query.sort_price) sort_price = req.query.sort_price;
+        if (req.query.sort_createAt) sort_createAt = req.query.sort_createAt;
+
+        let result = await product.getAllProduct(
+            req.params.page,
+            key_search,
+            filter_price,
+            key_idCategory,
+            sort_price,
+            sort_createAt
+        );
+
         if (result) {
             res.status(200).send(result);
         } else {
@@ -116,11 +139,9 @@ let updateProduct = async (req, res) => {
                 req.body,
                 req.files
             );
-            console.log(result);
             if (result) {
                 res.status(200).send(true);
             } else {
-                console.log("xìn chào");
                 res.send(false);
             }
         } catch (error) {
@@ -133,7 +154,6 @@ let updateProduct = async (req, res) => {
 let updateImage = async (req, res) => {
     ImgProductUploadFile(req, res, async (error) => {
         try {
-            console.log(result);
             res.send("oke");
         } catch (error) {
             console.log(error);

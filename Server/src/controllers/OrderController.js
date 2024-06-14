@@ -7,7 +7,6 @@ import { order, product } from "../services/index";
 let orderCart = async (req, res) => {
     try {
         if (!_.isEmpty(req.body)) {
-            console.log(req.body.user_token);
             let req_user = jwt.verify(req.body.user_token, process.env.JWT_KEY);
 
             let cartUser = req.body.shippintInfor;
@@ -56,7 +55,7 @@ let getOrderById = async (req, res) => {
 
 let changeStatus = async (req, res) => {
     if (_.isEmpty(req.body)) {
-        res.send(transValidation.data_empty);
+        res.send(false);
     } else {
         let idOrder = req.body.idOrder;
         let status = Number(req.body.statusOrder);
@@ -69,9 +68,27 @@ let changeStatus = async (req, res) => {
     }
 };
 
+let checkOrder = async (req, res) => {
+    if (_.isEmpty(req.body)) {
+        res.send(false);
+    } else {
+        try {
+            let req_user = jwt.verify(req.body.user_token, process.env.JWT_KEY);
+            let resultCheck = await order.checkOrder(
+                req_user.idUser,
+                req.body.idProduct
+            );
+            resultCheck ? res.send(true) : res.send(false);
+        } catch (error) {
+            console.log(error);
+            res.send(false);
+        }
+    }
+};
 export default {
     orderCart,
     getOrderByIdUser,
     getOrderById,
     changeStatus,
+    checkOrder,
 };

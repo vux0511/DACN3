@@ -10,8 +10,6 @@ let createNew = (item) => {
     return new Promise(async (resolve, reject) => {
         try {
             let req_user = jwt.verify(item.user_token, process.env.JWT_KEY);
-            console.log(req_user.idUser);
-            console.log(item.idProduct);
             let result_check = await OrderModel.checkOrder(
                 req_user.idUser,
                 item.idProduct

@@ -68,6 +68,7 @@ let initRouter = (app) => {
     router.get("/order/getall/:idUser", order.getOrderByIdUser);
     router.get("/order/get-id/:idOrder", order.getOrderById);
     router.post("/order/change-status-order", order.changeStatus);
+    router.post("/order/check-order", order.checkOrder);
 
     router.get("/images/:path/:name_image", getFileImage); // lấy ảnh từ server
 
