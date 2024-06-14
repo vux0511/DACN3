@@ -61,9 +61,9 @@ let changeStatus = async (req, res) => {
         let status = Number(req.body.statusOrder);
         let result = await order.changeStatus(idOrder, status);
         if (result) {
-            res.status(200).send(transSuccess.changeStatus);
+            res.status(200).send(true);
         } else {
-            res.send(transError.changeStatus);
+            res.send(false);
         }
     }
 };
@@ -85,10 +85,20 @@ let checkOrder = async (req, res) => {
         }
     }
 };
+
+let getListOrder = async (req, res) => {
+    let result = await order.getListOrder();
+    if (result) {
+        res.status(200).send(result);
+    } else {
+        res.send(false);
+    }
+};
 export default {
     orderCart,
     getOrderByIdUser,
     getOrderById,
     changeStatus,
     checkOrder,
+    getListOrder,
 };

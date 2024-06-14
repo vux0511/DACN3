@@ -6,6 +6,7 @@ import {
     category,
     feedback,
     order,
+    viewed,
 } from "../controllers/index";
 import getFileImage from "../helpers/getFile";
 
@@ -45,6 +46,7 @@ let initRouter = (app) => {
         product.getProductByIdCategory
     );
     router.post("/product/remove-by-idProduct", product.removeProduct);
+    router.get("/product/get-recommend", product.getProductByRecommend);
 
     // Cart ----------
     router.post("/cart/add-new", cart.addItemCart); // thêm một sản phẩm vào trong giỏ hàng
@@ -69,6 +71,9 @@ let initRouter = (app) => {
     router.get("/order/get-id/:idOrder", order.getOrderById);
     router.post("/order/change-status-order", order.changeStatus);
     router.post("/order/check-order", order.checkOrder);
+    router.get("/order/get-list", order.getListOrder);
+
+    router.post("/viewed/add-new", viewed.createNew);
 
     router.get("/images/:path/:name_image", getFileImage); // lấy ảnh từ server
 

@@ -54,22 +54,6 @@ let getOrderById = (idOrder) => {
     });
 };
 
-// get list order by idShop
-let getListOrderByIdShop = (idShop) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            let result = await OrderModel.getListOrderByIdShop(idShop);
-            if (result) {
-                resolve(result);
-            } else {
-                resolve(false);
-            }
-        } catch (error) {
-            reject(error);
-        }
-    });
-};
-
 let changeStatus = (idOrder, statusChange) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -166,12 +150,24 @@ let checkOrder = (idUser, idProduct) => {
     });
 };
 
+let getListOrder = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let result = await OrderModel.getListOrder();
+            result.length > 0 ? resolve(result) : resolve(false);
+        } catch (error) {
+            console.log(error);
+            resolve(false);
+        }
+    });
+};
+
 export default {
     orderCart,
     getOrderByIdUser,
     getOrderById,
     changeStatus,
     getStatisticalOrderByIdShop,
-    getListOrderByIdShop,
     checkOrder,
+    getListOrder,
 };

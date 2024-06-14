@@ -212,6 +212,26 @@ let removeProduct = async (req, res) => {
         res.send(false);
     }
 };
+let getProductByRecommend = async (req, res) => {
+    try {
+        if (!_.isEmpty(req.body)) {
+            let req_user = jwt.verify(req.body.user_token, process.env.JWT_KEY);
+
+            let idUser = req_user.idUser;
+            let result = await product.getProductByRecommend(idUser);
+            if (result) {
+                res.status(200).send(result);
+            } else {
+                res.send(false);
+            }
+        } else {
+            res.send(false);
+        }
+    } catch (error) {
+        console.log(error);
+        res.send(false);
+    }
+};
 
 export default {
     createNewProduct,
@@ -223,4 +243,5 @@ export default {
     // searchProduct,
     getProductByIdCategory,
     removeProduct,
+    getProductByRecommend,
 };

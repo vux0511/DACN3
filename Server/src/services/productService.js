@@ -2,6 +2,8 @@ import ProductModel from "../models/ProductModel";
 import { app } from "../config/app";
 import fs from "fs-extra";
 import { transError, transSuccess } from "../../lang/vi";
+import ContentBasedRecommender from "content-based-recommender";
+import ViewedModel from "../models/ViewedModel";
 
 let product_limit = app.limit_product;
 
@@ -53,7 +55,7 @@ let getAllProduct = (
                 resolve([]);
             } else if (page == "all") {
                 let result = await ProductModel.findAllProduct(
-                    1,
+                    0,
                     count_product,
                     filter,
                     sort
@@ -298,6 +300,23 @@ let removeProduct = (idUser, idProduct) => {
     });
 };
 
+let getProductByRecommend = (idUser) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let product_data = await ProductModel.findAllDataRecommend();
+            console.log("idol qq");
+            console.log(product_data);
+            let result_view = await ViewedModel.getViewedByUser(idUser);
+            console.log(result_view);
+            if (product_data) resolve(true);
+            else resolve(false);
+        } catch (error) {
+            console.log(error);
+            resolve(false);
+        }
+    });
+};
+
 export default {
     addNewProduct,
     getProductById,
@@ -312,4 +331,5 @@ export default {
     updateQuantity,
     checkQuanity,
     removeProduct,
+    getProductByRecommend,
 };

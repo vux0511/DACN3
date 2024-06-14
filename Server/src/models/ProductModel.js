@@ -35,7 +35,9 @@ ProductSchema.statics = {
             .limit(product_limit)
             .exec();
     },
-
+    findAllDataRecommend() {
+        return this.find({}, "_id, nameProduct").sort({ createAt: -1 }).exec();
+    },
     getCountProduct(filter = {}) {
         return this.where(filter).count();
     },
