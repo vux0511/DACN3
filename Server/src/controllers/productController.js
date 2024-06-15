@@ -214,8 +214,11 @@ let removeProduct = async (req, res) => {
 };
 let getProductByRecommend = async (req, res) => {
     try {
-        if (!_.isEmpty(req.body)) {
-            let req_user = jwt.verify(req.body.user_token, process.env.JWT_KEY);
+        if (!_.isEmpty(req.query.user_token)) {
+            let req_user = jwt.verify(
+                req.query.user_token,
+                process.env.JWT_KEY
+            );
 
             let idUser = req_user.idUser;
             let result = await product.getProductByRecommend(idUser);
