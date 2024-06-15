@@ -42,5 +42,7 @@ export default {
     URL_checkOrdered: URL + "/order/check-order",
     URL_setFeedback: URL + "/feedback/add-new",
     URL_getFeedbackByIdProduct: URL + "/feedback/get-list/",
+    URL_setViewed: URL + "/viewed/add-new",
+    URL_getRecommend: URL + "/product/get-recommend",
     // setInfor.php
 };

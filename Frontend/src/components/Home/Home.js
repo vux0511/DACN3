@@ -5,19 +5,21 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import Products from "../Products/Products";
 import TopProducts from "../Products/Product/TopProducts";
-import NewProduct from "../Products/Product/NewProduct";
 import { useState, useEffect, CSSProperties } from "react";
 import axios from "axios";
 import CALL_URL from "../../api/CALL_URL";
 import { useNavigate, useParams } from "react-router-dom";
+import Recommend from "../Products/Product/Recommend";
+import Cookies from "universal-cookie";
 
 function Home({ setCartCount, cartCount }) {
     const [products, setProducts] = useState([]);
     const [category, setCategory] = useState([]);
     const [topProduct, setTopProduct] = useState([]);
-    const [newProduct, setNewProduct] = useState([]);
+    const [recommend, setRecommend] = useState([]);
     const navigate = useNavigate();
     const { categoryId } = useParams();
+    const cookies = new Cookies();
 
     useEffect(() => {
         axios.get(CALL_URL.URL_getProduct).then((response) => {
@@ -32,11 +34,23 @@ function Home({ setCartCount, cartCount }) {
         });
     }, []);
 
-    // New Products
+    // Recommend Products
     useEffect(() => {
-        axios.get(CALL_URL.URL_getNewProduct).then((response) => {
-            setNewProduct(response.data);
-        });
+        // axios
+        //     .get(
+        //         `${CALL_URL.URL_getRecommend}?user_token=${cookies.get(
+        //             "user_token"
+        //         )}`
+        //     )
+        //     .then((response) => {
+        //         setRecommend(response.data);
+        //         console.log(response.data);
+        //     });
+        console.log(
+            `${CALL_URL.URL_getRecommend}?user_token=${cookies.get(
+                "user_token"
+            )}`
+        );
     }, []);
 
     // Get category list
@@ -55,7 +69,7 @@ function Home({ setCartCount, cartCount }) {
                     <TopProducts topProduct={topProduct} />
                     <CategoryHome />
                     <BannerProduct />
-                    <NewProduct newProduct={newProduct} />
+                    {/* <Recommend recommend={recommend} /> */}
                 </div>
             </div>
             <Footer />

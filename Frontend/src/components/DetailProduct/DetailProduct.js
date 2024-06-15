@@ -33,55 +33,30 @@ function DetailProduct(data) {
     const { productId } = useParams();
     const navigate = useNavigate();
     const [visible, setVisible] = useState(4);
+    const ref = useRef(null);
 
     const handleChangeRating = (value) => {
         setRate(value);
     };
-
     const showMoreItems = () => {
         setVisible((prevValue) => prevValue + 4);
     };
-
-    const handleChangeFeedback = (e) => {
-        setFeedBack(e.target.value);
-    };
-
-    useEffect(() => {
-        if (cookies.get("user")) {
-            setUsername(cookies.get("user").email);
-        } else {
-            setUsername("empty");
-        }
-    }, []);
-
     const convertTimestampToDateTime = (timestamp) => {
         if (!timestamp) {
             return "";
         }
         return moment(Number(timestamp)).format("MMMM Do YYYY, h:mm:ss a");
     };
+    const handleChangeFeedback = (e) => {
+        setFeedBack(e.target.value);
+    };
+    const numberFormat = (number) => {
+        return new Intl.NumberFormat("vi-VN", {
+            style: "currency",
+            currency: "VND",
+        }).format(number);
+    };
 
-    // Chi tiết SP
-    useEffect(() => {
-        axios
-            .get(`${CALL_URL.URL_getProductDetail}/?idProduct=${productId}`)
-            .then((response) => {
-                setDetailProduct(response.data);
-            });
-    }, [productId]);
-
-    // Check đã mua hàng chưa
-    useEffect(() => {
-        var data = {
-            user_token: cookies.get("user_token"),
-            idProduct: productId,
-        };
-        axios.post(CALL_URL.URL_checkOrdered, data).then((response) => {
-            setCheckOrder(response.data);
-        });
-    }, []);
-
-    // Đánh giá
     const handleSetFeedBack = (e) => {
         e.preventDefault();
         var data = {
@@ -115,12 +90,48 @@ function DetailProduct(data) {
         }
     };
 
-    const numberFormat = (number) => {
-        return new Intl.NumberFormat("vi-VN", {
-            style: "currency",
-            currency: "VND",
-        }).format(number);
-    };
+    useEffect(() => {
+        if (cookies.get("user")) {
+            setUsername(cookies.get("user").email);
+        } else {
+            setUsername("empty");
+        }
+    }, []);
+
+    // Get details and Recommend
+    useEffect(() => {
+        axios
+            .get(`${CALL_URL.URL_getProductDetail}/?idProduct=${productId}`)
+            .then((response) => {
+                setDetailProduct(response.data);
+                setTimeout(() => {
+                    data = {
+                        user_token: cookies.get("user_token"),
+                        idProduct: response.data._id,
+                        nameProduct: response.data.nameProduct,
+                    };
+                    console.log(cookies.get("user_token"));
+                    axios
+                        .post(CALL_URL.URL_setViewed, data)
+                        .then((response) => {
+                            console.log(response.data);
+                        });
+                }, 5000);
+            });
+    }, []);
+
+    // Recommend
+
+    // Check đã mua hàng chưa
+    useEffect(() => {
+        var data = {
+            user_token: cookies.get("user_token"),
+            idProduct: productId,
+        };
+        axios.post(CALL_URL.URL_checkOrdered, data).then((response) => {
+            setCheckOrder(response.data);
+        });
+    }, []);
 
     // Get feedback
     useEffect(() => {
@@ -216,8 +227,6 @@ function DetailProduct(data) {
             });
         }
     };
-
-    const ref = useRef(null);
 
     const handleImage = (event) => {
         const ProductImg = ref.current;
