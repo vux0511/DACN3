@@ -1,6 +1,8 @@
 import ProductModel from "../models/ProductModel";
 import { app } from "../config/app";
 import fs from "fs-extra";
+import _ from "lodash";
+
 import { transError, transSuccess } from "../../lang/vi";
 import ContentBasedRecommender from "content-based-recommender";
 import ViewedModel from "../models/ViewedModel";
@@ -304,11 +306,29 @@ let getProductByRecommend = (idUser) => {
     return new Promise(async (resolve, reject) => {
         try {
             let product_data = await ProductModel.findAllDataRecommend();
-            console.log("idol qq");
-            console.log(product_data);
+            // console.log(product_data);
             let result_view = await ViewedModel.getViewedByUser(idUser);
-            console.log(result_view);
-            if (product_data) resolve(true);
+            const recommender = new ContentBasedRecommender({
+                minScore: 0.1,
+                maxSimilarDocuments: 100,
+            });
+            // start training
+            recommender.train(product_data);
+            let productIds = [];
+            result_view.map((value) => {
+                const similarDocuments = recommender.getSimilarDocuments(
+                    value.productId,
+                    0,
+                    10
+                );
+                similarDocuments.map((similar) => {
+                    productIds = [similar.id, ...productIds];
+                });
+            });
+            productIds = _.uniqBy(productIds);
+
+            let result = await ProductModel.findProductbyIds(productIds);
+            if (result) resolve(result);
             else resolve(false);
         } catch (error) {
             console.log(error);

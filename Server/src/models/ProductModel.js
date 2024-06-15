@@ -36,7 +36,26 @@ ProductSchema.statics = {
             .exec();
     },
     findAllDataRecommend() {
-        return this.find({}, "_id, nameProduct").sort({ createAt: -1 }).exec();
+        return (
+            this.aggregate([
+                {
+                    $project: {
+                        _id: 0,
+
+                        id: { $toString: "$_id" },
+                        content: "$nameProduct",
+                    },
+                },
+                {
+                    $sort: {
+                        createAt: -1,
+                    },
+                },
+            ])
+                // .find({}, "_id, nameProduct")
+                // .sort({ createAt: -1 })
+                .exec()
+        );
     },
     getCountProduct(filter = {}) {
         return this.where(filter).count();
@@ -65,6 +84,11 @@ ProductSchema.statics = {
     removeProduct(idUser, idProduct) {
         return this.deleteOne({
             $and: [{ idUser: idUser }, { _id: idProduct }],
+        }).exec();
+    },
+    findProductbyIds(ids) {
+        return this.find({
+            _id: { $in: ids },
         }).exec();
     },
 };

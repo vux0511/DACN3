@@ -38,8 +38,12 @@ ViewedSchema.statics = {
         }).exec();
     },
     getViewedByUser(userId) {
-        return this.find({ userId: userId }, "productId, productName").exec();
+        return this.find({ userId: userId }, " _id  productId productName")
+            .sort({ creatAt: -1 })
+            .limit(5)
+            .exec();
     },
+
     getAllViewed() {
         return this.find().exec();
     },
