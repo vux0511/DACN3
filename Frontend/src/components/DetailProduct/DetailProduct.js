@@ -12,7 +12,9 @@ import { toast, ToastContainer } from "react-toastify";
 import { TbTruckDelivery } from "react-icons/tb";
 import { GiMoneyStack } from "react-icons/gi";
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 import { RiAlarmWarningLine } from "react-icons/ri";
+import moment from "moment";
 import { Rate } from "antd";
 import { Input } from "antd";
 const { TextArea } = Input;
@@ -29,9 +31,15 @@ function DetailProduct(data) {
     const cookies = new Cookies();
     const [userName, setUsername] = useState("");
     const { productId } = useParams();
+    const navigate = useNavigate();
+    const [visible, setVisible] = useState(4);
 
     const handleChangeRating = (value) => {
         setRate(value);
+    };
+
+    const showMoreItems = () => {
+        setVisible((prevValue) => prevValue + 4);
     };
 
     const handleChangeFeedback = (e) => {
@@ -44,8 +52,14 @@ function DetailProduct(data) {
         } else {
             setUsername("empty");
         }
-        // console.log(cookies.get("user_token"));
     }, []);
+
+    const convertTimestampToDateTime = (timestamp) => {
+        if (!timestamp) {
+            return "";
+        }
+        return moment(Number(timestamp)).format("MMMM Do YYYY, h:mm:ss a");
+    };
 
     // Chi tiết SP
     useEffect(() => {
@@ -145,7 +159,7 @@ function DetailProduct(data) {
             toast.error(
                 "Bạn phải đăng nhập trước khi thêm sản phẩm vào giỏ hàng",
                 {
-                    position: "top-right",
+                    position: "bottom-right",
                     autoClose: 5000,
                     closeOnClick: true,
                     draggable: true,
@@ -172,6 +186,33 @@ function DetailProduct(data) {
                     progress: undefined,
                     theme: "colored",
                 });
+            });
+        }
+    };
+
+    const handleBuyDetail = (e) => {
+        e.preventDefault();
+        if (userName === "empty") {
+            toast.error("Bạn phải đăng nhập trước khi mua hàng", {
+                position: "bottom-right",
+                autoClose: 3000,
+                closeOnClick: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+        } else {
+            var data = {
+                user_token: cookies.get("user_token"),
+                idProduct: detailProduct._id,
+                nameProduct: detailProduct.nameProduct,
+                imgProduct: detailProduct.image.img1,
+                quantity: 1,
+                unit_price: detailProduct.price,
+            };
+
+            axios.post(CALL_URL.URL_setCart, data).then((response) => {
+                navigate("/cart");
             });
         }
     };
@@ -242,15 +283,12 @@ function DetailProduct(data) {
                     </h4>
                     <p className="detail__wrapper-quantity">
                         <p>Kho hàng còn {detailProduct.quantity} sản phẩm</p>
-                        <p>
-                            <FaRegEye className="detail__wrapper-icon" /> 100
-                        </p>
                     </p>
                     <div className="btn-detail">
                         <a href="/payment" className="btn-buy-detail buy-now">
                             <button
                                 className="buy-now-detail-btn"
-                                onClick={handleAddToCartDetail}
+                                onClick={handleBuyDetail}
                             >
                                 Mua Ngay
                             </button>
@@ -369,50 +407,63 @@ function DetailProduct(data) {
                     </div>
                     <div className="detail__rating-list-wrapper">
                         {listFeedBack.length > 0 ? (
-                            listFeedBack.map((list, index) => (
-                                <div
-                                    className="detail__rating-list-items"
-                                    key={index}
-                                >
-                                    <div className="detail__rating-list-user">
-                                        <img
-                                            src="https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745"
-                                            alt=""
-                                            className="detail__rating-user-avatar"
-                                        />
-                                        <div>
-                                            <div className="detail__rating-list-user-right">
-                                                <div className="detail__rating-list-user-name">
-                                                    {list.user.email}
+                            listFeedBack
+                                .slice(0, visible)
+                                .map((list, index) => (
+                                    <div
+                                        className="detail__rating-list-items"
+                                        key={index}
+                                    >
+                                        <div className="detail__rating-list-user">
+                                            <img
+                                                src="https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745"
+                                                alt=""
+                                                className="detail__rating-user-avatar"
+                                            />
+                                            <div>
+                                                <div className="detail__rating-list-user-right">
+                                                    <div className="detail__rating-list-user-name">
+                                                        {list.user.email}
+                                                    </div>
+                                                    <div className="detail__rating-list-user-time">
+                                                        <AiOutlineClockCircle />
+                                                        {convertTimestampToDateTime(
+                                                            list.createAt
+                                                        )}
+                                                        {/* <span>14:28</span> */}
+                                                    </div>
                                                 </div>
-                                                <div className="detail__rating-list-user-time">
-                                                    <AiOutlineClockCircle />
-                                                    16/5/2024 <span>14:28</span>
+                                                <div className="detail__rating-list-star">
+                                                    <Rate
+                                                        allowHalf
+                                                        value={list.rate}
+                                                        disabled
+                                                        style={{
+                                                            fontSize: "15px",
+                                                        }}
+                                                        className="detail__rating-view-star"
+                                                    />
                                                 </div>
-                                            </div>
-                                            <div className="detail__rating-list-star">
-                                                <Rate
-                                                    allowHalf
-                                                    value={list.rate}
-                                                    disabled
-                                                    style={{
-                                                        fontSize: "15px",
-                                                    }}
-                                                    className="detail__rating-view-star"
-                                                />
                                             </div>
                                         </div>
+                                        <div className="detail__rating-list-review">
+                                            {list.comment}
+                                        </div>
                                     </div>
-                                    <div className="detail__rating-list-review">
-                                        {list.comment}
-                                    </div>
-                                </div>
-                            ))
+                                ))
                         ) : (
                             <div className="detail__title-error">
                                 <RiAlarmWarningLine />{" "}
                                 <p>Sản phẩm chưa có đánh giá!</p>
                             </div>
+                        )}
+                        {visible < listFeedBack.length && (
+                            <button
+                                className="button button-loadmore"
+                                onClick={showMoreItems}
+                            >
+                                Xem thêm
+                            </button>
                         )}
                     </div>
                 </div>

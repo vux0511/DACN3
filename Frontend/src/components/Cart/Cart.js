@@ -16,6 +16,7 @@ function Cart() {
     const [subTotal, setSubTotal] = useState(0);
     const [priceOfProduct, setPriceOfProduct] = useState(0);
     const [quantity, setQuantity] = useState(0);
+    const [storage, setStorage] = useState();
     const navigate = useNavigate();
 
     // Check login

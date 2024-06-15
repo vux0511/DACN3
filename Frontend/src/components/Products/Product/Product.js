@@ -32,7 +32,7 @@ function Product({ setCartCount, cartCount, idProduct, data, productRelated }) {
             <div
                 className="thumbnail"
                 onClick={() =>
-                    navigate(`/product/${data.idProduct}`, {
+                    navigate(`/product/${data._id}`, {
                         idProduct: data,
                     })
                 }
