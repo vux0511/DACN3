@@ -58,7 +58,7 @@ let changeStatus = (idOrder, statusChange) => {
     return new Promise(async (resolve, reject) => {
         try {
             let result = await OrderModel.updateStatus(idOrder, statusChange);
-            if (result.matchedCount > 0) {
+            if (result) {
                 resolve(true);
             } else {
                 resolve(false);

@@ -58,7 +58,8 @@ let changeStatus = async (req, res) => {
         res.send(false);
     } else {
         let idOrder = req.body.idOrder;
-        let status = Number(req.body.statusOrder);
+        let status = req.body.statusOrder;
+
         let result = await order.changeStatus(idOrder, status);
         if (result) {
             res.status(200).send(true);

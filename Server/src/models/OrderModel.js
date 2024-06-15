@@ -37,7 +37,10 @@ OrderSchema.statics = {
         return this.findById(id).exec();
     },
     updateStatus(idOrder, statusChange) {
-        return this.update({ _id: idOrder }, { status: statusChange }).exec();
+        return this.findOneAndUpdate(
+            { _id: idOrder },
+            { status: statusChange }
+        ).exec();
     },
 
     getStatisticalOrderByIdShop(idShop) {

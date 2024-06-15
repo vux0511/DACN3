@@ -1,4 +1,5 @@
 import CartModel from "../models/CartModel";
+import ProductModel from "../models/ProductModel";
 
 let addItemCart = (data) => {
     return new Promise(async (resolve, reject) => {
@@ -66,7 +67,17 @@ let getItemCartByIdUser = (idUser) => {
     return new Promise(async (resolve, reject) => {
         try {
             let result = await CartModel.getCartByIdUser(idUser);
-            result ? resolve(result) : resolve(false);
+            let result1 = result.map(async (value) => {
+                console.log(value.idProduct);
+                let quantity = await ProductModel.getQuantityById(
+                    value.idProduct
+                );
+                return {
+                    ...value._doc,
+                    quantity: quantity.quantity,
+                };
+            });
+            result ? resolve(await Promise.all(result1)) : resolve(false);
         } catch (error) {
             reject(false);
         }
