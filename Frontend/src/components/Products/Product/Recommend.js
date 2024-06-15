@@ -1,74 +1,42 @@
 import { useState, useEffect } from "react";
 import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import Cookies from "universal-cookie";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import CALL_URL from "../../../api/CALL_URL";
 
-function TopProducts({ topProduct }) {
+function Recommend({ recommend }) {
     const cookies = new Cookies();
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
 
     useEffect(() => {
         if (cookies.get("user")) {
-            setUsername(cookies.get("user").email);
+            setUsername(cookies.get("user").username);
         }
     }, []);
-
-    const numberFormat = (number) => {
-        return new Intl.NumberFormat("vi-VN", {
-            style: "currency",
-            currency: "VND",
-        }).format(number);
-    };
-
-    const handleAddToCart = (e) => {
-        if (username === "") {
-            toast.error(
-                "Bạn phải đăng nhập trước khi thêm sản phẩm vào giỏ hàng",
-                {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                }
-            );
-        } else {
-            var data = {
-                idUser: cookies.get("user").idUser,
-                idProduct: e.target._id,
-            };
-            axios.post(CALL_URL.URL_setCart, data).then((response) => {
-                console.log(response.data);
-            });
-        }
-    };
 
     return (
         <>
             <div className="products-container">
                 <div className="layout">
-                    <div className="sec-heading">Sản phẩm mới nhất</div>
+                    <div className="sec-heading">Sản phẩm đề xuất</div>
                     <div className="products">
-                        {topProduct.slice(0, 4).map((topProduct, index) => (
+                        {recommend.map((newProduct, index) => (
                             <div className="product-card" key={index}>
                                 <div
                                     className="thumbnail"
                                     onClick={() =>
-                                        navigate(`/product/${topProduct._id}`, {
-                                            idProduct: topProduct,
-                                        })
+                                        navigate(
+                                            `/product/${newProduct.idProduct}`,
+                                            {
+                                                idProduct: newProduct,
+                                            }
+                                        )
                                     }
                                 >
                                     <img
-                                        src={`http://localhost:5001/images/products/${topProduct.image.img1}`}
+                                        src={newProduct.imageProduct_1}
                                         alt="Image Product"
                                     />
                                 </div>
@@ -77,22 +45,22 @@ function TopProducts({ topProduct }) {
                                         className="name"
                                         onClick={() =>
                                             navigate(
-                                                `/product/${topProduct._id}`,
+                                                `/product/${newProduct.idProduct}`,
                                                 {
-                                                    idProduct: topProduct,
+                                                    idProduct: newProduct,
                                                 }
                                             )
                                         }
                                     >
-                                        {topProduct.nameProduct}
+                                        {newProduct.nameProduct}
                                     </div>
                                     <div
                                         className="product-bottom"
                                         onClick={() =>
                                             navigate(
-                                                `/product/${topProduct._id}`,
+                                                `/product/${newProduct.idProduct}`,
                                                 {
-                                                    idProduct: topProduct,
+                                                    idProduct: newProduct,
                                                 }
                                             )
                                         }
@@ -111,25 +79,25 @@ function TopProducts({ topProduct }) {
                                                 className="price"
                                                 onClick={() =>
                                                     navigate(
-                                                        `/product/${topProduct._id}`,
+                                                        `/product/${newProduct.idProduct}`,
                                                         {
                                                             idProduct:
-                                                                topProduct,
+                                                                newProduct,
                                                         }
                                                     )
                                                 }
                                             >
-                                                {numberFormat(topProduct.price)}
+                                                {newProduct.priceProduct}đ
                                             </span>
                                             <button
                                                 className="add-to-cart-btn"
-                                                id={topProduct._id}
+                                                id={newProduct.idProduct}
                                                 onClick={() =>
                                                     navigate(
-                                                        `/product/${topProduct._id}`,
+                                                        `/product/${newProduct.idProduct}`,
                                                         {
                                                             idProduct:
-                                                                topProduct,
+                                                                newProduct,
                                                         }
                                                     )
                                                 }
@@ -149,4 +117,4 @@ function TopProducts({ topProduct }) {
     );
 }
 
-export default TopProducts;
+export default Recommend;
