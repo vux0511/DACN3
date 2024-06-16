@@ -32,6 +32,7 @@ let initRouter = (app) => {
     router.post("/category/add-new", category.createNewCategory);
     router.post("/category/remove-by-idCategory", category.removeCategoryById);
     router.post("/category/update", category.updateCategory);
+    // router.get("/category/get-by-id/:idCategory", category.getCategoryById());
 
     //product -------
     router.post("/product/add-new", product.createNewProduct);
