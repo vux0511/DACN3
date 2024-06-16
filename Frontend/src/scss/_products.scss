@@ -6,10 +6,12 @@
     .sec-heading {
         margin-bottom: 20px;
         font-size: 16px;
+        margin-top: 40px;
         font-weight: 600;
         text-transform: uppercase;
         @include md {
             margin-bottom: 35px;
+            margin-top: 50px;
             font-size: 21px;
         }
         &:after {

@@ -35,22 +35,23 @@ function Home({ setCartCount, cartCount }) {
     }, []);
 
     // Recommend Products
+
     useEffect(() => {
-        // axios
-        //     .get(
-        //         `${CALL_URL.URL_getRecommend}?user_token=${cookies.get(
-        //             "user_token"
-        //         )}`
-        //     )
-        //     .then((response) => {
-        //         setRecommend(response.data);
-        //         console.log(response.data);
-        //     });
-        console.log(
-            `${CALL_URL.URL_getRecommend}?user_token=${cookies.get(
-                "user_token"
-            )}`
-        );
+        if (cookies.get("user_token")) {
+            axios
+                .get(
+                    `${CALL_URL.URL_getRecommend}?user_token=${cookies.get(
+                        "user_token"
+                    )}`
+                )
+                .then((response) => {
+                    setRecommend(response.data);
+                });
+        } else {
+            axios.get(CALL_URL.URL_getTopProduct).then((response) => {
+                setRecommend(response.data);
+            });
+        }
     }, []);
 
     // Get category list
@@ -69,7 +70,7 @@ function Home({ setCartCount, cartCount }) {
                     <TopProducts topProduct={topProduct} />
                     <CategoryHome />
                     <BannerProduct />
-                    {/* <Recommend recommend={recommend} /> */}
+                    <Recommend recommend={recommend} />
                 </div>
             </div>
             <Footer />

@@ -126,7 +126,7 @@ function EditProduct() {
             )
             .then((response) => {
                 setItemProductEdit(response.data);
-                console.log(itemProductEdit);
+                console.log(response.data);
             });
     }, []);
 

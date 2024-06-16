@@ -9,12 +9,22 @@ function Recommend({ recommend }) {
     const cookies = new Cookies();
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
+    const [visible, setVisible] = useState(8);
 
+    const showMoreItems = () => {
+        setVisible((prevValue) => prevValue + 4);
+    };
     useEffect(() => {
         if (cookies.get("user")) {
             setUsername(cookies.get("user").username);
         }
     }, []);
+    const numberFormat = (number) => {
+        return new Intl.NumberFormat("vi-VN", {
+            style: "currency",
+            currency: "VND",
+        }).format(number);
+    };
 
     return (
         <>
@@ -22,94 +32,106 @@ function Recommend({ recommend }) {
                 <div className="layout">
                     <div className="sec-heading">Sản phẩm đề xuất</div>
                     <div className="products">
-                        {recommend.map((newProduct, index) => (
-                            <div className="product-card" key={index}>
-                                <div
-                                    className="thumbnail"
-                                    onClick={() =>
-                                        navigate(
-                                            `/product/${newProduct.idProduct}`,
-                                            {
-                                                idProduct: newProduct,
+                        {recommend
+                            .slice(0, visible)
+                            .map((topProduct, index) => (
+                                <div className="product-card" key={index}>
+                                    <div
+                                        className="thumbnail"
+                                        onClick={() =>
+                                            navigate(
+                                                `/product/${topProduct._id}`,
+                                                {
+                                                    idProduct: topProduct,
+                                                }
+                                            )
+                                        }
+                                    >
+                                        <img
+                                            src={`http://localhost:5001/images/products/${topProduct.image.img1}`}
+                                            alt="Image Product"
+                                        />
+                                    </div>
+                                    <div className="product-detail">
+                                        <div
+                                            className="name"
+                                            onClick={() =>
+                                                navigate(
+                                                    `/product/${topProduct._id}`,
+                                                    {
+                                                        idProduct: topProduct,
+                                                    }
+                                                )
                                             }
-                                        )
-                                    }
-                                >
-                                    <img
-                                        src={newProduct.imageProduct_1}
-                                        alt="Image Product"
-                                    />
-                                </div>
-                                <div className="product-detail">
-                                    <div
-                                        className="name"
-                                        onClick={() =>
-                                            navigate(
-                                                `/product/${newProduct.idProduct}`,
-                                                {
-                                                    idProduct: newProduct,
-                                                }
-                                            )
-                                        }
-                                    >
-                                        {newProduct.nameProduct}
-                                    </div>
-                                    <div
-                                        className="product-bottom"
-                                        onClick={() =>
-                                            navigate(
-                                                `/product/${newProduct.idProduct}`,
-                                                {
-                                                    idProduct: newProduct,
-                                                }
-                                            )
-                                        }
-                                    >
-                                        <div className="price-star">
-                                            <span className="star">
-                                                <BsStarFill />
-                                                <BsStarFill />
-                                                <BsStarFill />
-                                                <BsStarFill />
-                                                <BsStarHalf />
-                                            </span>
+                                        >
+                                            {topProduct.nameProduct}
                                         </div>
-                                        <div className="add-cart-btn">
-                                            <span
-                                                className="price"
-                                                onClick={() =>
-                                                    navigate(
-                                                        `/product/${newProduct.idProduct}`,
-                                                        {
-                                                            idProduct:
-                                                                newProduct,
-                                                        }
-                                                    )
-                                                }
-                                            >
-                                                {newProduct.priceProduct}đ
-                                            </span>
-                                            <button
-                                                className="add-to-cart-btn"
-                                                id={newProduct.idProduct}
-                                                onClick={() =>
-                                                    navigate(
-                                                        `/product/${newProduct.idProduct}`,
-                                                        {
-                                                            idProduct:
-                                                                newProduct,
-                                                        }
-                                                    )
-                                                }
-                                            >
-                                                Thêm giỏ hàng
-                                            </button>
+                                        <div
+                                            className="product-bottom"
+                                            onClick={() =>
+                                                navigate(
+                                                    `/product/${topProduct._id}`,
+                                                    {
+                                                        idProduct: topProduct,
+                                                    }
+                                                )
+                                            }
+                                        >
+                                            <div className="price-star">
+                                                <span className="star">
+                                                    <BsStarFill />
+                                                    <BsStarFill />
+                                                    <BsStarFill />
+                                                    <BsStarFill />
+                                                    <BsStarHalf />
+                                                </span>
+                                            </div>
+                                            <div className="add-cart-btn">
+                                                <span
+                                                    className="price"
+                                                    onClick={() =>
+                                                        navigate(
+                                                            `/product/${topProduct._id}`,
+                                                            {
+                                                                idProduct:
+                                                                    topProduct,
+                                                            }
+                                                        )
+                                                    }
+                                                >
+                                                    {numberFormat(
+                                                        topProduct.price
+                                                    )}
+                                                </span>
+                                                <button
+                                                    className="add-to-cart-btn"
+                                                    id={topProduct._id}
+                                                    onClick={() =>
+                                                        navigate(
+                                                            `/product/${topProduct._id}`,
+                                                            {
+                                                                idProduct:
+                                                                    topProduct,
+                                                            }
+                                                        )
+                                                    }
+                                                >
+                                                    Thêm giỏ hàng
+                                                </button>
+                                            </div>
+                                            <ToastContainer />
                                         </div>
-                                        <ToastContainer />
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        {visible < recommend.length && (
+                            <button
+                                className="button button-loadmore"
+                                onClick={showMoreItems}
+                            >
+                                Xem thêm
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>

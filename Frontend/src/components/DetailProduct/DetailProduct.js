@@ -116,7 +116,7 @@ function DetailProduct(data) {
                         .then((response) => {
                             console.log(response.data);
                         });
-                }, 5000);
+                }, 500);
             });
     }, []);
 
@@ -340,14 +340,12 @@ function DetailProduct(data) {
                     <div className="detail__rating-view">
                         <div className="detail__rating-view-wrapper">
                             <div className="detail__rating-view-score">
-                                {averageRating ? averageRating : "loading"}
+                                {averageRating ? averageRating : "5"}
                                 <span>/5</span>
                             </div>
                             <Rate
                                 allowHalf
-                                value={
-                                    averageRating ? averageRating : "loading"
-                                }
+                                value={averageRating ? averageRating : "5"}
                                 disabled
                                 className="detail__rating-view-star"
                             />
