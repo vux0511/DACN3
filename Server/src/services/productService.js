@@ -322,13 +322,33 @@ let getProductByRecommend = (idUser) => {
                     10
                 );
                 similarDocuments.map((similar) => {
-                    productIds = [similar.id, ...productIds];
+                    productIds = [...productIds, similar.id];
                 });
             });
             productIds = _.uniqBy(productIds);
 
             let result = await ProductModel.findProductbyIds(productIds);
             if (result) resolve(result);
+            else resolve(false);
+        } catch (error) {
+            console.log(error);
+            resolve(false);
+        }
+    });
+};
+
+let getTopViewProduct = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let result = await ViewedModel.getTopViewIdProduct();
+            let productIds = [];
+            result.map((value) => {
+                productIds = [...productIds, value.productId];
+            });
+            let result1 = await ProductModel.findProductbyIds(productIds);
+            console.log(result1);
+
+            if (result1) resolve(result1);
             else resolve(false);
         } catch (error) {
             console.log(error);
@@ -352,4 +372,5 @@ export default {
     checkQuanity,
     removeProduct,
     getProductByRecommend,
+    getTopViewProduct,
 };

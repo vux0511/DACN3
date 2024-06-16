@@ -213,13 +213,12 @@ let removeProduct = async (req, res) => {
     }
 };
 let getProductByRecommend = async (req, res) => {
-    try {
-        if (!_.isEmpty(req.query.user_token)) {
+    if (!_.isEmpty(req.query.user_token)) {
+        try {
             let req_user = jwt.verify(
                 req.query.user_token,
                 process.env.JWT_KEY
             );
-
             let idUser = req_user.idUser;
             let result = await product.getProductByRecommend(idUser);
             if (result) {
@@ -227,12 +226,21 @@ let getProductByRecommend = async (req, res) => {
             } else {
                 res.send(false);
             }
-        } else {
+        } catch (error) {
             res.send(false);
         }
-    } catch (error) {
-        console.log(error);
-        res.send(false);
+    } else {
+        try {
+            let result1 = await product.getTopViewProduct();
+            console.log(result1);
+            if (result1) {
+                res.status(200).send(result1);
+            } else {
+                res.send(false);
+            }
+        } catch (error) {
+            res.send(false);
+        }
     }
 };
 

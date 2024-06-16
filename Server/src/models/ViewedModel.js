@@ -55,6 +55,23 @@ ViewedSchema.statics = {
             $and: [{ productId: idPost, userId: idUser }],
         }).exec();
     },
+
+    getTopViewIdProduct() {
+        return this.aggregate([
+            {
+                $project: {
+                    _id: 0,
+                    productId: 1,
+                },
+            },
+            {
+                $sort: {
+                    view: -1,
+                },
+            },
+        ])
+        .exec();
+    },
 };
 
 export default mongoose.model("viewed", ViewedSchema);
