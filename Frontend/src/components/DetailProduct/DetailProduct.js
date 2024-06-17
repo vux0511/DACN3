@@ -1,10 +1,15 @@
-import { FaRegEye } from "react-icons/fa";
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Navigation, Autoplay } from "swiper/modules";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import CALL_URL from "../../api/CALL_URL";
 import { useRef, useEffect, useState } from "react";
-import Product from "../Products/Product/Product";
+import ProductRelated from "../Products/Product/ProductRelated";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { useParams } from "react-router-dom";
@@ -34,12 +39,13 @@ function DetailProduct(data) {
     const navigate = useNavigate();
     const [visible, setVisible] = useState(4);
     const ref = useRef(null);
+    const [itemCarts, setItemCarts] = useState([]);
 
     const handleChangeRating = (value) => {
         setRate(value);
     };
     const showMoreItems = () => {
-        setVisible((prevValue) => prevValue + 4);
+        setVisible((prevValue) => prevValue + 8);
     };
     const convertTimestampToDateTime = (timestamp) => {
         if (!timestamp) {
@@ -57,6 +63,37 @@ function DetailProduct(data) {
         }).format(number);
     };
 
+    const handleBuyDetail = (e) => {
+        e.preventDefault();
+        if (userName === "empty") {
+            toast.error("Bạn phải đăng nhập trước khi mua hàng", {
+                position: "bottom-right",
+                autoClose: 3000,
+                closeOnClick: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+        } else {
+            var data = {
+                user_token: cookies.get("user_token"),
+                idProduct: detailProduct._id,
+                nameProduct: detailProduct.nameProduct,
+                imgProduct: detailProduct.image.img1,
+                quantity: 1,
+                unit_price: detailProduct.price,
+            };
+
+            axios.post(CALL_URL.URL_setCart, data).then((response) => {
+                navigate("/cart");
+            });
+        }
+    };
+    const handleImage = (event) => {
+        const ProductImg = ref.current;
+        var SmallImg = document.getElementsByClassName(event.target.className);
+        ProductImg.src = SmallImg[0].src;
+    };
     const handleSetFeedBack = (e) => {
         e.preventDefault();
         var data = {
@@ -89,81 +126,6 @@ function DetailProduct(data) {
             });
         }
     };
-
-    useEffect(() => {
-        if (cookies.get("user")) {
-            setUsername(cookies.get("user").email);
-        } else {
-            setUsername("empty");
-        }
-    }, []);
-
-    // Get details and Recommend
-    useEffect(() => {
-        axios
-            .get(`${CALL_URL.URL_getProductDetail}/?idProduct=${productId}`)
-            .then((response) => {
-                setDetailProduct(response.data);
-                setTimeout(() => {
-                    data = {
-                        user_token: cookies.get("user_token"),
-                        idProduct: response.data._id,
-                        nameProduct: response.data.nameProduct,
-                    };
-                    console.log(cookies.get("user_token"));
-                    axios
-                        .post(CALL_URL.URL_setViewed, data)
-                        .then((response) => {
-                            console.log(response.data);
-                        });
-                }, 500);
-            });
-    }, []);
-
-    // Recommend
-
-    // Check đã mua hàng chưa
-    useEffect(() => {
-        var data = {
-            user_token: cookies.get("user_token"),
-            idProduct: productId,
-        };
-        axios.post(CALL_URL.URL_checkOrdered, data).then((response) => {
-            setCheckOrder(response.data);
-        });
-    }, []);
-
-    // Get feedback
-    useEffect(() => {
-        var data = {
-            idProduct: productId,
-        };
-        axios
-            .get(`${CALL_URL.URL_getFeedbackByIdProduct}${productId}/1`)
-            .then((response) => {
-                setListFeedBack(response.data);
-                const ratings = response.data.map((rate) => rate.rate);
-                const totalRating = ratings.reduce(
-                    (acc, rate) => acc + rate,
-                    0
-                );
-                setAverageRating(
-                    ratings.length > 0
-                        ? (totalRating / ratings.length).toFixed(2)
-                        : 0
-                );
-            });
-    }, []);
-
-    // SP liên quan
-    // useEffect(() => {
-    //     axios
-    //         .get(`${CALL_URL.URL_getProductRelated}?idproduct=${productId}`)
-    //         .then((response) => {
-    //             setProductRelated(response.data);
-    //         });
-    // }, [productId]);
-
     const handleAddToCartDetail = (e) => {
         e.preventDefault();
         if (userName === "empty") {
@@ -201,38 +163,78 @@ function DetailProduct(data) {
         }
     };
 
-    const handleBuyDetail = (e) => {
-        e.preventDefault();
-        if (userName === "empty") {
-            toast.error("Bạn phải đăng nhập trước khi mua hàng", {
-                position: "bottom-right",
-                autoClose: 3000,
-                closeOnClick: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-            });
+    useEffect(() => {
+        if (cookies.get("user")) {
+            setUsername(cookies.get("user").email);
         } else {
-            var data = {
-                user_token: cookies.get("user_token"),
-                idProduct: detailProduct._id,
-                nameProduct: detailProduct.nameProduct,
-                imgProduct: detailProduct.image.img1,
-                quantity: 1,
-                unit_price: detailProduct.price,
-            };
-
-            axios.post(CALL_URL.URL_setCart, data).then((response) => {
-                navigate("/cart");
-            });
+            setUsername("empty");
         }
-    };
+    }, []);
 
-    const handleImage = (event) => {
-        const ProductImg = ref.current;
-        var SmallImg = document.getElementsByClassName(event.target.className);
-        ProductImg.src = SmallImg[0].src;
-    };
+    // Get details and Recommend
+    useEffect(() => {
+        axios
+            .get(`${CALL_URL.URL_getProductDetail}/?idProduct=${productId}`)
+            .then((response) => {
+                setDetailProduct(response.data);
+                console.log("res", response.data);
+                setTimeout(() => {
+                    data = {
+                        user_token: cookies.get("user_token"),
+                        idProduct: response.data._id,
+                        nameProduct: response.data.nameProduct,
+                    };
+                    axios
+                        .post(CALL_URL.URL_setViewed, data)
+                        .then((response) => {
+                            console.log("Recommend");
+                        });
+                }, 5000);
+            });
+    }, [productId]);
+
+    // Check đã mua hàng chưa
+    useEffect(() => {
+        var data = {
+            user_token: cookies.get("user_token"),
+            idProduct: productId,
+        };
+        axios.post(CALL_URL.URL_checkOrdered, data).then((response) => {
+            setCheckOrder(response.data);
+        });
+    }, []);
+
+    // Get feedback
+    useEffect(() => {
+        var data = {
+            idProduct: productId,
+        };
+        axios
+            .get(`${CALL_URL.URL_getFeedbackByIdProduct}${productId}/1`)
+            .then((response) => {
+                setListFeedBack(response.data);
+                const ratings = response.data.map((rate) => rate.rate);
+                const totalRating = ratings.reduce(
+                    (acc, rate) => acc + rate,
+                    0
+                );
+                setAverageRating(
+                    ratings.length > 0
+                        ? (totalRating / ratings.length).toFixed(2)
+                        : 0
+                );
+            });
+    }, []);
+
+    // SP liên quan
+    useEffect(() => {
+        axios
+            .get(`${CALL_URL.URL_getProductRelated}?idProduct=${productId}`)
+            .then((response) => {
+                setProductRelated(response.data);
+                console.log(response.data);
+            });
+    }, [productId]);
 
     return (
         <>
@@ -479,9 +481,52 @@ function DetailProduct(data) {
                 <div className="layout">
                     <div className="sec-heading">SẢN PHẨM LIÊN QUAN</div>
                     <div className="products">
-                        {productRelated.map((product) => (
-                            <Product key={product.idProduct} data={product} />
-                        ))}
+                        <div className="swiper mySwiper">
+                            <div className="swiper-wrapper">
+                                <Swiper
+                                    slidesPerView={8}
+                                    spaceBetween={15}
+                                    loop={true}
+                                    autoplay={{
+                                        delay: 2500,
+                                        // disableOnInteraction: false,
+                                    }}
+                                    pagination={{
+                                        clickable: true,
+                                    }}
+                                    navigation={true}
+                                    modules={[Autoplay, Navigation]}
+                                    className="mySwiper"
+                                    breakpoints={{
+                                        0: {
+                                            slidesPerView: 2,
+                                            spaceBetween: 20,
+                                        },
+                                        640: {
+                                            slidesPerView: 2,
+                                            spaceBetween: 20,
+                                        },
+                                        768: {
+                                            slidesPerView: 3,
+                                            spaceBetween: 20,
+                                        },
+                                        1024: {
+                                            slidesPerView: 4,
+                                            spaceBetween: 20,
+                                        },
+                                    }}
+                                >
+                                    {productRelated.map((product) => (
+                                        <SwiperSlide>
+                                            <ProductRelated
+                                                key={product.idProduct}
+                                                data={product}
+                                            />
+                                        </SwiperSlide>
+                                    ))}
+                                </Swiper>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

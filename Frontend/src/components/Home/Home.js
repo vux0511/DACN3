@@ -1,3 +1,9 @@
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Navigation, Autoplay } from "swiper/modules";
 import Bannner from "./Banner/Banner";
 import CategoryHome from "../Category/CategoryHome";
 import BannerProduct from "./Banner/BannerProduct";
@@ -21,15 +27,15 @@ function Home({ setCartCount, cartCount }) {
     const { categoryId } = useParams();
     const cookies = new Cookies();
 
-    useEffect(() => {
-        axios.get(CALL_URL.URL_getProduct).then((response) => {
-            setProducts(response.data);
-        });
-    }, []);
+    // useEffect(() => {
+    //     axios.get(CALL_URL.URL_getProduct).then((response) => {
+    //         setProducts(response.data);
+    //     });
+    // }, []);
 
     // Top Products
     useEffect(() => {
-        axios.get(CALL_URL.URL_getTopProduct).then((response) => {
+        axios.get(CALL_URL.URL_getProductNew).then((response) => {
             setTopProduct(response.data);
         });
     }, []);
@@ -48,7 +54,7 @@ function Home({ setCartCount, cartCount }) {
                     setRecommend(response.data);
                 });
         } else {
-            axios.get(CALL_URL.URL_getTopProduct).then((response) => {
+            axios.get(CALL_URL.URL_getProduct).then((response) => {
                 setRecommend(response.data);
             });
         }

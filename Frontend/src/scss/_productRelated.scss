@@ -1,14 +1,13 @@
-.product-card {
+.product-card-related {
     cursor: pointer;
-    width: calc(50% - 5px);
-    // margin-bottom: 20px;
     border-radius: 10px;
     min-height: 200px;
     border: 1px solid #dfdddd;
     box-shadow: rgba(149, 157, 165, 0.17) 0px 8px 24px;
+    width: 100%;
 
     @include md {
-        width: calc(25% - 15px);
+        width: 100%;
         border-radius: 8px;
         height: 100%;
     }

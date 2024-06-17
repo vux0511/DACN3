@@ -41,6 +41,7 @@ function AddProduct() {
     };
     const handleChangeIdCate = (e) => {
         setIdCate(e.target.value);
+        console.log(e.target.value);
     };
 
     const handleChangeImageCategory1 = (e) => {
@@ -68,7 +69,7 @@ function AddProduct() {
         formData.append("imgProduct2", imageFormData2);
         formData.append("imgProduct3", imageFormData3);
         formData.append("imgProduct4", imageFormData4);
-        formData.append("user_token", cookies.get("usertoken"));
+        formData.append("user_token", cookies.get("user_token"));
         const config = {
             headers: {
                 "Content-Type": false,
@@ -87,9 +88,6 @@ function AddProduct() {
                         progress: undefined,
                         theme: "colored",
                     });
-                    setNameProduct("");
-                    setPriceProduct("");
-                    setDescProduct("");
                 } else {
                     toast.error("Thêm thất bại", {
                         position: "top-right",

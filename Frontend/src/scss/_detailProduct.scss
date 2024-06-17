@@ -243,7 +243,8 @@ button.add-to-cart-detail-btn {
 .detail__wrapper-about {
     line-height: 1.7;
     padding-bottom: 15px;
-    color: $gray-color !important;
+    color: #202020dc;
+    font-weight: 400;
 }
 
 .detail__wrapper-feature {
@@ -258,9 +259,11 @@ button.add-to-cart-detail-btn {
     &-items {
         line-height: 1.7;
         display: flex;
+        // font-size: 15px;
         align-items: center;
         gap: 5px;
-        color: $gray-color;
+        color: #202020dc;
+        font-weight: 400;
     }
     &-wrapper {
         display: flex;

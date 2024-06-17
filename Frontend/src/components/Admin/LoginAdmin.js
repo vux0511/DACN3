@@ -53,7 +53,7 @@ function LoginAdmin() {
                 );
             } else if (response.data && response.data.user.role === "admin") {
                 cookies.set("admin", response.data.user, {});
-                cookies.set("usertoken", response.data.usrer_token, {});
+                cookies.set("user_token", response.data.usrer_token, {});
                 toast.success("Đăng nhập thành công! Chuyển hướng sau 3s", {
                     position: "top-right",
                     autoClose: 3000,

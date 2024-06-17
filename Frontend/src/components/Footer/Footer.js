@@ -17,8 +17,7 @@ function Footer() {
                         <div className="c-item">
                             <FaLocationArrow />
                             <div className="text">
-                                26 Huỳnh Văn Nghệ, Hoà Hải, Ngũ Hành Sơn, Đà
-                                Nẵng
+                                Đường Huỳnh Lắm, Hoà Hải, Ngũ Hành Sơn, Đà Nẵng
                             </div>
                         </div>
                         <div className="c-item">
@@ -33,13 +32,13 @@ function Footer() {
                         </div>
                     </div>
                     <div className="col">
-                        <div className="title">Categorys</div>
-                        <span className="text">Nike</span>
-                        <span className="text">Adidas</span>
-                        <span className="text">MLB</span>
-                        <span className="text">Gucci</span>
-                        <span className="text">Puma</span>
-                        <span className="text"> New Balance</span>
+                        <div className="title">Categories</div>
+                        <span className="text">Điện thoại</span>
+                        <span className="text">Laptop</span>
+                        <span className="text">Tablet</span>
+                        <span className="text">Tai nghe</span>
+                        <span className="text">Phụ kiện</span>
+                        <span className="text"> Gia dụng</span>
                     </div>
                     <div className="col">
                         <div className="title">Pages</div>

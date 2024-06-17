@@ -2,11 +2,12 @@ const URL = "http://localhost:5001";
 // const URL = "http://localhost/DACN1_API/api";
 
 export default {
-    URL_getProduct: URL + "/product/get-all/1",
+    URL_getProduct: URL + "/product/get-all/all",
+    URL_getProductNew: URL + "/product/get-all/all?sort_createAt=-1",
     URL_getCategory: URL + "/category/get-list",
     URL_getProductCategory: URL + "/product/get-all/all",
     URL_getProductDetail: URL + "/product/detail",
-    URL_getProductRelated: URL + "/getProductRelated.php",
+    URL_getProductRelated: URL + "/product/get-recommend-by-idProduct/",
     URL_searchProduct: URL + "/product/get-all/1",
     URL_getInformation: URL + "/getInformation.php",
     URL_updateCart: URL + "/cart/update-quantity-cart",
@@ -22,15 +23,14 @@ export default {
     URL_getClientOrder: URL + "/getClientOrder.php",
     URL_getOrderByUser: URL + "/order/getall/",
     URL_getHomeAdmin: URL + "/getHomeAdmin.php",
-    URL_getOrder: URL + "/getOrder.php",
     URL_getIdAdmin: URL + "/getIdAdmin.php",
     URL_getUserAdmin: URL + "/getUserAdmin.php",
     URL_deleteUser: URL + "/deleteUser.php",
     URL_editRole: URL + "/editRole.php",
     URL_addNewProduct: URL + "/product/add-new",
-    URL_deleteProduct: URL + "/product/remove-by-idProduct",
+    URL_deleteProduct: URL + "/product/remove-by-idProduct/",
     URL_deleteOrder: URL + "/deleteOrder.php",
-    URL_editStatus: URL + "/editStatus.php",
+    URL_editStatus: URL + "/order/change-status-order",
     URL_addNewCategory: URL + "/category/add-new",
     URL_deleteCategory: URL + "/category/remove-by-idCategory",
     URL_editCategory: URL + "/category/update",
@@ -44,5 +44,7 @@ export default {
     URL_getFeedbackByIdProduct: URL + "/feedback/get-list/",
     URL_setViewed: URL + "/viewed/add-new",
     URL_getRecommend: URL + "/product/get-recommend",
+    URL_getOrder: URL + "/order/get-list",
     // setInfor.php
+    URL_editOrder: URL + "/order/get-id/",
 };

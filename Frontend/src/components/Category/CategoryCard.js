@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function CategoryCard(categoryList) {
     return (
-        <Link to={"/"}>
+        <Link to={`/product/`}>
             <div className="category__card">
                 <img
                     src={`http://localhost:5001/images/categories/${categoryList.categoryList.imageCategory}`}

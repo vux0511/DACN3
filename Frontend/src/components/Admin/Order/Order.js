@@ -5,14 +5,30 @@ import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CALL_URL from "~/api/CALL_URL";
+import moment from "moment";
 
 function Order() {
     const [order, setOrder] = useState([]);
     const notify = () => toast();
 
+    const numberFormat = (number) => {
+        return new Intl.NumberFormat("vi-VN", {
+            style: "currency",
+            currency: "VND",
+        }).format(number);
+    };
+
+    const convertTimestampToDateTime = (timestamp) => {
+        if (!timestamp) {
+            return "";
+        }
+        return moment(Number(timestamp)).format("MMMM Do YYYY, h:mm:ss a");
+    };
+
     useEffect(() => {
         axios.get(CALL_URL.URL_getOrder).then((response) => {
             setOrder(response.data);
+            console.log(response.data);
         });
     }, []);
 
@@ -44,9 +60,10 @@ function Order() {
     const handleChangeStatus = (e) => {
         let idOrder = e.target.className.split(" ");
         var data = {
-            nameStatus: e.target.value,
+            statusOrder: e.target.value,
             idOrder: idOrder[1],
         };
+        // console.log(data);
 
         axios.post(CALL_URL.URL_editStatus, data).then((response) => {
             console.log(response.data);
@@ -65,7 +82,6 @@ function Order() {
                         <thead>
                             <tr>
                                 <th className="th-id-order">#</th>
-                                {/* <th className="th-id-user">ID KH</th> */}
                                 <th className="th-fullname-order">Người đặt</th>
                                 <th className="th-phone-order">SĐT</th>
                                 <th className="th-address-order">Địa chỉ</th>
@@ -79,22 +95,17 @@ function Order() {
                         <tbody>
                             {order.map((order, index) => (
                                 <tr key={index}>
-                                    {/* <td>{index + 1}</td> */}
-                                    <td>{order.idUser}</td>
-                                    <td>{order.fullname}</td>
-                                    <td>{order.phone}</td>
-                                    <td>
-                                        <div className="address-order-admin">
-                                            {order.address}
-                                        </div>
-                                    </td>
+                                    <td>{index + 1}</td>
+                                    <td>{order.namedReceiver}</td>
+                                    <td>{order.phoneReceiver}</td>
+                                    <td>{order.addressReceiver}</td>
                                     <td>{order.payment}</td>
                                     <td>
                                         <select
                                             onChange={handleChangeStatus}
                                             name="select-category"
                                             id="select-category"
-                                            className={`select-order ${order.idOrder}`}
+                                            className={`select-order ${order._id}`}
                                         >
                                             <option
                                                 value="Chờ xác nhận"
@@ -134,16 +145,15 @@ function Order() {
                                             </option>
                                         </select>
                                     </td>
-                                    <td>{order.dateOrder}</td>
                                     <td>
-                                        {new Intl.NumberFormat("vn-VI", {
-                                            style: "currency",
-                                            currency: "VND",
-                                        }).format(order.totalPrice)}
+                                        {convertTimestampToDateTime(
+                                            order.createAt
+                                        )}
                                     </td>
+                                    <td>{numberFormat(order.totalPrice)}</td>
                                     <td>
                                         <Link
-                                            to={`/admin/order/edit/${order.idOrder}`}
+                                            to={`/admin/order/edit/${order._id}`}
                                         >
                                             <button className="delete-item-product-btn">
                                                 Xem

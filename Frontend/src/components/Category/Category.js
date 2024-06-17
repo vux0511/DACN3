@@ -12,7 +12,7 @@ function Category() {
 
     const handleClick = (id, idCategory) => {
         setActiveCategoryId(id);
-        navigate(`/product/category/${idCategory}?sort_price=1`);
+        navigate(`/product/category/${idCategory}`);
     };
 
     useEffect(() => {

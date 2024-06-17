@@ -88,7 +88,16 @@ function Payment() {
     const handleOrder = (e) => {
         e.preventDefault();
 
-        if (fullname === "" || phone === "" || address === "" || email === "") {
+        if (
+            fullname === "" ||
+            phone === "" ||
+            address === "" ||
+            email === "" ||
+            fullname === undefined ||
+            phone === undefined ||
+            address === undefined ||
+            email === undefined
+        ) {
             toast.error("Không được để trống các trường", {
                 position: "bottom-right",
                 autoClose: 4000,
@@ -115,10 +124,9 @@ function Payment() {
                 user_token: cookies.get("user_token"),
             };
             axios.post(CALL_URL.URL_setOrder, data).then((response) => {
-                console.log(response);
                 toast.success("Đặt hàng thành công", {
                     position: "top-right",
-                    autoClose: 4000,
+                    autoClose: 3000,
                     hideProgressBar: true,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -180,21 +188,6 @@ function Payment() {
                                         onChange={handleChangePhone}
                                     />
                                     <label
-                                        htmlFor="address"
-                                        className="payment-label"
-                                    >
-                                        Địa chỉ
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="address"
-                                        className="payment-input"
-                                        placeholder="Nhập địa chỉ của bạn..."
-                                        autoComplete="off"
-                                        defaultValue={infoUser.address}
-                                        onChange={handleChangeAddress}
-                                    />
-                                    <label
                                         htmlFor="email"
                                         className="payment-label"
                                     >
@@ -208,6 +201,21 @@ function Payment() {
                                         defaultValue={infoUser.email}
                                         autoComplete="off"
                                         onChange={handleChangeEmail}
+                                    />
+                                    <label
+                                        htmlFor="address"
+                                        className="payment-label"
+                                    >
+                                        Địa chỉ
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="address"
+                                        className="payment-input"
+                                        placeholder="Nhập địa chỉ của bạn..."
+                                        autoComplete="off"
+                                        defaultValue={infoUser.address}
+                                        onChange={handleChangeAddress}
                                     />
                                     <label
                                         htmlFor="email"
@@ -243,7 +251,6 @@ function Payment() {
                                             defaultValue="shipCod"
                                         />
                                         <label htmlFor="shipCod">
-                                            {"  "}
                                             Ship COD
                                         </label>
                                     </div>
@@ -290,12 +297,10 @@ function Payment() {
                                                         {itemCart.nameProduct}
                                                     </p>
                                                     <p>
-                                                        Giá:{" "}
                                                         {numberFormat(
                                                             itemCart.unit_price
                                                         )}{" "}
-                                                        - Số lượng:
-                                                        {itemCart.quantity}
+                                                        - SL:{itemCart.quantity}
                                                     </p>
                                                 </div>
                                                 <div className="col-2-items-payment">

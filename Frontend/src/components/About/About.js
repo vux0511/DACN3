@@ -17,24 +17,34 @@ function About() {
                             <div className="flex-about">
                                 <h2>THÔNG TIN VỀ CỬA HÀNG CỦA CHÚNG TÔI</h2>
                                 <p>
-                                    VuxStore ra đời với tất cả niềm đam mê
-                                    thương mại điện tử và giày dép của những
-                                    người sáng lập. Chúng tôi mong muốn mang đến
-                                    cho khách hàng những đôi giày tốt nhất, giúp
-                                    khách hàng luôn cảm thấy tự tin vững bước
-                                    theo đuổi niềm đam mê của bản thân để thành
-                                    công vượt trội.
+                                    Chào mừng bạn đến với VuxStore – điểm đến lý
+                                    tưởng cho mọi tín đồ công nghệ!
                                 </p>
                                 <p>
-                                    VuxStore là website bán giày chính hãng từ
-                                    các thương hiệu hàng đầu thế giới như: Nike,
-                                    adidas, Converse, New balance, Ascis,... Tất
-                                    cả các sản phẩm đều có nguồn gốc xuất sứ rõ
-                                    ràng chính hãng.VuxStore nói không với hàng
-                                    fake, hàng gia công chất lượng kém. Khi mua
-                                    hàng tại VuxStore khách hàng sẽ luôn có được
-                                    sản phẩm tốt nhất với mức giá cực kỳ hấp dẫn
-                                    mà khó có thể tìm được ở nơi khác.
+                                    VuxStore là website bán hàng trực tuyến hàng
+                                    đầu Việt Nam, chuyên cung cấp các sản phẩm
+                                    công nghệ cao cấp từ các thương hiệu nổi
+                                    tiếng trên thế giới. Chúng tôi cam kết mang
+                                    đến cho khách hàng những sản phẩm chất
+                                    lượng, chính hãng với mức giá cạnh tranh
+                                    nhất trên thị trường.
+                                </p>
+                                <p>
+                                    Tại VuxStore, bạn có thể dễ dàng tìm thấy
+                                    mọi thứ mình cần, từ điện thoại thông minh,
+                                    máy tính bảng, laptop, đến các phụ kiện công
+                                    nghệ như tai nghe, bàn phím, chuột, và thiết
+                                    bị lưu trữ. Chúng tôi liên tục cập nhật
+                                    những sản phẩm mới nhất, đáp ứng mọi nhu cầu
+                                    của bạn về công nghệ.
+                                </p>
+                                <p>
+                                    Với đội ngũ nhân viên giàu kinh nghiệm và
+                                    nhiệt tình, chúng tôi luôn sẵn sàng tư vấn,
+                                    hỗ trợ khách hàng trong suốt quá trình mua
+                                    sắm. Chế độ bảo hành dài hạn và chính sách
+                                    đổi trả linh hoạt giúp bạn hoàn toàn yên tâm
+                                    khi mua sắm tại VuxStore.
                                 </p>
                                 <p>
                                     Địa chỉ: Huỳnh Lắm, Hoà Hải, Ngũ Hành Sơn,
@@ -43,9 +53,6 @@ function About() {
                                 <div className="social-link-about">
                                     <a href="">
                                         <BsTelephone />
-                                    </a>
-                                    <a href="">
-                                        <GrLocation />
                                     </a>
                                     <a href="">
                                         <FaFacebook />
@@ -60,7 +67,7 @@ function About() {
                             </div>
                             <div className="flex-about">
                                 <img
-                                    src="https://media.gq-magazine.co.uk/photos/643676155a5350ccaaa4cdaa/1:1/w_1157,h_1157,c_limit/Screenshot%202023-04-12%20at%2010.12.38.png"
+                                    src="https://t4.ftcdn.net/jpg/06/01/14/23/360_F_601142328_VnY6DMf1sC0RULodemaCSrvXSlFhO1lA.jpg"
                                     alt="Img About"
                                 />
                             </div>

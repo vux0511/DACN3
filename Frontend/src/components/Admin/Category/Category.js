@@ -23,7 +23,7 @@ function CategoryAdmin() {
         e.preventDefault();
         var data = {
             idCategory: e.target.value,
-            user_token: cookies.get("usertoken"),
+            user_token: cookies.get("user_token"),
         };
         console.log(data);
         axios.post(CALL_URL.URL_deleteCategory, data).then((response) => {

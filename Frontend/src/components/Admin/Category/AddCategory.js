@@ -30,7 +30,7 @@ function AddCategory() {
         e.preventDefault();
         const formData = new FormData();
         formData.append("nameCategory", nameCategory);
-        formData.append("user_token", cookies.get("usertoken"));
+        formData.append("user_token", cookies.get("user_token"));
         formData.append("image_category", imageFormData);
 
         const config = {

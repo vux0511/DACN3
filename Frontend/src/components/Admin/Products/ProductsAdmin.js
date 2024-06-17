@@ -14,17 +14,26 @@ function ProductAdmin() {
     const [itemProducts, setItemProducts] = useState([]);
     const cookies = new Cookies();
     const notify = () => toast();
+
     useEffect(() => {
         axios.get(CALL_URL.URL_getProduct).then((response) => {
             setItemProducts(response.data);
+            console.log(response.data);
         });
     }, []);
+
+    const numberFormat = (number) => {
+        return new Intl.NumberFormat("vi-VN", {
+            style: "currency",
+            currency: "VND",
+        }).format(number);
+    };
 
     const handleDeleteProduct = (e) => {
         e.preventDefault();
         var data = {
             idProduct: e.target.value,
-            user_token: cookies.get("usertoken"),
+            user_token: cookies.get("user_token"),
         };
 
         axios.post(CALL_URL.URL_deleteProduct, data).then((response) => {
@@ -62,8 +71,8 @@ function ProductAdmin() {
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Tên</th>
                                 <th>Ảnh </th>
+                                <th>Tên</th>
                                 <th>Giá</th>
                                 <th>Số Lượng</th>
                                 <th>Thao tác</th>
@@ -73,14 +82,14 @@ function ProductAdmin() {
                             {itemProducts.map((item, index) => (
                                 <tr key={index}>
                                     <td>{index + 1}</td>
-                                    <td>{item.nameProduct}</td>
                                     <td>
                                         <img
                                             src={`http://localhost:5001/images/products/${item.image.img1}`}
                                             alt="Image Product"
                                         />
                                     </td>
-                                    <td>{item.price}</td>
+                                    <td>{item.nameProduct}</td>
+                                    <td>{numberFormat(item.price)}</td>
                                     <td>
                                         <div className="desc-product-admin">
                                             {item.quantity}

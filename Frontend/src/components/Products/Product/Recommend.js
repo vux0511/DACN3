@@ -12,7 +12,7 @@ function Recommend({ recommend }) {
     const [visible, setVisible] = useState(8);
 
     const showMoreItems = () => {
-        setVisible((prevValue) => prevValue + 4);
+        setVisible((prevValue) => prevValue + 8);
     };
     useEffect(() => {
         if (cookies.get("user")) {

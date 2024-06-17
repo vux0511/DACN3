@@ -13,14 +13,14 @@ function Products({ headingText }) {
     const [products, setProducts] = useState([]);
     const [originalProducts, setOriginalProducts] = useState([]);
     const location = useLocation();
-    const [visible, setVisible] = useState(4);
+    const [visible, setVisible] = useState(8);
     let { categoryId } = useParams();
     const idCategory = useParams();
     const [sortBy, setSortBy] = useState("default");
     const [priceFilter, setPriceFilter] = useState("default");
 
     const showMoreItems = () => {
-        setVisible((prevValue) => prevValue + 4);
+        setVisible((prevValue) => prevValue + 8);
     };
 
     if (categoryId === undefined) {
@@ -60,22 +60,36 @@ function Products({ headingText }) {
         switch (priceFilter) {
             case "under-500":
                 filteredProducts = filteredProducts.filter(
-                    (product) => product.price < 500
+                    (product) => product.price < 500000
                 );
                 break;
-            case "501-2000":
+            case "500-1000":
                 filteredProducts = filteredProducts.filter(
-                    (product) => product.price >= 501 && product.price <= 2000
+                    (product) =>
+                        product.price >= 500000 && product.price <= 1000000
                 );
                 break;
-            case "2001-5000":
+            case "1000-2000":
                 filteredProducts = filteredProducts.filter(
-                    (product) => product.price >= 2001 && product.price <= 5000
+                    (product) =>
+                        product.price >= 1000000 && product.price <= 2000000
                 );
                 break;
-            case "above-5000":
+            case "2000-5000":
                 filteredProducts = filteredProducts.filter(
-                    (product) => product.price > 5000
+                    (product) =>
+                        product.price >= 2000000 && product.price <= 5000000
+                );
+                break;
+            case "5000-10000":
+                filteredProducts = filteredProducts.filter(
+                    (product) =>
+                        product.price >= 5000000 && product.price <= 10000000
+                );
+                break;
+            case "above-10000":
+                filteredProducts = filteredProducts.filter(
+                    (product) => product.price > 10000000
                 );
                 break;
             default:
@@ -128,7 +142,7 @@ function Products({ headingText }) {
                             className="product__select-item"
                             value="default"
                         >
-                            Mặc định
+                            Sắp xếp theo giá
                         </option>
                         <option
                             className="product__select-item"
@@ -152,31 +166,43 @@ function Products({ headingText }) {
                             className="product__select-item"
                             value="default"
                         >
-                            Mặc định
+                            Khoảng giá
                         </option>
                         <option
                             className="product__select-item"
                             value="under-500"
                         >
-                            Giá dưới 500
+                            Dưới 500k
                         </option>
                         <option
                             className="product__select-item"
-                            value="501-2000"
+                            value="500-1000"
                         >
-                            501 - 2000
+                            Khoảng 500k - 1tr
                         </option>
                         <option
                             className="product__select-item"
-                            value="2001-5000"
+                            value="1000-2000"
                         >
-                            2001 - 5000
+                            Khoảng 1tr - 2tr
                         </option>
                         <option
                             className="product__select-item"
-                            value="above-5000"
+                            value="2000-5000"
                         >
-                            Giá trên 5000
+                            Khoảng 2tr - 5tr
+                        </option>
+                        <option
+                            className="product__select-item"
+                            value="5000-10000"
+                        >
+                            Khoảng 5tr - 10tr
+                        </option>
+                        <option
+                            className="product__select-item"
+                            value="above-10000"
+                        >
+                            Trên 10tr
                         </option>
                     </select>
                     <button

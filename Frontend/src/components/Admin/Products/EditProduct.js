@@ -31,9 +31,10 @@ function EditProduct() {
     };
     const handleChangeIdCate = (e) => {
         setItemProductEdit({ ...itemProductEdit, idCategory: e.target.value });
+        console.log(e.target.value);
     };
-
     const handleChangePriceProduct = (e) => {
+        console.log(e.target.value);
         setPriceProduct(e.target.value);
     };
     const handleChangeQuantityProduct = (e) => {
@@ -42,19 +43,15 @@ function EditProduct() {
     const handleChangeDescProduct = (e) => {
         setDescProduct(e.target.value);
     };
-
     const handleChangeImageCategory1 = (e) => {
         setImageFormData1(e.target.files[0]);
     };
-
     const handleChangeImageCategory2 = (e) => {
         setImageFormData2(e.target.files[0]);
     };
-
     const handleChangeImageCategory3 = (e) => {
         setImageFormData3(e.target.files[0]);
     };
-
     const handleChangeImageCategory4 = (e) => {
         setImageFormData4(e.target.files[0]);
     };
@@ -64,6 +61,7 @@ function EditProduct() {
         let data = itemProductEdit;
         data.idProduct = idProduct;
         const formData = new FormData();
+
         formData.append("idProduct", idProduct.idProduct);
         formData.append("nameProduct", itemProductEdit.nameProduct);
         formData.append("idCategory", itemProductEdit.idCategory);
@@ -74,7 +72,20 @@ function EditProduct() {
         formData.append("imgProduct2", imageFormData2);
         formData.append("imgProduct3", imageFormData3);
         formData.append("imgProduct4", imageFormData4);
-        formData.append("user_token", cookies.get("usertoken"));
+        formData.append("user_token", cookies.get("user_token"));
+
+        console.log("idProduct", idProduct.idProduct);
+        console.log("nameProduct", itemProductEdit.nameProduct);
+        console.log("idCategory", itemProductEdit.idCategory);
+        console.log("price", priceProduct);
+        console.log("quantity", quantityProduct);
+        console.log("description", descProduct);
+        console.log("imgProduct1", imageFormData1);
+        console.log("imgProduct2", imageFormData2);
+        console.log("imgProduct3", imageFormData3);
+        console.log("imgProduct4", imageFormData4);
+        console.log("user_token", cookies.get("user_token"));
+
         const config = {
             headers: {
                 "Content-Type": false,
@@ -97,7 +108,7 @@ function EditProduct() {
                         theme: "colored",
                     });
                 } else {
-                    toast.success("Sửa thất bại", {
+                    toast.error("Sửa thất bại", {
                         position: "top-right",
                         autoClose: 3000,
                         hideProgressBar: true,
@@ -126,6 +137,10 @@ function EditProduct() {
             )
             .then((response) => {
                 setItemProductEdit(response.data);
+                setNameProduct(response.data.nameCategory);
+                setDescProduct(response.data.description);
+                setPriceProduct(response.data.price);
+                setQuantityProduct(response.data.quantity);
                 console.log(response.data);
             });
     }, []);
@@ -178,6 +193,7 @@ function EditProduct() {
                                             placeholder="Giá sản phẩm (bắt buộc)"
                                             className="detail__rating-form-input"
                                             defaultValue={itemProductEdit.price}
+                                            min={0}
                                         />
                                     </div>
                                 </div>
@@ -199,8 +215,12 @@ function EditProduct() {
                                         >
                                             {idCategory.map((value) => (
                                                 <option
-                                                    value={value.idCategory}
-                                                    key={value.idCategory}
+                                                    value={value._id}
+                                                    key={value._id}
+                                                    selected={
+                                                        value._id ===
+                                                        itemProductEdit.idCategory
+                                                    }
                                                 >
                                                     {value.nameCategory}
                                                 </option>
@@ -223,6 +243,7 @@ function EditProduct() {
                                             onChange={
                                                 handleChangeQuantityProduct
                                             }
+                                            min={0}
                                             defaultValue={
                                                 itemProductEdit.quantity
                                             }

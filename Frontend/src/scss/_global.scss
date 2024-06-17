@@ -43,3 +43,8 @@ a:hover {
 //     className="small-img1"
 //     onClick={handleImage}
 // />
+
+.swiper-button-prev,
+.swiper-button-next {
+    color: $orange-color;
+}

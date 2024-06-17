@@ -11,6 +11,11 @@ function TopProducts({ topProduct }) {
     const cookies = new Cookies();
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
+    const [visible, setVisible] = useState(4);
+
+    const showMoreItems = () => {
+        setVisible((prevValue) => prevValue + 8);
+    };
 
     useEffect(() => {
         if (cookies.get("user")) {
@@ -57,24 +62,12 @@ function TopProducts({ topProduct }) {
                 <div className="layout">
                     <div className="sec-heading">Sản phẩm mới nhất</div>
                     <div className="products">
-                        {topProduct.slice(0, 4).map((topProduct, index) => (
-                            <div className="product-card" key={index}>
-                                <div
-                                    className="thumbnail"
-                                    onClick={() =>
-                                        navigate(`/product/${topProduct._id}`, {
-                                            idProduct: topProduct,
-                                        })
-                                    }
-                                >
-                                    <img
-                                        src={`http://localhost:5001/images/products/${topProduct.image.img1}`}
-                                        alt="Image Product"
-                                    />
-                                </div>
-                                <div className="product-detail">
+                        {topProduct
+                            .slice(0, visible)
+                            .map((topProduct, index) => (
+                                <div className="product-card" key={index}>
                                     <div
-                                        className="name"
+                                        className="thumbnail"
                                         onClick={() =>
                                             navigate(
                                                 `/product/${topProduct._id}`,
@@ -84,64 +77,91 @@ function TopProducts({ topProduct }) {
                                             )
                                         }
                                     >
-                                        {topProduct.nameProduct}
+                                        <img
+                                            src={`http://localhost:5001/images/products/${topProduct.image.img1}`}
+                                            alt="Image Product"
+                                        />
                                     </div>
-                                    <div
-                                        className="product-bottom"
-                                        onClick={() =>
-                                            navigate(
-                                                `/product/${topProduct._id}`,
-                                                {
-                                                    idProduct: topProduct,
-                                                }
-                                            )
-                                        }
-                                    >
-                                        <div className="price-star">
-                                            <span className="star">
-                                                <BsStarFill />
-                                                <BsStarFill />
-                                                <BsStarFill />
-                                                <BsStarFill />
-                                                <BsStarHalf />
-                                            </span>
+                                    <div className="product-detail">
+                                        <div
+                                            className="name"
+                                            onClick={() =>
+                                                navigate(
+                                                    `/product/${topProduct._id}`,
+                                                    {
+                                                        idProduct: topProduct,
+                                                    }
+                                                )
+                                            }
+                                        >
+                                            {topProduct.nameProduct}
                                         </div>
-                                        <div className="add-cart-btn">
-                                            <span
-                                                className="price"
-                                                onClick={() =>
-                                                    navigate(
-                                                        `/product/${topProduct._id}`,
-                                                        {
-                                                            idProduct:
-                                                                topProduct,
-                                                        }
-                                                    )
-                                                }
-                                            >
-                                                {numberFormat(topProduct.price)}
-                                            </span>
-                                            <button
-                                                className="add-to-cart-btn"
-                                                id={topProduct._id}
-                                                onClick={() =>
-                                                    navigate(
-                                                        `/product/${topProduct._id}`,
-                                                        {
-                                                            idProduct:
-                                                                topProduct,
-                                                        }
-                                                    )
-                                                }
-                                            >
-                                                Thêm giỏ hàng
-                                            </button>
+                                        <div
+                                            className="product-bottom"
+                                            onClick={() =>
+                                                navigate(
+                                                    `/product/${topProduct._id}`,
+                                                    {
+                                                        idProduct: topProduct,
+                                                    }
+                                                )
+                                            }
+                                        >
+                                            <div className="price-star">
+                                                <span className="star">
+                                                    <BsStarFill />
+                                                    <BsStarFill />
+                                                    <BsStarFill />
+                                                    <BsStarFill />
+                                                    <BsStarHalf />
+                                                </span>
+                                            </div>
+                                            <div className="add-cart-btn">
+                                                <span
+                                                    className="price"
+                                                    onClick={() =>
+                                                        navigate(
+                                                            `/product/${topProduct._id}`,
+                                                            {
+                                                                idProduct:
+                                                                    topProduct,
+                                                            }
+                                                        )
+                                                    }
+                                                >
+                                                    {numberFormat(
+                                                        topProduct.price
+                                                    )}
+                                                </span>
+                                                <button
+                                                    className="add-to-cart-btn"
+                                                    id={topProduct._id}
+                                                    onClick={() =>
+                                                        navigate(
+                                                            `/product/${topProduct._id}`,
+                                                            {
+                                                                idProduct:
+                                                                    topProduct,
+                                                            }
+                                                        )
+                                                    }
+                                                >
+                                                    Thêm giỏ hàng
+                                                </button>
+                                            </div>
+                                            <ToastContainer />
                                         </div>
-                                        <ToastContainer />
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        {visible < topProduct.length && (
+                            <button
+                                className="button button-loadmore"
+                                onClick={showMoreItems}
+                            >
+                                Xem thêm
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>

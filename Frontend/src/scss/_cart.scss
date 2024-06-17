@@ -12,7 +12,7 @@
     }
     .cart-info {
         display: flex;
-        flex-wrap: wrap;
+        // flex-wrap: wrap;
         img {
             width: 100px;
         }
@@ -64,7 +64,7 @@ td {
 
 .sec-cart {
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 600;
     text-transform: uppercase;
 
     &:after {
@@ -81,7 +81,7 @@ td {
     display: flex;
     justify-content: flex-end;
     table {
-        border-top: 2px solid #c7c7c7;
+        // border-top: 2px solid #c7c7c7;
         width: 100%;
         max-width: 410px;
         button {
@@ -90,7 +90,7 @@ td {
             font-weight: 500;
             padding: 10px 20px;
             cursor: pointer;
-            border-radius: 50px;
+            border-radius: 6px;
             background-color: rgb(246, 95, 1);
             color: #fff;
             width: 120px;
@@ -244,4 +244,13 @@ p {
     &:hover {
         color: #777;
     }
+}
+
+.cart__tr {
+    border-bottom: 1px solid #ebf0f9;
+}
+
+.cart__tr-subtotal {
+    font-weight: 600;
+    font-size: 18px;
 }

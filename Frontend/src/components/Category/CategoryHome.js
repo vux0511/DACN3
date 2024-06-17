@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Navigation, Pagination } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
 import CategoryCard from "./CategoryCard";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -25,14 +25,17 @@ const CategoryHome = () => {
                 <div className="swiper mySwiper">
                     <div className="swiper-wrapper">
                         <Swiper
-                            // pagination={true}
                             slidesPerView={8}
                             spaceBetween={15}
-                            modules={[Navigation, Pagination]}
+                            loop={true}
+                            autoplay={{
+                                delay: 2500,
+                            }}
+                            modules={[Autoplay, Navigation]}
                             className="mySwiper"
                             breakpoints={{
                                 0: {
-                                    slidesPerView: 1.4,
+                                    slidesPerView: 4,
                                     spaceBetween: 20,
                                 },
                                 640: {

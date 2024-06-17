@@ -25,7 +25,7 @@ function EditProduct() {
         e.preventDefault();
         let data = {
             idCategory: idCategory,
-            user_token: cookies.get("usertoken"),
+            user_token: cookies.get("user_token"),
             image_category: image_category,
             nameCategory: category,
         };
@@ -33,7 +33,7 @@ function EditProduct() {
         formData.append("idCategory", idCategory);
         formData.append("nameCategory", category);
         formData.append("image_category", image_category);
-        formData.append("user_token", cookies.get("usertoken"));
+        formData.append("user_token", cookies.get("user_token"));
 
         console.log(data);
         const config = {

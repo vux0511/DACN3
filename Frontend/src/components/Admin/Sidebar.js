@@ -23,7 +23,7 @@ function Sidebar() {
 
     const handleLogOutAdmin = () => {
         document.cookie = "admin" + "=; Max-Age=0;";
-        document.cookie = "usertoken" + "=; Max-Age=0;";
+        document.cookie = "user_token" + "=; Max-Age=0;";
         window.location.reload();
     };
 

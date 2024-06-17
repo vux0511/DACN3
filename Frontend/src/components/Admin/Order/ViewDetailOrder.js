@@ -12,12 +12,14 @@ import CALL_URL from "~/api/CALL_URL";
 function EditProduct() {
     const { idOrder } = useParams();
     const [status, setStatus] = useState([]);
-    const [detailOrder, setDetailOrder] = useState([]);
+    const [detailOrder, setDetailOrder] = useState({});
+    const [subTotal, setSubTotal] = useState(0);
 
     const handleViewOrder = (e) => {
         e.preventDefault();
         let data = status;
         data.id = idOrder;
+        console.log(CALL_URL.URL_editOrder);
 
         axios.post(CALL_URL.URL_editOrder, data).then((response) => {
             console.log(response.data);
@@ -50,9 +52,17 @@ function EditProduct() {
     // Get getDetailOrder
     useEffect(() => {
         axios
-            .get(`${CALL_URL.URL_getInformation}?idorder=${idOrder}`)
+            .get(`${CALL_URL.URL_getDetailOrder}${idOrder}`)
             .then((response) => {
                 setDetailOrder(response.data);
+                console.log("detailOrder", detailOrder);
+                var priceProduct = 0;
+                response.data.productItems.map((itemInvoice, index) => {
+                    priceProduct =
+                        priceProduct +
+                        itemInvoice.quantity * itemInvoice.unit_price;
+                });
+                setSubTotal(priceProduct);
             });
     }, []);
 
@@ -72,9 +82,6 @@ function EditProduct() {
                                                 <table>
                                                     <thead>
                                                         <tr>
-                                                            <th className="th-id-order">
-                                                                #
-                                                            </th>
                                                             <th className="th-name-product-order">
                                                                 Tên Sản Phẩm
                                                             </th>
@@ -83,9 +90,6 @@ function EditProduct() {
                                                             </th>
                                                             <th className="th-price-product-order">
                                                                 Đơn Giá
-                                                            </th>
-                                                            <th className="th-size-product-order">
-                                                                Size
                                                             </th>
                                                             <th className="th-quantity-product-order">
                                                                 Số Lượng
@@ -96,77 +100,69 @@ function EditProduct() {
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {detailOrder.map(
-                                                            (
-                                                                detailOrder,
-                                                                index
-                                                            ) => (
-                                                                <tr key={index}>
-                                                                    <td>
-                                                                        {index +
-                                                                            1}
-                                                                    </td>
-                                                                    <td>
-                                                                        {
-                                                                            detailOrder.nameProduct
-                                                                        }
-                                                                    </td>
-                                                                    <td>
-                                                                        <img
-                                                                            src={
-                                                                                detailOrder.imageProduct_1
-                                                                            }
-                                                                            alt="Image Product"
-                                                                        />
-                                                                    </td>
-                                                                    <td>
-                                                                        {new Intl.NumberFormat(
-                                                                            "vn-VI",
-                                                                            {
-                                                                                style: "currency",
-                                                                                currency:
-                                                                                    "VND",
-                                                                            }
-                                                                        ).format(
-                                                                            detailOrder.priceProduct
-                                                                        )}
-                                                                    </td>
-                                                                    <td>
-                                                                        {
-                                                                            detailOrder.size
-                                                                        }
-                                                                    </td>
-                                                                    <td>
-                                                                        {
-                                                                            detailOrder.quantityProduct
-                                                                        }
-                                                                    </td>
-                                                                    <td>
-                                                                        {new Intl.NumberFormat(
-                                                                            "vn-VI",
-                                                                            {
-                                                                                style: "currency",
-                                                                                currency:
-                                                                                    "VND",
-                                                                            }
-                                                                        ).format(
-                                                                            detailOrder.priceProduct *
-                                                                                detailOrder.quantityProduct
-                                                                        )}
-                                                                    </td>
-                                                                </tr>
-                                                            )
-                                                        )}
+                                                        {detailOrder.productItems
+                                                            ? detailOrder.productItems.map(
+                                                                  (
+                                                                      detailOrder,
+                                                                      index
+                                                                  ) => (
+                                                                      <tr
+                                                                          key={
+                                                                              index
+                                                                          }
+                                                                      >
+                                                                          <td>
+                                                                              <div>
+                                                                                  <img
+                                                                                      src={`http://localhost:5001/images/products/${detailOrder.imgProduct}`}
+                                                                                      alt="Image Product"
+                                                                                  />
+                                                                              </div>
+                                                                          </td>
+                                                                          <td>
+                                                                              {
+                                                                                  detailOrder.nameProduct
+                                                                              }
+                                                                          </td>
+                                                                          <td>
+                                                                              {new Intl.NumberFormat(
+                                                                                  "vn-VI",
+                                                                                  {
+                                                                                      style: "currency",
+                                                                                      currency:
+                                                                                          "VND",
+                                                                                  }
+                                                                              ).format(
+                                                                                  detailOrder.unit_price
+                                                                              )}
+                                                                          </td>
+                                                                          <td>
+                                                                              {
+                                                                                  detailOrder.quantity
+                                                                              }
+                                                                          </td>
+                                                                          <td>
+                                                                              {new Intl.NumberFormat(
+                                                                                  "vn-VI",
+                                                                                  {
+                                                                                      style: "currency",
+                                                                                      currency:
+                                                                                          "VND",
+                                                                                  }
+                                                                              ).format(
+                                                                                  detailOrder.unit_price *
+                                                                                      detailOrder.quantity
+                                                                              )}
+                                                                          </td>
+                                                                      </tr>
+                                                                  )
+                                                              )
+                                                            : "k"}
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <button className="save-btn">
-                                        Lưu thay đổi
-                                    </button>
-                                    <ToastContainer />
                                 </form>
                             </div>
                         </div>

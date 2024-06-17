@@ -48,7 +48,7 @@ function Cart() {
     };
 
     // Update product quantity
-    const handlerQuantity = (e) => {
+    const handleQuantity = (e) => {
         var data = {
             idProduct: e.target.id,
             user_token: cookies.get("user_token"),
@@ -56,6 +56,7 @@ function Cart() {
         };
 
         axios.post(CALL_URL.URL_updateCart, data).then((response) => {
+            console.log(response.data);
             var tongTien = 0;
             const updatedCartItems = itemCarts.map((item) => {
                 if (item.idProduct === data.idProduct) {
@@ -101,6 +102,7 @@ function Cart() {
         axios
             .get(`${CALL_URL.URL_getCart}${data.user_token}`, data)
             .then((response) => {
+                console.log("res", response.data);
                 setItemCarts(response.data);
                 var totalCart = 0;
                 response.data.map((itemCart, index) => {
@@ -151,7 +153,7 @@ function Cart() {
                             </tr>
                         ) : (
                             itemCarts.map((itemCart, index) => (
-                                <tr key={index}>
+                                <tr className="cart__tr" key={index}>
                                     <td>
                                         <div className="cart-info">
                                             <img
@@ -178,7 +180,8 @@ function Cart() {
                                             className="input__cart"
                                             defaultValue={itemCart.quantity}
                                             min={1}
-                                            onChange={handlerQuantity}
+                                            max={itemCart.quantity1}
+                                            onChange={handleQuantity}
                                         />
                                     </td>
                                     <td className="price">
@@ -206,7 +209,7 @@ function Cart() {
                         <thead>
                             {subTotal !== 0 ? (
                                 <>
-                                    <tr>
+                                    <tr className="cart__tr-subtotal">
                                         <td>Tổng giá</td>
                                         <td>{numberFormat(subTotal)}</td>
                                     </tr>
