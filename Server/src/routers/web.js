@@ -48,6 +48,10 @@ let initRouter = (app) => {
     );
     router.post("/product/remove-by-idProduct", product.removeProduct);
     router.get("/product/get-recommend", product.getProductByRecommend);
+    router.get(
+        "/product/get-recommend-by-idProduct",
+        product.getRecommendByIdProduct
+    );
 
     // Cart ----------
     router.post("/cart/add-new", cart.addItemCart); // thêm một sản phẩm vào trong giỏ hàng

@@ -243,6 +243,25 @@ let getProductByRecommend = async (req, res) => {
     }
 };
 
+let getRecommendByIdProduct = async (req, res) => {
+    if (!_.isEmpty(req.query.idProduct)) {
+        try {
+            let result = await product.getRecommendByIdProduct(
+                req.query.idProduct
+            );
+            if (result) {
+                res.status(200).send(result);
+            } else {
+                res.send(false);
+            }
+        } catch (error) {
+            res.send(false);
+        }
+    } else {
+        res.send(false);
+    }
+};
+
 export default {
     createNewProduct,
     getProductById,
@@ -254,4 +273,5 @@ export default {
     getProductByIdCategory,
     removeProduct,
     getProductByRecommend,
+    getRecommendByIdProduct,
 };

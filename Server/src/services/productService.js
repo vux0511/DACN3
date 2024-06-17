@@ -306,7 +306,6 @@ let getProductByRecommend = (idUser) => {
     return new Promise(async (resolve, reject) => {
         try {
             let product_data = await ProductModel.findAllDataRecommend();
-            // console.log(product_data);
             let result_view = await ViewedModel.getViewedByUser(idUser);
             const recommender = new ContentBasedRecommender({
                 minScore: 0.1,
@@ -315,6 +314,8 @@ let getProductByRecommend = (idUser) => {
             // start training
             recommender.train(product_data);
             let productIds = [];
+            let productTop = [];
+            let top = 1;
             result_view.map((value) => {
                 const similarDocuments = recommender.getSimilarDocuments(
                     value.productId,
@@ -323,12 +324,59 @@ let getProductByRecommend = (idUser) => {
                 );
                 similarDocuments.map((similar) => {
                     productIds = [...productIds, similar.id];
+                    productTop = [...productTop, { id: similar.id, top: top }];
                 });
+                top = top + 1;
             });
             productIds = _.uniqBy(productIds);
+            console.log(productIds);
+            let productTest = productTop.map(async (value) => {
+                let result1 = await ProductModel.findProductById(value.id);
+                return {
+                    ...result1._doc,
+                    top: value.top,
+                };
+            });
+            // console.log(await Promise.all(productTest));
 
-            let result = await ProductModel.findProductbyIds(productIds);
-            if (result) resolve(result);
+            // let result = await ProductModel.findProductbyIds(productIds);
+            if (productTest) resolve(await Promise.all(productTest));
+            else resolve(false);
+        } catch (error) {
+            console.log(error);
+            resolve(false);
+        }
+    });
+};
+
+let getRecommendByIdProduct = (idProduct) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let product_data = await ProductModel.findAllDataRecommend();
+            const recommender = new ContentBasedRecommender({
+                minScore: 0.1,
+                maxSimilarDocuments: 100,
+            });
+            // start training
+            recommender.train(product_data);
+            const similarDocuments = recommender.getSimilarDocuments(
+                idProduct,
+                0,
+                20
+            );
+            let productTest = similarDocuments.map(async (similar) => {
+                console.log(similar);
+                let result1 = await ProductModel.findProductById(similar.id);
+                return {
+                    ...result1._doc,
+                    score: similar.score,
+                };
+            });
+
+            // console.log(await Promise.all(productTest));
+
+            // let result = await ProductModel.findProductbyIds(productIds);
+            if (productTest) resolve(await Promise.all(productTest));
             else resolve(false);
         } catch (error) {
             console.log(error);
@@ -379,4 +427,5 @@ export default {
     removeProduct,
     getProductByRecommend,
     getTopViewProduct,
+    getRecommendByIdProduct,
 };
