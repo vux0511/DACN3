@@ -68,7 +68,6 @@ let getItemCartByIdUser = (idUser) => {
         try {
             let result = await CartModel.getCartByIdUser(idUser);
             let result1 = result.map(async (value) => {
-                console.log(value.idProduct);
                 let quantity = await ProductModel.getQuantityById(
                     value.idProduct
                 );

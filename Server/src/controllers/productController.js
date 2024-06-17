@@ -232,7 +232,6 @@ let getProductByRecommend = async (req, res) => {
     } else {
         try {
             let result1 = await product.getTopViewProduct();
-            console.log(result1);
             if (result1) {
                 res.status(200).send(result1);
             } else {
