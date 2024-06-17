@@ -341,15 +341,21 @@ let getTopViewProduct = () => {
     return new Promise(async (resolve, reject) => {
         try {
             let result = await ViewedModel.getTopViewIdProduct();
-            let productIds = [];
-            result.map((value) => {
-                productIds = [...productIds, value.productId];
+            // let productIds = [];
+            let products = result.map(async (value) => {
+                // productIds = [...productIds, value.productId];
+                let product = await ProductModel.findProductById(
+                    value.productId
+                );
+                return {
+                    ...product._doc,
+                    view: value.view,
+                };
             });
-            let result1 = await ProductModel.findProductbyIds(productIds);
-            console.log(result1);
-
-            if (result1) resolve(result1);
-            else resolve(false);
+            // console.log(productIds);
+            // let result1 = await ProductModel.findProductbyIds(productIds);
+            products.sort((a, b) => a.view - b.view);
+            products ? resolve(await Promise.all(products)) : resolve(false);
         } catch (error) {
             console.log(error);
             resolve(false);
