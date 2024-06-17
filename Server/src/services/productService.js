@@ -319,7 +319,7 @@ let getProductByRecommend = (idUser) => {
                 const similarDocuments = recommender.getSimilarDocuments(
                     value.productId,
                     0,
-                    10
+                    20
                 );
                 similarDocuments.map((similar) => {
                     productIds = [...productIds, similar.id];

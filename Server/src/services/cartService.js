@@ -73,7 +73,7 @@ let getItemCartByIdUser = (idUser) => {
                 );
                 return {
                     ...value._doc,
-                    quantity: quantity.quantity,
+                    quantity1: quantity.quantity,
                 };
             });
             result ? resolve(await Promise.all(result1)) : resolve(false);
