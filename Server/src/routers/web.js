@@ -23,7 +23,8 @@ let initRouter = (app) => {
     router.post("/user/update-image-user/:idUser", user.updateImgUser);
     router.post("/user/check-pass-user/:idUser", user.checkPassUser);
     router.get("/user/get-normal-user/:idUser", user.getNormalUser);
-    router.post("/user/active-email", user.verifyEmail);
+    router.get("/auth/verifyEmail/:token_verify", user.verifyEmail);
+    router.post("/auth/request-active-Email", user.sendAcitveEmail);
     router.get("/user/getQuanityUser", user.getQuanity);
     router.get("/user/get-list-user", user.getListUser);
 

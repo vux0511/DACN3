@@ -8,6 +8,7 @@ export APP_HOST=
 export MAIL_USER=
 export MAIL_PASSWORD=
 export MAIL_HOST=
-export MAIL_PORT= 
+export MAIL_PORT=
 
 export JWT_KEY=
+export JWT_KEYMAIL=

@@ -11,6 +11,8 @@ let userSchema = new Schema({
     phone: { type: Number, default: null },
     address: { type: String, default: null },
     avatar: { type: String, default: "avatar-default.jpg" },
+    isActive: { type: Boolean, default: false },
+    verifyToken: { type: String, default: null },
     role: { type: String, default: "user" }, //  // user, seller, admin
     createAt: { type: Number, default: Date.now },
     updateAt: { type: Number, default: Date.now },
@@ -35,6 +37,20 @@ userSchema.statics = {
         return this.find(
             {},
             "_id  username  fullname  email  gender  phone  address  avatar  role createAt  updateAt"
+        ).exec();
+    },
+    updateTokenByEmail(id, token) {
+        return this.findByIdAndUpdate(id, { verifyToken: token }).exec();
+    },
+
+    activeEmail(id, token, email) {
+        return this.findByIdAndUpdate(
+            {
+                _id: id,
+                email: email,
+                verifyToken: token,
+            },
+            { isActive: true }
         ).exec();
     },
     getQuanity() {

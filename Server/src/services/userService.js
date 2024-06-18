@@ -1,6 +1,7 @@
 import userModel from "../models/userModel";
 import { transValidation, transSuccess } from "../../lang/vi";
 import { app } from "../config/app";
+import jwt from "jsonwebtoken";
 
 // import sendMail from "../config/mailer";
 
@@ -114,6 +115,58 @@ let updateImageUser = (idUser, nameImg) => {
         } catch (error) {}
     });
 };
+
+let updateTokenVerify = (email) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let checkMail = await userModel.findByEmail(email);
+            console.log(checkMail);
+            if (checkMail)
+                if (!checkMail.isActive) {
+                    let token = jwt.sign(
+                        { id: checkMail._id, email: email },
+                        process.env.JWT_KEYMAIL,
+                        { expiresIn: "1h" }
+                    );
+
+                    let resultUpdate = await userModel.updateTokenByEmail(
+                        checkMail._id,
+                        token
+                    );
+
+                    return resolve({ data: resultUpdate, token: token });
+                }
+
+            return resolve(false);
+        } catch (error) {
+            console.log(error);
+            return resolve(false);
+        }
+    });
+};
+
+let verifyEmail = (token) => {
+    return new Promise((resolve, reject) => {
+        try {
+            jwt.verify(token, process.env.JWT_KEYMAIL, async (err, decoded) => {
+                if (err) resolve(false);
+                else {
+                    let result = await userModel.activeEmail(
+                        decoded.id,
+                        token,
+                        decoded.email
+                    );
+                    if (result) resolve(true);
+                    else resolve(false);
+                }
+            });
+        } catch (error) {
+            console.log(error);
+            return resolve(false);
+        }
+    });
+};
+
 let updateUser = (idUser, item) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -143,24 +196,6 @@ let checkPassUser = (idUser, password) => {
                 userItem.password + ""
             );
             resolve(checkPass);
-        }
-    });
-};
-
-let verifyEmail = (idUser) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            let userItem = await userModel.findUserById(idUser);
-            if (userItem) {
-                // let email = userItem.local.email;
-                // console.log(email);
-                // sendMail(email, "Tiêu đề test", "oke bro");
-                resolve(true);
-            } else {
-                resolve(false);
-            }
-        } catch (error) {
-            reject(false);
         }
     });
 };
@@ -205,4 +240,5 @@ export default {
     verifyEmail,
     getListUser,
     getQuanity,
+    updateTokenVerify,
 };
