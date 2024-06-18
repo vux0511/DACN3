@@ -3,6 +3,8 @@ import multer from "multer";
 
 import { app } from "../config/app";
 import { user } from "../services/index";
+import sendMail from "../config/mailer";
+
 import { transSuccess, transValidation, transError } from "../../lang/vi";
 
 import jwt from "jsonwebtoken";
@@ -126,13 +128,107 @@ let checkPassUser = async (req, res) => {
     }
 };
 
-let verifyEmail = async (req, res) => {
-    if (!_.isEmpty(req.body)) {
-        let idUser = req.body.idUser;
-        let result = await user.verifyEmail(idUser);
-        res.send(result);
+let sendAcitveEmail = async (req, res) => {
+    if (_.isEmpty(req.body)) {
+        res.send(false);
+    } else {
+        try {
+            let result = jwt.verify(req.body.user_token, process.env.JWT_KEY);
+            // kiểm tra email đã đc đk chưa hoặc tài khoản đã active chưa
+            let result_update = await user.updateTokenVerify(result.email);
+            console.log("xác minh");
+            if (result_update.data && result_update.token) {
+                sendMail(
+                    result.email,
+                    "VuxStore :Verify email ",
+                    `<tbody><tr><td height="20"></td></tr>
+        <tr><td height="10"></td></tr>
+        <tr>
+            <td>
+                <table class="m_-3116258301937000145table1" width="800" align="center" border="0" cellspacing="0" cellpadding="0">
+                    <tbody><tr>
+                        <td bgcolor="#F7F7F7" style="padding:20px 0;border:1px solid #f2f2f2;border-radius:5px">
+                            <table class="m_-3116258301937000145table1" width="750" align="center" border="0" cellspacing="0" cellpadding="0">
+                                <tbody><tr>
+                                    <td align="left" style="line-height:1.6;color:#282828;font-size:14px;font-weight:600;font-family:'Open Sans',Helvetica,sans-serif">
+                                        <div><span><strong>Hello,</strong></span></div>
+                                    </td>
+                                </tr>
+                                <tr><td height="8"></td></tr>
+                                <tr>
+                                    <td align="left" style="line-height:1.8;color:#282828;font-size:14px;font-weight:400;font-family:'Open Sans',Helvetica,sans-serif">
+                                        <div><span>Welcome to our VuxStore website!<br>
+                                            Please click the button below within 1 hour to verify your email.</span></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" class="m_-3116258301937000145center_content" style="padding-top:10px;padding-bottom:0px;line-height:1;font-size:14px;font-weight:400;font-family:'Open Sans',Helvetica,sans-serif">
+                                        <div><span><a href="http://localhost:5000/auth/verifyEmail/${result_update.token}" target="_blank"><img src="https://ci6.googleusercontent.com/proxy/XKjtUPKTk2XF5CEExdJpneD8_KEYUu8r2nqWES_5LbjO0Ogcn5Y_BYJbXhUShHxIF-w=s0-d-e1-ft#https://i.imgur.com/VBBPAhW.png" alt="" title="Click here to activate account" class="CToWUd" data-bit="iit"></a></span></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" style="line-height:1.8;color:#282828;font-size:14px;font-weight:400;font-family:'Open Sans',Helvetica,sans-serif">
+                                        <div>
+                                            <p>In case you cannot click the button, click on the following link to activate your account:<a href='http://localhost:5000/auth/verifyEmail/${result_update.token}' target="_blank">http://localhost:5000/auth/verifyEmail/${result_update.token}  </a> </p>
+                                            <p>If you encounter any difficulties, please contact us immediately. We are always ready to assist.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr><td height="20"></td></tr>
+                                <tr>
+                                    <td align="left" style="line-height:1.6;color:#282828;font-size:14px;font-weight:400;font-family:'Open Sans',Helvetica,sans-serif">
+                                        <div><span><strong>Best regards,<br>
+                                            VuxStore website team.</strong></span></div>
+                                    </td>
+                                </tr>
+                                <tr><td height="5"></td></tr>
+                            </tbody></table>
+                        </td>
+                    </tr>
+                </tbody></table>
+            </td>
+        </tr>
+
+        <tr><td height="10"></td></tr>
+
+
+
+        <tr><td height="20"></td></tr>
+
+
+        <tr><td height="100"></td></tr>
+        </tbody>`
+                )
+                    .then((success) => {
+                        console.log("gửi mail thành công");
+                        res.send(true);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        console.log("gửi mail thất bại");
+                        res.send(false);
+                    });
+            } else {
+                res.send(false);
+            }
+        } catch (error) {
+            console.log(error);
+            res.send(false);
+        }
     }
-    res.send(result);
+};
+
+let verifyEmail = async (req, res) => {
+    if (req.params.token_verify) {
+        let result = await user.verifyEmail(req.params.token_verify);
+        if (result)
+            res.send(
+                "<p>Please log in again to continue using <a href='http://localhost:3000/home'>go to home</a></p>"
+            );
+        else {
+            res.send({ data: false, message: transError.aciveEmail });
+        }
+    }
 };
 
 let getListUser = async (req, res) => {
@@ -162,4 +258,5 @@ export default {
     verifyEmail,
     getListUser,
     getQuanity,
+    sendAcitveEmail,
 };
