@@ -14,7 +14,8 @@ let createNew = (item) => {
             let saltRounds = 7;
             const salt = bcrypt.genSaltSync(saltRounds);
             let checkEmail = await userModel.findByEmail(item.email);
-            if (checkEmail) {
+            console.log(checkEmail);
+            if (!checkEmail) {
                 let data = {
                     username: item.username,
                     fullname: item.fullname,

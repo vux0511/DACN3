@@ -6,6 +6,7 @@ import _ from "lodash";
 import { transError, transSuccess } from "../../lang/vi";
 import ContentBasedRecommender from "content-based-recommender";
 import ViewedModel from "../models/ViewedModel";
+import CartModel from "../models/CartModel";
 
 let product_limit = app.limit_product;
 
@@ -307,6 +308,8 @@ let getProductByRecommend = (idUser) => {
         try {
             let product_data = await ProductModel.findAllDataRecommend();
             let result_view = await ViewedModel.getViewedByUser(idUser);
+            let result_cart = await CartModel.getCartByIdUser(idUser);
+
             const recommender = new ContentBasedRecommender({
                 minScore: 0.1,
                 maxSimilarDocuments: 100,
@@ -328,8 +331,22 @@ let getProductByRecommend = (idUser) => {
                 });
                 top = top + 1;
             });
-            productIds = _.uniqBy(productIds);
-            console.log(productIds);
+
+            result_cart.map((value) => {
+                const similarDocuments = recommender.getSimilarDocuments(
+                    value.idProduct,
+                    0,
+                    20
+                );
+                similarDocuments.map((similar) => {
+                    productIds = [...productIds, similar.id];
+                    productTop = [...productTop, { id: similar.id, top: top }];
+                });
+                top = top + 1;
+            });
+
+            productTop = _.uniqBy(productTop);
+            productTop = _.shuffle(productTop);
             let productTest = productTop.map(async (value) => {
                 let result1 = await ProductModel.findProductById(value.id);
                 return {
