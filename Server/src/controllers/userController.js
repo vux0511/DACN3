@@ -34,6 +34,7 @@ let ImgAvatarUploadFile = multer({
 }).single("avatarImg");
 
 let regissterUser = async (req, res) => {
+    console.log("ai đó vừa kết nối");
     if (_.isEmpty(req.body)) {
         res.status(400).send(transValidation.data_empty);
     } else {
