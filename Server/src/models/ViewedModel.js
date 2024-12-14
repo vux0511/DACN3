@@ -38,7 +38,10 @@ ViewedSchema.statics = {
         }).exec();
     },
     getViewedByUser(userId) {
-        return this.find({ userId: userId }, " _id  productId productName")
+        return this.find(
+            { userId: userId },
+            " _id  productId productName updateAt"
+        )
             .sort({ updateAt: -1 })
             .limit(5)
             .exec();

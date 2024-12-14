@@ -327,7 +327,10 @@ let getProductByRecommend = (idUser) => {
                 );
                 similarDocuments.map((similar) => {
                     productIds = [...productIds, similar.id];
-                    productTop = [...productTop, { id: similar.id, top: top }];
+                    productTop = [
+                        ...productTop,
+                        { id: similar.id, top: top, time: value.updateAt },
+                    ];
                 });
                 top = top + 1;
             });
@@ -340,14 +343,21 @@ let getProductByRecommend = (idUser) => {
                 );
                 similarDocuments.map((similar) => {
                     productIds = [...productIds, similar.id];
-                    productTop = [...productTop, { id: similar.id, top: top }];
+                    productTop = [
+                        ...productTop,
+                        { id: similar.id, top: top, time: value.updateAt },
+                    ];
                 });
                 top = top + 1;
             });
 
             productTop = _.uniqBy(productTop);
-            productTop = _.shuffle(productTop);
-            let productTest = productTop.map(async (value) => {
+            let productTop1 = productTop.sort((a, b) => {
+                if (a.time > b.time) return -1;
+                else return 1;
+            });
+            // productTop = _.shuffle(productTop);
+            let productTest = productTop1.map(async (value) => {
                 let result1 = await ProductModel.findProductById(value.id);
                 return {
                     ...result1._doc,

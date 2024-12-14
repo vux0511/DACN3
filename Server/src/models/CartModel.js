@@ -10,7 +10,7 @@ let CartSchema = new Schema({
     quantity: { type: Number, default: 1 },
     unit_price: Number,
     createAt: { type: Number, default: Date.now },
-    updateAt: { type: Number, default: null },
+    updateAt: { type: Number, default: Date.now },
 });
 
 CartSchema.statics = {
