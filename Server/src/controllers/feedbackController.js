@@ -37,9 +37,21 @@ let getStatiFeedBackByIdProduct = async (req, res) => {
         }
     }
 };
+let getStatistics = async (req, res) => {
+    let totalFeedback = 0;
+    let result = await feedback.totalFeedback();
+    if (result) {
+        res.status(200).send({
+            totalFeedback: result,
+        });
+    } else {
+        res.send(false);
+    }
+};
 
 export default {
     createNew,
     getFeedback,
     getStatiFeedBackByIdProduct,
+    getStatistics,
 };

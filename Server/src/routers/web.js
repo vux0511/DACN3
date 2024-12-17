@@ -70,6 +70,7 @@ let initRouter = (app) => {
         "/feedback/get-statistical-idproduct/:idProduct",
         feedback.getStatiFeedBackByIdProduct
     );
+    router.get("/feedback/statistics", feedback.getStatistics);
 
     // Order
     router.post("/order/create-new", order.orderCart);
@@ -78,6 +79,7 @@ let initRouter = (app) => {
     router.post("/order/change-status-order", order.changeStatus);
     router.post("/order/check-order", order.checkOrder);
     router.get("/order/get-list", order.getListOrder);
+    router.get("/order/get-statistics", order.getStatisticOrder);
 
     router.post("/viewed/add-new", viewed.createNew);
 

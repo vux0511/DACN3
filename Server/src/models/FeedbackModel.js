@@ -26,6 +26,9 @@ FeedbackSchema.statics = {
     getCountFeedBack(idProduct) {
         return this.where({ idProduct: idProduct }).count();
     },
+    getCountFeedBack1() {
+        return this.where().count();
+    },
     getNormalFeedBack(idProduct) {
         return this.find({ idProduct: idProduct }).exec();
     },
