@@ -156,8 +156,20 @@ let getStatiFeedBackByIdProduct = async (idProduct) => {
     });
 };
 
+let totalFeedback = async () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let result = await feedbackModel.getCountFeedBack1();
+            console.log(result);
+            resolve(result);
+        } catch (error) {
+            reject(false);
+        }
+    });
+};
 export default {
     createNew,
     getfeedback,
     getStatiFeedBackByIdProduct,
+    totalFeedback,
 };

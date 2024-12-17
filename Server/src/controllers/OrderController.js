@@ -95,6 +95,28 @@ let getListOrder = async (req, res) => {
         res.send(false);
     }
 };
+
+let getStatisticOrder = async (req, res) => {
+    let result = await order.getListOrder();
+    let totalPrice = 0;
+    let totalProduct = 0;
+
+    result.map((value) => {
+        totalPrice = totalPrice + Number(value.totalPrice);
+        value.productItems.map((value1) => {
+            totalProduct = totalProduct + value1.quantity;
+        });
+    });
+
+    if (result) {
+        res.status(200).send({
+            totalPrice: totalPrice,
+            totalProduct: totalProduct,
+        });
+    } else {
+        res.send(false);
+    }
+};
 export default {
     orderCart,
     getOrderByIdUser,
@@ -102,4 +124,5 @@ export default {
     changeStatus,
     checkOrder,
     getListOrder,
+    getStatisticOrder,
 };
